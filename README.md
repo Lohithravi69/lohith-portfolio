@@ -21,6 +21,6 @@ This is my personal portfolio website developed as part of the VaultofCodes inte
 
 ## 👨‍💻 Developed By
 **Lohith R**  
-B.Sc. CSE Student  
+B.E CSE Student  
 PPG Institute of Technology  
 [lohithravi69@gmail.com](mailto:lohithravi69@gmail.com)
