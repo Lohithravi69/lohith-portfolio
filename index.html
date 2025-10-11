@@ -767,6 +767,27 @@
             });
         }
     </script>
+    <!-- Theme toggle: persist in localStorage and reflect system preference -->
+    <script>
+        (function () {
+            const themeToggle = document.getElementById('theme-toggle');
+            const root = document.documentElement;
+            const stored = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initial = stored || (systemPrefersDark ? 'dark' : 'light');
+            if (initial === 'dark') root.setAttribute('data-theme', 'dark');
+            if (themeToggle) {
+                const updateIcon = () => { themeToggle.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; };
+                updateIcon();
+                themeToggle.addEventListener('click', () => {
+                    const now = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                    if (now === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+                    localStorage.setItem('theme', now === 'dark' ? 'dark' : 'light');
+                    updateIcon();
+                });
+            }
+        })();
+
     <!-- Defer loading of external heavy vendor CSS/JS where possible -->
     <script>
     // Add defer to fontawesome stylesheet load to avoid render-blocking (non-critical icons)
@@ -785,29 +806,8 @@
         document.head.appendChild(s);
         // remove original
         fa.remove();
-    })();
-    </script>
-</body>
-</html>
-
-
-
-        // Theme toggle: persist in localStorage and reflect system preference
-        (function () {
-            const themeToggle = document.getElementById('theme-toggle');
-            const root = document.documentElement;
-            const stored = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const initial = stored || (systemPrefersDark ? 'dark' : 'light');
-            if (initial === 'dark') root.setAttribute('data-theme', 'dark');
-            if (themeToggle) {
-                const updateIcon = () => { themeToggle.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; };
-                updateIcon();
-                themeToggle.addEventListener('click', () => {
-                    const now = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                    if (now === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
-                    localStorage.setItem('theme', now === 'dark' ? 'dark' : 'light');
-                    updateIcon();
+    </body>
+    </html>
                 });
             }
         })();
