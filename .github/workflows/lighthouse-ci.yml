@@ -38,8 +38,15 @@ jobs:
           # Second run: upload to temporary-public-storage to get a public report URL
           lhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags="--no-sandbox --headless" --upload.target=temporary-public-storage || true
 
+      - name: Run standalone Lighthouse and save HTML report
+        run: |
+          # Generate a standalone Lighthouse HTML report (fallback) so we can always upload an artifact
+          npx -y lighthouse http://localhost:8080 --output html --output-path=./lighthouse-report.html --quiet --chrome-flags='--no-sandbox --headless' || true
+
       - name: Upload artifact (report)
         uses: actions/upload-artifact@v4
         with:
           name: lighthouse-report
-          path: ./.lighthouseci/**
+          path: |
+            ./.lighthouseci/**
+            ./lighthouse-report.html
