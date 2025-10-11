@@ -84,6 +84,11 @@
         margin: 0 auto;
         padding: 0 20px;
     }
+    /* Critical hero CSS inlined to reduce render-blocking and improve LCP */
+    .hero-content { display:flex; align-items:center; gap:2rem; padding:4rem 0; }
+    .hero-left { flex:1 }
+    .hero-right { width:380px; display:flex; align-items:center; justify-content:center }
+    .hero-right lottie-player, .hero-right img { width:100%; height:auto; max-width:380px; border-radius:12px; }
     nav {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
@@ -413,7 +418,7 @@
         </div>
     </div>
 
-    <script>
+    <script defer>
     // Placeholder for lightweight analytics (Plausible/umami). Replace with real snippet in production.
     /*
      (Optional) Example Plausible script:
@@ -679,7 +684,7 @@
         }, { rootMargin: '200px' });
         io.observe(hero);
     })();
-        // Smooth scrolling for navigation
+    // Smooth scrolling for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -761,6 +766,26 @@
                 }
             });
         }
+    </script>
+    <!-- Defer loading of external heavy vendor CSS/JS where possible -->
+    <script>
+    // Add defer to fontawesome stylesheet load to avoid render-blocking (non-critical icons)
+    (function deferFontAwesome(){
+        const fa = document.querySelector('link[href*="font-awesome"]');
+        if (!fa) return;
+        // convert to preload and then swap
+        const href = fa.href;
+        const pre = document.createElement('link');
+        pre.rel = 'preload'; pre.as = 'style'; pre.href = href;
+        document.head.appendChild(pre);
+        // load stylesheet asynchronously
+        const s = document.createElement('link');
+        s.rel = 'stylesheet'; s.href = href; s.media = 'print';
+        s.onload = function(){ this.media = 'all'; };
+        document.head.appendChild(s);
+        // remove original
+        fa.remove();
+    })();
     </script>
 </body>
 </html>
