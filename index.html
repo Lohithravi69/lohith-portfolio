@@ -96,14 +96,28 @@
         section {
             padding: 80px 0;
             background: white;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
         section:nth-child(even) {
             background: #f8f9fa;
+        }
+        section.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         .section-title {
             text-align: center;
             margin-bottom: 3rem;
             color: #333;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .section-title.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         .section-title h2 {
             font-size: 2.5rem;
@@ -119,6 +133,11 @@
             width: 50px;
             height: 3px;
             background: #667eea;
+            animation: growWidth 1s ease-out;
+        }
+        @keyframes growWidth {
+            from { width: 0; }
+            to { width: 50px; }
         }
         .skills-grid {
             display: grid;
@@ -131,15 +150,28 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             text-align: center;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .skill-card.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         .skill-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
         .skill-card i {
             font-size: 3rem;
             color: #667eea;
             margin-bottom: 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .skill-card:hover i {
+            color: #5a67d8;
+            transform: scale(1.1);
         }
         .projects-grid {
             display: grid;
@@ -151,15 +183,27 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .project-card.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
         .project-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover img {
+            transform: scale(1.1);
         }
         .project-card .content {
             padding: 1.5rem;
@@ -167,6 +211,11 @@
         .project-card h3 {
             margin-bottom: 0.5rem;
             color: #333;
+        }
+        .project-card .btn {
+            margin-top: 1rem;
+            padding: 8px 16px;
+            font-size: 0.9rem;
         }
         .timeline {
             position: relative;
@@ -190,6 +239,13 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             position: relative;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateX(0);
         }
         .timeline-item::before {
             content: '';
@@ -200,6 +256,11 @@
             height: 12px;
             background: #667eea;
             border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        .timeline-item:hover::before {
+            background: #5a67d8;
+            transform: scale(1.2);
         }
         .contact-grid {
             display: grid;
@@ -208,11 +269,23 @@
         }
         .contact-item {
             text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .contact-item.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         .contact-item i {
             font-size: 2rem;
             color: #667eea;
             margin-bottom: 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .contact-item:hover i {
+            color: #5a67d8;
+            transform: scale(1.1);
         }
         footer {
             background: #333;
@@ -327,6 +400,7 @@
                     <div class="content">
                         <h3>Lumoro E-Commerce Scent Website</h3>
                         <p>Developed a perfume-based e-commerce website using HTML, CSS, and MySQL, featuring product catalog, cart, and secure checkout.</p>
+                        <a href="https://github.com/Lohithravi69/Lumoro" target="_blank" class="btn">View on GitHub</a>
                     </div>
                 </div>
                 <div class="project-card">
@@ -334,6 +408,7 @@
                     <div class="content">
                         <h3>Emergency SOS App for Flood Management</h3>
                         <p>AI-integrated emergency response app built for Smart India Hackathon 2025 to provide real-time flood alerts, SOS messaging, and rescue coordination.</p>
+                        <a href="https://github.com/Lohithravi69/Safenetsos-app" target="_blank" class="btn">View on GitHub</a>
                     </div>
                 </div>
                 <div class="project-card">
@@ -341,6 +416,7 @@
                     <div class="content">
                         <h3>Credit Card Fraud Detection using AI</h3>
                         <p>Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time.</p>
+                        <a href="https://github.com/Lohithravi69/FraudDetection" target="_blank" class="btn">View on GitHub</a>
                     </div>
                 </div>
                 <div class="project-card">
@@ -348,6 +424,7 @@
                     <div class="content">
                         <h3>Fake News Detection using NLP and Flask</h3>
                         <p>AI-powered Flask web app that detects misleading or fake news using Natural Language Processing.</p>
+                        <a href="https://github.com/Lohithravi69/FakeNewsDetection" target="_blank" class="btn">View on GitHub</a>
                     </div>
                 </div>
             </div>
@@ -434,6 +511,28 @@
                 });
             });
         });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections, titles, cards, items
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+        document.querySelectorAll('.section-title').forEach(title => observer.observe(title));
+        document.querySelectorAll('.skill-card').forEach(card => observer.observe(card));
+        document.querySelectorAll('.project-card').forEach(card => observer.observe(card));
+        document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
+        document.querySelectorAll('.contact-item').forEach(item => observer.observe(item));
     </script>
 </body>
 </html>
