@@ -12,6 +12,8 @@
     <link rel="canonical" href="https://lohith-portfolio-ashy.vercel.app/">
     <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://assets7.lottiefiles.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Lohith R — Portfolio">
@@ -19,6 +21,7 @@
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" onload="this.rel='stylesheet'">
+    <link rel="preload" as="image" href="/public/assets/lumoro.webp">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- lottie-player will be lazy-loaded when hero enters viewport to improve initial load performance -->
@@ -110,6 +113,11 @@
     /* (Paste all CSS from your original code here, inside this <style> block) */
 </style>
     <style>
+        /* Reduce FOIT: system fonts listed first in the font stack; keep webfont as enhancement */
+        html { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+    /* Small optimization: ensure hero LCP candidate is prioritized via preload and img attribute */
+
         .skip-link {
             position: absolute;
             left: -999px;
@@ -237,7 +245,7 @@
                 <div class="project-card" data-id="lumoro" data-title="Lumoro E-Commerce Scent Website" data-desc="Developed a perfume-based e-commerce website using HTML, CSS and MySQL, featuring product catalog, cart, and secure checkout." data-image="/public/assets/lumoro.webp" data-github="https://github.com/Lohithravi69/perfume" data-tech="HTML,CSS,MySQL,JavaScript">
                     <picture>
                         <source type="image/webp" srcset="/public/assets/lumoro.webp 400w, /public/assets/lumoro.webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img decoding="async" src="/public/assets/lumoro.webp" srcset="/public/assets/lumoro.webp 400w, /public/assets/lumoro.webp 800w" sizes="(max-width:600px) 100vw, 400px" alt="E-Commerce" loading="lazy" width="400" height="200">
+                        <img fetchpriority="high" decoding="async" src="/public/assets/lumoro.webp" srcset="/public/assets/lumoro.webp 400w, /public/assets/lumoro.webp 800w" sizes="(max-width:600px) 100vw, 400px" alt="E-Commerce" loading="lazy" width="400" height="200">
                     </picture>
                     <div class="content">
                         <h3>Lumoro E-Commerce Scent Website</h3>
