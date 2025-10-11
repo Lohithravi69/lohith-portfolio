@@ -4,19 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lohith R - Portfolio</title>
+    <meta name="description" content="Lohith R — Computer Science student and Full-Stack Developer. Portfolio showcasing projects in AI, web development, and more. View live demos and GitHub repos.">
+    <meta property="og:title" content="Lohith R — Portfolio">
+    <meta property="og:description" content="Portfolio showcasing projects in AI, web development, and real-world apps. Contact: lohithravi69@gmail.com">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#667eea">
+    <link rel="canonical" href="https://lohith-portfolio-ashy.vercel.app/">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lohith R — Portfolio">
+    <meta name="twitter:description" content="Portfolio showcasing projects in AI, web development, and real-world apps.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
+    <!-- lottie-player will be lazy-loaded when hero enters viewport to improve initial load performance -->
+        <!-- JSON-LD structured data for Person / Portfolio -->
+        <script type="application/ld+json">
+        </html>
+            }
+        }
+
+        :root {
+            --bg: #ffffff;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #6b7280;
+            --accent: #667eea;
+            --accent-2: #764ba2;
+            --glass: rgba(255,255,255,0.6);
+            --shadow: 0 8px 30px rgba(16,24,40,0.08);
+            --radius: 10px;
+            --max-width: 1200px;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0b1220;
+            --card: #071022;
+            --text: #e6eef8;
+            --muted: #9aa6b2;
+            --accent: #8ab4ff;
+            --accent-2: #b388ff;
+            --glass: rgba(10,16,28,0.6);
+            --shadow: 0 10px 40px rgba(2,6,23,0.6);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text);
+            background: radial-gradient(1200px 600px at -10% 10%, rgba(102,126,234,0.08), transparent), var(--bg);
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .container {
             max-width: 1200px;
@@ -38,44 +82,86 @@
             align-items: center;
             padding: 1rem 20px;
         }
-        nav h1 {
-            color: #667eea;
-        }
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        nav ul li {
-            margin-left: 2rem;
-        }
-        nav a {
-            color: #333;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        nav a:hover {
-            color: #667eea;
-        }
-        #hero {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
-            height: 100vh;
-            display: flex;
+        .theme-toggle {
+            display: inline-flex;
             align-items: center;
-            text-align: center;
-            color: white;
+            gap: 0.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        }
+
+        // Theme toggle: persist in localStorage and reflect system preference
+        (function () {
+            const themeToggle = document.getElementById('theme-toggle');
+            const root = document.documentElement;
+            const stored = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initial = stored || (systemPrefersDark ? 'dark' : 'light');
+            if (initial === 'dark') root.setAttribute('data-theme', 'dark');
+            if (themeToggle) {
+                const updateIcon = () => { themeToggle.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; };
+                updateIcon();
+                themeToggle.addEventListener('click', () => {
+                    const now = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                    if (now === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+                    localStorage.setItem('theme', now === 'dark' ? 'dark' : 'light');
+                    updateIcon();
+                });
+            }
+        })();
+
+        // Card tilt microinteraction (respect prefers-reduced-motion)
+        (function () {
+            const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce) return;
+            const tiltElements = Array.from(document.querySelectorAll('.project-card, .skill-card'));
+            const maxTilt = 12; // degrees
+            tiltElements.forEach(el => {
+                el.classList.add('tilt');
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const cx = rect.width / 2;
+                    const cy = rect.height / 2;
+                    const dx = (x - cx) / cx;
+                    const dy = (y - cy) / cy;
+                    const rx = (-dy * maxTilt).toFixed(2);
+                    const ry = (dx * maxTilt).toFixed(2);
+                    el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = '';
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+            padding-top: 4rem;
         }
         #hero .hero-content {
-            max-width: 800px;
+                max-width: 1100px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr 420px;
+                gap: 2rem;
+            }
+            .hero-left { text-align: left; }
+            .hero-right { display:flex; align-items:center; justify-content:center; }
+            lottie-player { width: 100%; max-width: 380px; height: auto; }
             margin: 0 auto;
         }
         #hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            border-right: 3px solid #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
         @keyframes typing {
             from { width: 0; }
@@ -86,14 +172,17 @@
             50% { border-color: #fff; }
         }
         #hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+            font-size: clamp(1rem, 2.2vw, 1.15rem);
+            margin-bottom: 1.25rem;
+            color: var(--muted);
+            max-width: 48ch;
+            margin-left: auto;
+            margin-right: auto;
         }
         .btn {
             display: inline-block;
             padding: 12px 30px;
-            background: #667eea;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
             color: white;
             text-decoration: none;
             border-radius: 30px;
@@ -111,6 +200,7 @@
             opacity: 0;
             transform: translateY(50px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            transform-style: preserve-3d;
         }
         section:nth-child(even) {
             background: #f8f9fa;
@@ -126,6 +216,12 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            transform-style: preserve-3d;
+        }
+        .tilt { will-change: transform; transition: transform 0.18s ease-out; }
+        @media (prefers-reduced-motion: reduce) {
+            .tilt, .project-card, .skill-card { transition: none !important; transform: none !important; }
+        }
         }
         .section-title.animate {
             opacity: 1;
@@ -158,6 +254,7 @@
         }
         .skill-card {
             background: white;
+            background: var(--card);
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -191,7 +288,7 @@
             gap: 2rem;
         }
         .project-card {
-            background: white;
+            background: var(--card);
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -229,6 +326,37 @@
             padding: 8px 16px;
             font-size: 0.9rem;
         }
+        /* Modal styles */
+        .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 2000; }
+        .modal.open { display: flex; }
+        .modal-backdrop { position: absolute; inset: 0; background: rgba(2,6,23,0.6); }
+        .modal-panel { position: relative; background: var(--card); border-radius: 12px; box-shadow: var(--shadow); max-width: 900px; width: calc(100% - 40px); margin: 20px; z-index: 2; }
+        .modal-body { display: flex; gap: 1rem; padding: 1rem; }
+        .modal-body img { width: 40%; height: auto; object-fit: cover; border-radius: 8px; }
+        .modal-content { padding: 0.5rem 1rem; width: 60%; }
+        .modal-actions { margin-top: 1rem; display:flex; gap:0.5rem; }
+        .modal-close { position: absolute; right: 8px; top: 8px; background: transparent; border: none; font-size: 1.25rem; cursor: pointer; }
+        .tech-pill { display:inline-block; background: rgba(0,0,0,0.06); color:var(--text); padding:6px 10px; border-radius:999px; margin:0.25rem; font-size:0.85rem; }
+
+        /* Consent banner */
+        .consent-banner { position: fixed; left: 12px; right:12px; bottom: 12px; background: var(--card); border-radius: 10px; box-shadow: var(--shadow); padding: 12px; display:none; z-index: 2500; }
+        .consent-banner.visible { display:block; }
+        .consent-inner { display:flex; gap:1rem; align-items:center; justify-content:space-between; }
+        .consent-actions { display:flex; gap:0.5rem; }
+        .btn.ghost { background: transparent; border: 1px solid rgba(0,0,0,0.08); color: var(--text); }
+        /* Carousel images inside modal */
+        #modal-carousel { display:flex; flex-direction:column; gap:8px; }
+        #modal-carousel .carousel-image { width:100%; height: auto; border-radius:8px; object-fit:cover; }
+    #carousel-indicators { display:flex; gap:6px; }
+    #carousel-indicators .dot { width:8px; height:8px; border-radius:50%; background:rgba(0,0,0,0.12); }
+    #carousel-indicators .dot.active { background:var(--accent); }
+        @media (max-width: 900px) {
+            .modal-body { flex-direction: column; }
+            #modal-carousel { width: 100%; }
+            .modal-content { width: 100%; }
+            .modal-body img#modal-image { width: 100%; }
+        }
+
         .timeline {
             position: relative;
             max-width: 800px;
@@ -300,8 +428,8 @@
             transform: scale(1.1);
         }
         footer {
-            background: #333;
-            color: white;
+            background: transparent;
+            color: var(--muted);
             text-align: center;
             padding: 2rem 0;
         }
@@ -312,20 +440,71 @@
             nav .container {
                 flex-direction: column;
             }
+            /* Mobile navigation: hide full menu by default and show toggle */
+            .nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                border: 2px solid transparent;
+                color: #333;
+                font-size: 1.25rem;
+                padding: 8px 10px;
+                border-radius: 6px;
+                cursor: pointer;
+            }
             nav ul {
                 margin-top: 1rem;
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            nav ul.open {
+                display: flex;
             }
             nav ul li {
-                margin-left: 1rem;
+                margin-left: 0;
             }
+        }
+    </style>
+    <style>
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus, .skip-link:active {
+            left: 1rem;
+            top: 1rem;
+            width: auto;
+            height: auto;
+            padding: 0.5rem 1rem;
+            background: #fff;
+            color: #333;
+            z-index: 2000;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        a:focus {
+            outline: 3px solid #c7d2fe; /* accessible focus ring */
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <nav>
         <div class="container">
-            <h1>Lohith R</h1>
-            <ul>
+            <a href="#hero" aria-label="Lohith R homepage" style="color: var(--accent); text-decoration: none; font-weight: 700;">Lohith R</a>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+                <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+            </div>
+            <ul id="primary-nav">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -336,14 +515,21 @@
         </div>
     </nav>
 
+    <main id="main-content">
+
     <section id="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Lohith R</h1>
-                <p>Computer Science and Engineering Student | Full-Stack Developer | AI Enthusiast</p>
-                <p>Methodical and driven Computer Science and Engineering student with a strong foundation in full-stack web development and real-world application design. Experienced in building scalable, user-friendly systems using HTML, CSS, JavaScript, Flask, and MySQL. Passionate about solving practical problems through innovative tech solutions.</p>
-                <a href="#projects" class="btn">View My Work</a>
-                <a href="#contact" class="btn">Get In Touch</a>
+                <div class="hero-left">
+                    <h1>Lohith R</h1>
+                    <p>Computer Science and Engineering Student | Full-Stack Developer | AI Enthusiast</p>
+                    <p>Methodical and driven Computer Science and Engineering student with a strong foundation in full-stack web development and real-world application design. Experienced in building scalable, user-friendly systems using HTML, CSS, JavaScript, Flask, and MySQL. Passionate about solving practical problems through innovative tech solutions.</p>
+                    <a href="#projects" class="btn">View My Work</a>
+                    <a href="#contact" class="btn">Get In Touch</a>
+                </div>
+                <div class="hero-right">
+                    <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_2zv6fglg.json"  background="transparent"  speed="1"  loop  autoplay></lottie-player>
+                </div>
             </div>
         </div>
     </section>
@@ -407,36 +593,48 @@
                 <h2>Projects</h2>
             </div>
             <div class="projects-grid">
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="E-Commerce">
+                <div class="project-card" data-id="lumoro" data-title="Lumoro E-Commerce Scent Website" data-desc="Developed a perfume-based e-commerce website using HTML, CSS and MySQL, featuring product catalog, cart, and secure checkout." data-image="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp" data-github="https://github.com/Lohithravi69/perfume" data-tech="HTML,CSS,MySQL,JavaScript">
+                    <picture>
+                        <source type="image/webp" srcset="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80&fm=webp 400w, https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp 800w" sizes="(max-width:600px) 100vw, 400px">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" srcset="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 800w" sizes="(max-width:600px) 100vw, 400px" alt="E-Commerce" loading="lazy" width="400" height="200">
+                    </picture>
                     <div class="content">
                         <h3>Lumoro E-Commerce Scent Website</h3>
                         <p>Developed a perfume-based e-commerce website using HTML, CSS, and MySQL, featuring product catalog, cart, and secure checkout.</p>
-                        <a href="https://github.com/Lohithravi69/perfume" target="_blank" class="btn">View on GitHub</a>
+                        <a href="https://github.com/Lohithravi69/perfume" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
                     </div>
                 </div>
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Emergency App">
+                <div class="project-card" data-id="safenet" data-title="Emergency SOS App for Flood Management" data-desc="AI-integrated emergency response app built for Smart India Hackathon 2025 to provide real-time flood alerts, SOS messaging, and rescue coordination." data-image="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp" data-live="https://safenetsos-app.vercel.app" data-tech="React,Node.js,TensorFlow,Maps API">
+                    <picture>
+                        <source type="image/webp" srcset="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80&fm=webp 400w, https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp 800w" sizes="(max-width:600px) 100vw, 400px">
+                        <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" srcset="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 800w" sizes="(max-width:600px) 100vw, 400px" alt="Emergency App" loading="lazy" width="400" height="200">
+                    </picture>
                     <div class="content">
                         <h3>Emergency SOS App for Flood Management</h3>
                         <p>AI-integrated emergency response app built for Smart India Hackathon 2025 to provide real-time flood alerts, SOS messaging, and rescue coordination.</p>
-                        <a href="https://safenetsos-app.vercel.app" target="_blank" class="btn">View Live Demo</a>
+                        <a href="https://safenetsos-app.vercel.app" target="_blank" rel="noopener noreferrer" class="btn">View Live Demo</a>
                     </div>
                 </div>
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Fraud Detection">
+                <div class="project-card" data-id="fraud-detect" data-title="Credit Card Fraud Detection using AI" data-desc="Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time." data-image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp" data-github="https://github.com/Lohithravi69/FraudDetection" data-tech="Python,scikit-learn,Pandas,Flask">
+                    <picture>
+                        <source type="image/webp" srcset="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80&fm=webp 400w, https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp 800w" sizes="(max-width:600px) 100vw, 400px">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" srcset="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 800w" sizes="(max-width:600px) 100vw, 400px" alt="Fraud Detection" loading="lazy" width="400" height="200">
+                    </picture>
                     <div class="content">
                         <h3>Credit Card Fraud Detection using AI</h3>
                         <p>Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time.</p>
-                        <a href="https://github.com/Lohithravi69/FraudDetection" target="_blank" class="btn">View on GitHub</a>
+                        <a href="https://github.com/Lohithravi69/FraudDetection" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
                     </div>
                 </div>
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Fake News">
+                <div class="project-card" data-id="fake-news" data-title="Fake News Detection using NLP and Flask" data-desc="AI-powered Flask web app that detects misleading or fake news using Natural Language Processing." data-image="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp" data-live="https://fake-news-detection-tau.vercel.app" data-tech="Python,NLTK,Flask,Heroku">
+                    <picture>
+                        <source type="image/webp" srcset="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80&fm=webp 400w, https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp 800w" sizes="(max-width:600px) 100vw, 400px">
+                        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" srcset="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 800w" sizes="(max-width:600px) 100vw, 400px" alt="Fake News" loading="lazy" width="400" height="200">
+                    </picture>
                     <div class="content">
                         <h3>Fake News Detection using NLP and Flask</h3>
                         <p>AI-powered Flask web app that detects misleading or fake news using Natural Language Processing.</p>
-                        <a href="https://fake-news-detection-tau.vercel.app" target="_blank" class="btn">View Live Demo</a>
+                        <a href="https://fake-news-detection-tau.vercel.app" target="_blank" rel="noopener noreferrer" class="btn">View Live Demo</a>
                     </div>
                 </div>
             </div>
@@ -484,7 +682,7 @@
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
                     <h3>Phone</h3>
-                    <p>7010102623</p>
+                    <p><a href="tel:+917010102623">+91 70101 02623</a></p>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
@@ -494,16 +692,34 @@
                 <div class="contact-item">
                     <i class="fab fa-github"></i>
                     <h3>GitHub</h3>
-                    <p><a href="https://github.com/Lohithravi69" target="_blank">github.com/Lohithravi69</a></p>
+                    <p><a href="https://github.com/Lohithravi69" target="_blank" rel="noopener noreferrer">github.com/Lohithravi69</a></p>
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-linkedin"></i>
                     <h3>LinkedIn</h3>
-                    <p><a href="https://linkedin.com/in/lohith-ravi-22b9a32a0" target="_blank">linkedin.com/in/lohith-ravi-22b9a32a0</a></p>
+                    <p><a href="https://linkedin.com/in/lohith-ravi-22b9a32a0" target="_blank" rel="noopener noreferrer">linkedin.com/in/lohith-ravi-22b9a32a0</a></p>
+                </div>
+                <div class="contact-item" style="grid-column: 1 / -1; text-align: left;">
+                    <h3>Send a message</h3>
+                    <form id="contact-form" aria-label="Contact form">
+                        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                            <input type="text" id="cf-name" name="name" placeholder="Your name" required style="flex:1;padding:0.5rem;border-radius:6px;border:1px solid #ddd;">
+                            <input type="email" id="cf-email" name="email" placeholder="Your email" required style="flex:1;padding:0.5rem;border-radius:6px;border:1px solid #ddd;">
+                        </div>
+                        <div style="margin-top:0.5rem;">
+                            <textarea id="cf-message" name="message" rows="5" placeholder="How can I help?" required style="width:100%;padding:0.5rem;border-radius:6px;border:1px solid #ddd;"></textarea>
+                        </div>
+                        <div style="margin-top:0.5rem; display:flex; gap:0.5rem; align-items:center;">
+                            <button type="submit" class="btn">Send Message</button>
+                            <span id="cf-status" aria-live="polite" style="color:#333"></span>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
+
+    </main>
 
     <footer>
         <div class="container">
@@ -511,7 +727,309 @@
         </div>
     </footer>
 
+    <!-- Project detail modal (accessible) -->
+    <div id="project-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
+        <div class="modal-backdrop" data-dismiss="modal"></div>
+        <div class="modal-panel" role="document">
+            <button class="modal-close" aria-label="Close project details">×</button>
+                <div class="modal-body">
+                <div id="modal-carousel" style="width:40%; position:relative;">
+                    <button id="carousel-prev" class="btn" aria-label="Previous image" style="position:absolute;left:6px;top:6px;z-index:3;">◀</button>
+                    <button id="carousel-next" class="btn" aria-label="Next image" style="position:absolute;right:6px;top:6px;z-index:3;">▶</button>
+                    <div id="carousel-indicators" aria-hidden="true" style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);display:flex;gap:6px;z-index:4;"></div>
+                </div>
+                <img id="modal-image" alt="Project screenshot" loading="lazy" style="display:none;">
+                <div class="modal-content">
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-desc"></p>
+                    <div id="modal-tech" style="margin-top:0.5rem;" aria-hidden="false"></div>
+                    <div id="modal-embed" style="margin-top:0.75rem;"></div>
+                    <div class="modal-actions">
+                        <a id="modal-live" class="btn" target="_blank" rel="noopener noreferrer">View Live</a>
+                        <a id="modal-github" class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics consent banner -->
+    <div id="consent-banner" class="consent-banner" aria-hidden="true">
+        <div class="consent-inner">
+            <p>We use optional analytics to improve this site. Do you allow anonymous usage tracking?</p>
+            <div class="consent-actions">
+                <button id="consent-accept" class="btn">Yes, allow analytics</button>
+                <button id="consent-decline" class="btn ghost">No, thanks</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+    // Placeholder for lightweight analytics (Plausible/umami). Replace with real snippet in production.
+    /*
+     (Optional) Example Plausible script:
+     <script async defer data-domain="yourdomain.com" src="https://plausible.io/js/plausible.js"></script>
+    */
+
+    // Project modal logic (delegated)
+    (() => {
+        const modal = document.getElementById('project-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalImage = document.getElementById('modal-image');
+        const modalLive = document.getElementById('modal-live');
+        const modalGithub = document.getElementById('modal-github');
+        const closeButtons = modal.querySelectorAll('[data-dismiss], .modal-close');
+
+        let caseStudies = null;
+
+        async function loadCaseStudies() {
+            if (caseStudies) return caseStudies;
+            try {
+                const r = await fetch('/data/case-studies.json', { cache: 'no-cache' });
+                caseStudies = await r.json();
+            } catch (err) {
+                console.error('Failed to load case studies', err);
+                caseStudies = [];
+            }
+            return caseStudies;
+        }
+
+        function renderCarousel(images) {
+            if (!images || !images.length) return '';
+            return images.map((src, idx) => `<img class="carousel-image" src="${src}" alt="Screenshot ${idx+1}" loading="lazy">`).join('');
+        }
+
+        async function openModal(data) {
+            modalTitle.textContent = data.title || '';
+            modalDesc.textContent = data.desc || '';
+            // if data.id is present, try to load richer case study
+            if (data.id) {
+                const list = await loadCaseStudies();
+                const found = list.find(cs => cs.id === data.id);
+                if (found) {
+                    // render images carousel
+                    const carouselHtml = renderCarousel(found.images || [data.image].filter(Boolean));
+                    const modalBodyImage = document.getElementById('modal-image');
+                    if (carouselHtml) {
+                        modalBodyImage.style.display = 'none';
+                        const holder = document.getElementById('modal-carousel');
+                        if (holder) holder.innerHTML = carouselHtml;
+                    }
+                    // show embed if available
+                    const embedContainer = document.getElementById('modal-embed');
+                    if (found.embed && embedContainer) {
+                        embedContainer.innerHTML = `<iframe src="${found.embed}" title="Interactive demo" style="width:100%;height:300px;border:0;border-radius:8px;" loading="lazy"></iframe>`;
+                    } else if (embedContainer) {
+                        embedContainer.innerHTML = '';
+                    }
+                }
+            } else {
+                // fallback single image
+                if (data.image) {
+                    modalImage.src = data.image;
+                    modalImage.alt = data.title || 'Project screenshot';
+                    modalImage.style.display = '';
+                } else {
+                    modalImage.style.display = 'none';
+                }
+            }
+            // populate tech list
+            const techListContainer = document.getElementById('modal-tech');
+            if (techListContainer) {
+                techListContainer.innerHTML = '';
+                const techCsv = data.tech || '';
+                const techs = techCsv.split(',').map(t => t.trim()).filter(Boolean);
+                techs.forEach(t => {
+                    const el = document.createElement('span');
+                    el.className = 'tech-pill';
+                    el.textContent = t;
+                    techListContainer.appendChild(el);
+                });
+            }
+            if (data.live) {
+                modalLive.href = data.live;
+                modalLive.style.display = '';
+            } else {
+                modalLive.style.display = 'none';
+            }
+            if (data.github) {
+                modalGithub.href = data.github;
+                modalGithub.style.display = '';
+            } else {
+                modalGithub.style.display = 'none';
+            }
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.add('open');
+            // trap focus
+            modal.focus();
+            document.body.style.overflow = 'hidden';
+
+            // initialize carousel controls
+            const prev = document.getElementById('carousel-prev');
+            const next = document.getElementById('carousel-next');
+            const holder = document.getElementById('modal-carousel');
+            let currentIndex = 0;
+            function showIndex(i) {
+                const imgs = holder.querySelectorAll('.carousel-image');
+                const dots = document.querySelectorAll('#carousel-indicators .dot');
+                if (!imgs.length) return;
+                imgs.forEach((img, idx) => img.style.display = idx === i ? '' : 'none');
+                dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+                currentIndex = i;
+            }
+            prev && prev.addEventListener('click', () => {
+                const imgs = holder.querySelectorAll('.carousel-image');
+                if (!imgs.length) return;
+                showIndex((currentIndex - 1 + imgs.length) % imgs.length);
+            });
+            next && next.addEventListener('click', () => {
+                const imgs = holder.querySelectorAll('.carousel-image');
+                if (!imgs.length) return;
+                showIndex((currentIndex + 1) % imgs.length);
+            });
+            // indicators
+            const indicators = document.getElementById('carousel-indicators');
+            indicators.innerHTML = '';
+            const imgs = holder.querySelectorAll('.carousel-image');
+            imgs.forEach((_, idx) => {
+                const dot = document.createElement('button');
+                dot.className = 'dot';
+                dot.setAttribute('aria-label', `Show image ${idx+1}`);
+                dot.addEventListener('click', () => showIndex(idx));
+                indicators.appendChild(dot);
+            });
+
+            // autoplay
+            let autoplayTimer = null;
+            function startAutoplay() {
+                if (autoplayTimer) clearInterval(autoplayTimer);
+                autoplayTimer = setInterval(() => {
+                    const imgs = holder.querySelectorAll('.carousel-image');
+                    if (!imgs.length) return;
+                    showIndex((currentIndex + 1) % imgs.length);
+                }, 4000);
+            }
+            startAutoplay();
+
+            // touch swipe support
+            let touchStartX = 0;
+            holder.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; if (autoplayTimer) clearInterval(autoplayTimer); });
+            holder.addEventListener('touchend', (e) => {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(dx) > 40) {
+                    if (dx > 0) prev && prev.click(); else next && next.click();
+                }
+                startAutoplay();
+            });
+            // keyboard left/right for carousel
+            function carouselKey(e) {
+                if (e.key === 'ArrowLeft') prev && prev.click();
+                if (e.key === 'ArrowRight') next && next.click();
+            }
+            window.addEventListener('keydown', carouselKey);
+            // show first image
+            showIndex(0);
+            // cleanup when modal closes
+            modal.addEventListener('transitionend', () => {
+                if (!modal.classList.contains('open')) {
+                    window.removeEventListener('keydown', carouselKey);
+                }
+            }, { once: true });
+        }
+
+        function closeModal() {
+            modal.setAttribute('aria-hidden', 'true');
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Open when clicking a project-card
+        document.addEventListener('click', (e) => {
+            const card = e.target.closest('.project-card');
+            if (!card) return;
+            // ignore clicks on explicit links inside card
+            if (e.target.tagName === 'A') return;
+            const data = {
+                title: card.dataset.title,
+                desc: card.dataset.desc,
+                image: card.dataset.image,
+                github: card.dataset.github,
+                live: card.dataset.live
+            };
+            openModal(data);
+        });
+
+        // Close when clicking backdrop or close button
+        modal.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-backdrop') || e.target.classList.contains('modal-close')) {
+                closeModal();
+            }
+        });
+
+        // Close on Escape
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+        });
+
+        // Analytics consent
+        (function analyticsConsent() {
+            const banner = document.getElementById('consent-banner');
+            const accept = document.getElementById('consent-accept');
+            const decline = document.getElementById('consent-decline');
+            const key = 'analytics-consent';
+
+            function showBanner() {
+                if (!localStorage.getItem(key)) {
+                    banner.setAttribute('aria-hidden', 'false');
+                    banner.classList.add('visible');
+                }
+            }
+
+            function setConsent(value) {
+                localStorage.setItem(key, value ? 'granted' : 'denied');
+                banner.setAttribute('aria-hidden', 'true');
+                banner.classList.remove('visible');
+                if (value) loadAnalytics();
+            }
+
+            accept.addEventListener('click', () => setConsent(true));
+            decline.addEventListener('click', () => setConsent(false));
+
+            // If previously granted, load analytics immediately
+            if (localStorage.getItem(key) === 'granted') loadAnalytics();
+            else showBanner();
+
+            function loadAnalytics() {
+                // Insert your analytics script here (Plausible/umami/GA)
+                // Example (Plausible):
+                // const s = document.createElement('script');
+                // s.src = 'https://plausible.io/js/plausible.js';
+                // s.defer = true; s.async = true; s.setAttribute('data-domain', location.hostname);
+                // document.head.appendChild(s);
+                console.info('Analytics would be loaded now (consent granted)');
+            }
+        })();
+
+    })();
+
+    // Lazy-load Lottie player when hero is visible
+    (function lazyLottie() {
+        const hero = document.getElementById('hero');
+        if (!hero) return;
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const s = document.createElement('script');
+                    s.src = 'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js';
+                    s.defer = true; s.async = true;
+                    document.head.appendChild(s);
+                    io.disconnect();
+                }
+            });
+        }, { rootMargin: '200px' });
+        io.observe(hero);
+    })();
         // Smooth scrolling for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -545,7 +1063,78 @@
         document.querySelectorAll('.project-card').forEach(card => observer.observe(card));
         document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
         document.querySelectorAll('.contact-item').forEach(item => observer.observe(item));
+
+        // Mobile nav toggle behavior
+        const navToggle = document.querySelector('.nav-toggle');
+        const primaryNav = document.getElementById('primary-nav');
+        if (navToggle && primaryNav) {
+            navToggle.addEventListener('click', () => {
+                const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', String(!expanded));
+                primaryNav.classList.toggle('open');
+            });
+        }
+
+        // Contact form submission (client-side)
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            const statusEl = document.getElementById('cf-status');
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = contactForm.querySelector('button[type="submit"]');
+                const name = document.getElementById('cf-name').value.trim();
+                const email = document.getElementById('cf-email').value.trim();
+                const message = document.getElementById('cf-message').value.trim();
+                if (!name || !email || !message) {
+                    statusEl.textContent = 'Please fill all fields.';
+                    return;
+                }
+                try {
+                    btn.disabled = true;
+                    statusEl.textContent = 'Sending...';
+                    const res = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, message })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        statusEl.textContent = 'Message sent — thank you!';
+                        contactForm.reset();
+                    } else {
+                        statusEl.textContent = data?.error || 'Failed to send message.';
+                    }
+                } catch (err) {
+                    console.error(err);
+                    statusEl.textContent = 'Network error — please try again later.';
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+        }
     </script>
 </body>
 </html>
+
+
+
+        // Theme toggle: persist in localStorage and reflect system preference
+        (function () {
+            const themeToggle = document.getElementById('theme-toggle');
+            const root = document.documentElement;
+            const stored = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initial = stored || (systemPrefersDark ? 'dark' : 'light');
+            if (initial === 'dark') root.setAttribute('data-theme', 'dark');
+            if (themeToggle) {
+                const updateIcon = () => { themeToggle.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; };
+                updateIcon();
+                themeToggle.addEventListener('click', () => {
+                    const now = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                    if (now === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+                    localStorage.setItem('theme', now === 'dark' ? 'dark' : 'light');
+                    updateIcon();
+                });
+            }
+        })();
 

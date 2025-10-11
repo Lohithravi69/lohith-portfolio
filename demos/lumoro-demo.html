@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lumoro demo</title>
+  <style>body{font-family:Inter,system-ui;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}#app{width:90%;max-width:720px;border-radius:12px;padding:1.5rem;background:#fff;box-shadow:0 8px 30px rgba(0,0,0,0.08)}button{padding:8px 12px;border-radius:8px}</style>
+</head>
+<body>
+  <div id="app">
+    <h1>Lumoro — interactive demo</h1>
+    <p>This is a lightweight demo environment showing a product list and add-to-cart interactions (static demo).</p>
+    <div id="products"></div>
+    <script>
+      const products = [
+        {id:1,name:'Lavender Mist',price:9.99},
+        {id:2,name:'Citrus Zest',price:12.5}
+      ];
+      const el = document.getElementById('products');
+      products.forEach(p=>{
+        const d=document.createElement('div');d.style.display='flex';d.style.justifyContent='space-between';d.style.margin='0.5rem 0';d.textContent=p.name+' — $'+p.price.toFixed(2);
+        const btn=document.createElement('button');btn.textContent='Add to cart';btn.onclick=()=>alert('Added '+p.name);
+        d.appendChild(btn);el.appendChild(d);
+      });
+    </script>
+  </div>
+</body>
+</html>
