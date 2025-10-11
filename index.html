@@ -2,135 +2,439 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lohith R - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            line-height: 1.7;
-            background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
-            color: #222;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        header {
-            background: linear-gradient(90deg, #2c3e50 70%, #2980b9 100%);
-            color: white;
-            padding: 32px 0 18px 0;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+        }
+        nav h1 {
+            color: #667eea;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 2rem;
+        }
+        nav a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #667eea;
+        }
+        #hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
             text-align: center;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 4px 20px rgba(44,62,80,0.10);
+            color: white;
+        }
+        #hero .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        #hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        #hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s;
+            margin: 0 10px;
+        }
+        .btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         section {
-            padding: 28px 22px;
-            background: #fff;
-            margin: 28px auto;
-            width: 92%;
-            max-width: 850px;
-            border-radius: 16px;
-            box-shadow: 0 6px 32px rgba(44,62,80,0.09);
-            transition: box-shadow 0.2s;
+            padding: 80px 0;
+            background: white;
         }
-        section:hover {
-            box-shadow: 0 12px 40px rgba(41,128,185,0.13);
+        section:nth-child(even) {
+            background: #f8f9fa;
         }
-        h1, h2 {
-            color: #2980b9;
-            font-family: 'Segoe UI Semibold', Arial, sans-serif;
-            letter-spacing: 1px;
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
         }
-        ul {
-            list-style-type: disc;
-            padding-left: 28px;
-            margin: 10px 0 0 0;
+        .section-title h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
         }
-        li {
-            margin-bottom: 8px;
-            font-size: 1.08rem;
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: #667eea;
         }
-        a {
-            color: #145374;
-            text-decoration: underline;
-            transition: color 0.2s;
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
-        a:hover {
-            color: #2980b9;
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+        .skill-card i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .project-card .content {
+            padding: 1.5rem;
+        }
+        .project-card h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #667eea;
+        }
+        .timeline-item {
+            margin-left: 60px;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -42px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .contact-item {
+            text-align: center;
+        }
+        .contact-item i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1rem;
         }
         footer {
+            background: #333;
+            color: white;
             text-align: center;
-            padding: 22px 0;
-            background: linear-gradient(90deg, #2c3e50 60%, #2980b9 100%);
-            color: #fff;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            margin-top: 40px;
-            box-shadow: 0 -2px 12px rgba(44,62,80,0.10);
+            padding: 2rem 0;
         }
-        @media (max-width: 600px) {
-            section {
-                padding: 14px 4px;
-                margin: 12px 0;
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2.5rem;
             }
-            header {
-                padding: 18px 0 10px 0;
+            nav .container {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 1rem;
+            }
+            nav ul li {
+                margin-left: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <nav>
+        <div class="container">
+            <h1>Lohith R</h1>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<header>
-    <h1>Lohith R</h1>
-    <p>Computer Science Student </p>
-</header>
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Lohith R</h1>
+                <p>Computer Science and Engineering Student | Full-Stack Developer | AI Enthusiast</p>
+                <p>Methodical and driven Computer Science and Engineering student with a strong foundation in full-stack web development and real-world application design. Experienced in building scalable, user-friendly systems using HTML, CSS, JavaScript, Flask, and MySQL. Passionate about solving practical problems through innovative tech solutions.</p>
+                <a href="#projects" class="btn">View My Work</a>
+                <a href="#contact" class="btn">Get In Touch</a>
+            </div>
+        </div>
+    </section>
 
-<section>
-    <h2>About Me</h2>
-    <p>
-        Hello! I'm Lohith R, a passionate Computer Science and Engineering student currently pursuing my B.Sc at PPG Institute of Technology. 
-        I'm deeply interested in cybersecurity, artificial intelligence, and solving real-world problems using technology. 
-        I’ve worked on several innovative projects, from fraud detection systems to apps for farmers, and I love learning new tools that bring ideas to life.
-    </p>
-</section>
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
+                I'm deeply interested in cybersecurity, artificial intelligence, and solving real-world problems using technology. 
+                I've worked on several innovative projects in AI, NLP, and e-commerce platforms. Adept at troubleshooting deployment issues on Vercel and Render. 
+                Active participant in Smart India Hackathon and Naan Mudhalvan program, with a commitment to continuous learning and professional growth.
+            </p>
+        </div>
+    </section>
 
-<section>
-    <h2>Skills</h2>
-    <ul>
-        <li>Python, Java, HTML & CSS</li>
-        <li>Machine Learning & Data Analysis</li>
-        <li>Cybersecurity Basics & Network Concepts</li>
-    </ul>
-</section>
+    <section id="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>Technical Skills</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-java"></i>
+                    <h3>Java</h3>
+                    <p>Object-oriented programming and application development</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-html5"></i>
+                    <h3>Web Development</h3>
+                    <p>HTML, CSS, JavaScript, Flask</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Database</h3>
+                    <p>MySQL for data management</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI & ML</h3>
+                    <p>Full Stack Web Apps, AI-based Systems, NLP Classifiers</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-github"></i>
+                    <h3>Tools & Platforms</h3>
+                    <p>Vercel, Render, GitHub</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Soft Skills</h3>
+                    <p>Problem Solving, Teamwork, Adaptability, Communication</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section>
-    <h2>Interests</h2>
-    <ul>
-        <li>Ethical Hacking & Cyber Forensics</li>
-        <li>Developing AI-powered Web Applications</li>
-        <li>Contributing to Open Source Projects</li>
-    </ul>
-</section>
+    <section id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Projects</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="E-Commerce">
+                    <div class="content">
+                        <h3>Lumoro E-Commerce Scent Website</h3>
+                        <p>Developed a perfume-based e-commerce website using HTML, CSS, and MySQL, featuring product catalog, cart, and secure checkout.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Emergency App">
+                    <div class="content">
+                        <h3>Emergency SOS App for Flood Management</h3>
+                        <p>AI-integrated emergency response app built for Smart India Hackathon 2025 to provide real-time flood alerts, SOS messaging, and rescue coordination.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Fraud Detection">
+                    <div class="content">
+                        <h3>Credit Card Fraud Detection using AI</h3>
+                        <p>Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Fake News">
+                    <div class="content">
+                        <h3>Fake News Detection using NLP and Flask</h3>
+                        <p>AI-powered Flask web app that detects misleading or fake news using Natural Language Processing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section>
-    <h2>Projects</h2>
-    <ul>
-        <li><strong>Fraud Detection System:</strong> <a href="#">AI-powered credit card fraud prevention tool</a></li>
-        <li><strong>Farmer's Market App:</strong> Connecting farmers to buyers directly via web platform</li>
-        <li><strong>Fake News Detection:</strong> NLP-based tool to classify misinformation</li>
-    </ul>
-</section>
+    <section id="education">
+        <div class="container">
+            <div class="section-title">
+                <h2>Education & Achievements</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Bachelor of Engineering (B.E.) in Computer Science and Engineering</h3>
+                    <p>PPG Institute of Technology, Coimbatore | Affiliated to Anna University</p>
+                    <p>2022 – 2027 | CGPA: 7.83 / 10 (as of 4th semester)</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>NPTEL Course – Introduction to Internet of Things</h3>
+                    <p>Score: 63%</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Active Participant – Smart India Hackathon 2025</h3>
+                    <p>Emergency SOS App for Flood Management</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Completed Naan Mudhalvan AI & Full Stack Development Program</h3>
+                    <p>Credit Card Fraud Detection and other projects</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section>
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:lohithravi69@gmail.com">lohithravi69@gmail.com</a></p>
-    <p>Phone: 7010102623</p>
-    <p>Location: Hosur, Tamil Nadu, India</p>
-</section>
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Me</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p><a href="mailto:lohithravi69@gmail.com">lohithravi69@gmail.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p>7010102623</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Location</h3>
+                    <p>Coimbatore, Tamil Nadu, India</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <h3>GitHub</h3>
+                    <p><a href="https://github.com/Lohithravi69" target="_blank">github.com/Lohithravi69</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <h3>LinkedIn</h3>
+                    <p><a href="https://linkedin.com/in/lohith-ravi-22b9a32a0" target="_blank">linkedin.com/in/lohith-ravi-22b9a32a0</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Lohith R. All rights reserved.</p>
+        </div>
+    </footer>
 
-
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 
