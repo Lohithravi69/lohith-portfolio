@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Portfolio site - helper scripts",
   "scripts": {
-    "gen-webp": "node tools/generate-webp.js --src=./images --dest=./public/assets --quality=80"
+    "gen-webp": "node tools/generate-webp.js --src=./images --dest=./public/assets --quality=80",
+    "css-coverage": "node ./tools/css-coverage.js"
   },
   "devDependencies": {
-    "sharp": "^0.32.0"
+    "sharp": "^0.32.0",
+    "puppeteer": "^20.0.0"
   }
 }
