@@ -10,10 +10,7 @@
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#667eea">
     <link rel="canonical" href="https://lohith-portfolio-ashy.vercel.app/">
-    <link rel="preconnect" href="https://images.unsplash.com">
-    <link rel="preconnect" href="https://unpkg.com">
-    <link rel="preconnect" href="https://assets7.lottiefiles.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <!-- Only preconnect to origins we actually use during initial load -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Lohith R — Portfolio">
@@ -23,7 +20,7 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" onload="this.rel='stylesheet'">
     <link rel="preload" as="image" href="/public/assets/lumoro.webp">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"></noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Font Awesome removed: replaced with inline SVG sprite for only used icons -->
     <!-- lottie-player will be lazy-loaded when hero enters viewport to improve initial load performance -->
     <!-- JSON-LD structured data for Person / Portfolio -->
     <script type="application/ld+json">
@@ -174,7 +171,23 @@
         </div>
     </nav>
 
-    <main id="main-content">
+        <main id="main-content">
+
+        <!-- Inline SVG sprite: only icons used on the page. Improves performance vs loading full Font Awesome font files -->
+        <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;" focusable="false">
+            <defs>
+                <symbol id="icon-java" viewBox="0 0 32 32"><path d="M16 2c-1 0-3 1-3 1s0 1 1 1c2 0 4 1 4 1s-1-3-2-3zM8 12c0 0 2-2 8-2s8 2 8 2-3-1-8-1-8 1-8 1z"/></symbol>
+                <symbol id="icon-html5" viewBox="0 0 32 32"><path d="M4 2l2 24 10 4 10-4 2-24zM23 9h-8l1 3h6l-1 4-4 2-4-2-1-3h3l.5 2 2 1 2-1 1.5-6z"/></symbol>
+                <symbol id="icon-database" viewBox="0 0 32 32"><path d="M16 4c-7 0-12 2-12 4v16c0 2 5 4 12 4s12-2 12-4v-16c0-2-5-4-12-4zm0 2c6 0 10 1.7 10 2s-4 2-10 2-10-1.7-10-2 4-2 10-2z"/></symbol>
+                <symbol id="icon-brain" viewBox="0 0 32 32"><path d="M16 4c-6 0-10 4-10 8 0 2 1 4 2 5v6h16v-6c1-1 2-3 2-5 0-4-4-8-10-8z"/></symbol>
+                <symbol id="icon-github" viewBox="0 0 24 24"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 1.5-.8 1.8-1.2-2.7-.3-5.6-1.4-5.6-6.2 0-1.4.5-2.5 1.2-3.4-.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.3 11.3 0 016 0C17 6 18 6.3 18 6.3c.6 1.7.2 3 .1 3.3.8.9 1.2 2 1.2 3.4 0 4.9-2.9 5.9-5.6 6.2.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A12 12 0 0012 .5z"/></symbol>
+                <symbol id="icon-users" viewBox="0 0 32 32"><path d="M16 16c-4 0-7 3-7 6v4h14v-4c0-3-3-6-7-6zM16 10a4 4 0 100-8 4 4 0 000 8z"/></symbol>
+                <symbol id="icon-envelope" viewBox="0 0 32 32"><path d="M4 8v16h24V8l-12 8L4 8z"/></symbol>
+                <symbol id="icon-phone" viewBox="0 0 32 32"><path d="M6 4l6 4c1 1 3 3 4 4s3 3 4 4l4 6v4l-6-2c-5-2-10-7-12-12L6 4z"/></symbol>
+                <symbol id="icon-map-marker-alt" viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5 2.5 2.5 0 0112 11.5z"/></symbol>
+                <symbol id="icon-linkedin" viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4zM8.5 8h3.7v2.2h.1c.5-1 1.9-2.2 4-2.2 4.3 0 5.1 2.8 5.1 6.5V24h-4V15.6c0-2.0 0-4.6-2.8-4.6-2.8 0-3.2 2.2-3.2 4.4V24h-4z"/></symbol>
+            </defs>
+        </svg>
 
     <section id="hero">
         <div class="container">
@@ -213,32 +226,32 @@
             </div>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <i class="fab fa-java"></i>
+                    <svg class="icon icon-java" aria-hidden="true"><use href="#icon-java"></use></svg>
                     <h3>Java</h3>
                     <p>Object-oriented programming and application development</p>
                 </div>
                 <div class="skill-card">
-                    <i class="fab fa-html5"></i>
+                    <svg class="icon icon-html5" aria-hidden="true"><use href="#icon-html5"></use></svg>
                     <h3>Web Development</h3>
                     <p>HTML, CSS, JavaScript, Flask</p>
                 </div>
                 <div class="skill-card">
-                    <i class="fas fa-database"></i>
+                    <svg class="icon icon-database" aria-hidden="true"><use href="#icon-database"></use></svg>
                     <h3>Database</h3>
                     <p>MySQL for data management</p>
                 </div>
                 <div class="skill-card">
-                    <i class="fas fa-brain"></i>
+                    <svg class="icon icon-brain" aria-hidden="true"><use href="#icon-brain"></use></svg>
                     <h3>AI & ML</h3>
                     <p>Full Stack Web Apps, AI-based Systems, NLP Classifiers</p>
                 </div>
                 <div class="skill-card">
-                    <i class="fab fa-github"></i>
+                    <svg class="icon icon-github" aria-hidden="true"><use href="#icon-github"></use></svg>
                     <h3>Tools & Platforms</h3>
                     <p>Vercel, Render, GitHub</p>
                 </div>
                 <div class="skill-card">
-                    <i class="fas fa-users"></i>
+                    <svg class="icon icon-users" aria-hidden="true"><use href="#icon-users"></use></svg>
                     <h3>Soft Skills</h3>
                     <p>Problem Solving, Teamwork, Adaptability, Communication</p>
                 </div>
@@ -334,27 +347,27 @@
             </div>
             <div class="contact-grid">
                 <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
+                    <svg class="icon icon-envelope" aria-hidden="true"><use href="#icon-envelope"></use></svg>
                     <h3>Email</h3>
                     <p><a href="mailto:lohithravi69@gmail.com">lohithravi69@gmail.com</a></p>
                 </div>
                 <div class="contact-item">
-                    <i class="fas fa-phone"></i>
+                    <svg class="icon icon-phone" aria-hidden="true"><use href="#icon-phone"></use></svg>
                     <h3>Phone</h3>
                     <p><a href="tel:+917010102623">+91 70101 02623</a></p>
                 </div>
                 <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
+                    <svg class="icon icon-map-marker-alt" aria-hidden="true"><use href="#icon-map-marker-alt"></use></svg>
                     <h3>Location</h3>
                     <p>Coimbatore, Tamil Nadu, India</p>
                 </div>
                 <div class="contact-item">
-                    <i class="fab fa-github"></i>
+                    <svg class="icon icon-github" aria-hidden="true"><use href="#icon-github"></use></svg>
                     <h3>GitHub</h3>
                     <p><a href="https://github.com/Lohithravi69" target="_blank" rel="noopener noreferrer">github.com/Lohithravi69</a></p>
                 </div>
                 <div class="contact-item">
-                    <i class="fab fa-linkedin"></i>
+                    <svg class="icon icon-linkedin" aria-hidden="true"><use href="#icon-linkedin"></use></svg>
                     <h3>LinkedIn</h3>
                     <p><a href="https://linkedin.com/in/lohith-ravi-22b9a32a0" target="_blank" rel="noopener noreferrer">linkedin.com/in/lohith-ravi-22b9a32a0</a></p>
                 </div>
@@ -793,27 +806,34 @@
             }
         })();
 
+    </script>
+
     <!-- Defer loading of external heavy vendor CSS/JS where possible -->
     <script>
     // Add defer to fontawesome stylesheet load to avoid render-blocking (non-critical icons)
     (function deferFontAwesome(){
-        const fa = document.querySelector('link[href*="font-awesome"]');
-        if (!fa) return;
-        // convert to preload and then swap
-        const href = fa.href;
-        const pre = document.createElement('link');
-        pre.rel = 'preload'; pre.as = 'style'; pre.href = href;
-        document.head.appendChild(pre);
-        // load stylesheet asynchronously
-        const s = document.createElement('link');
-        s.rel = 'stylesheet'; s.href = href; s.media = 'print';
-        s.onload = function(){ this.media = 'all'; };
-        document.head.appendChild(s);
-        // remove original
-        fa.remove();
-    </body>
-    </html>
-                });
-            }
-        })();
+        try {
+            const fa = document.querySelector('link[href*="font-awesome"]');
+            if (!fa) return;
+            // convert to preload and then swap
+            const href = fa.href;
+            const pre = document.createElement('link');
+            pre.rel = 'preload'; pre.as = 'style'; pre.href = href;
+            document.head.appendChild(pre);
+            // load stylesheet asynchronously
+            const s = document.createElement('link');
+            s.rel = 'stylesheet'; s.href = href; s.media = 'print';
+            s.onload = function(){ this.media = 'all'; };
+            document.head.appendChild(s);
+            // remove original
+            fa.remove();
+        } catch (e) {
+            // swallow errors silently — non-critical
+            console.warn('deferFontAwesome failed', e);
+        }
+    })();
+    </script>
+
+</body>
+</html>
 
