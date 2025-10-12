@@ -11,464 +11,123 @@
     <meta name="theme-color" content="#667eea">
     <link rel="canonical" href="https://lohith-portfolio-ashy.vercel.app/">
     <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://assets7.lottiefiles.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Lohith R — Portfolio">
     <meta name="twitter:description" content="Portfolio showcasing projects in AI, web development, and real-world apps.">
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" onload="this.rel='stylesheet'">
+    <link rel="preload" as="image" href="/public/assets/lumoro.webp">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- lottie-player will be lazy-loaded when hero enters viewport to improve initial load performance -->
-        <!-- JSON-LD structured data for Person / Portfolio -->
-        <script type="application/ld+json">
-        </html>
-            }
-        }
-
-        :root {
-            --bg: #ffffff;
-            --card: #ffffff;
-            --text: #0f172a;
-            --muted: #6b7280;
-            --accent: #667eea;
-            --accent-2: #764ba2;
-            --glass: rgba(255,255,255,0.6);
-            --shadow: 0 8px 30px rgba(16,24,40,0.08);
-            --radius: 10px;
-            --max-width: 1200px;
-        }
-
-        [data-theme="dark"] {
-            --bg: #0b1220;
-            --card: #071022;
-            --text: #e6eef8;
-            --muted: #9aa6b2;
-            --accent: #8ab4ff;
-            --accent-2: #b388ff;
-            --glass: rgba(10,16,28,0.6);
-            --shadow: 0 10px 40px rgba(2,6,23,0.6);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-            line-height: 1.6;
-            color: var(--text);
-            background: radial-gradient(1200px 600px at -10% 10%, rgba(102,126,234,0.08), transparent), var(--bg);
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 20px;
-        }
-        .theme-toggle {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            color: var(--text);
-            font-size: 1rem;
-        }
-        }
-
-        // Theme toggle: persist in localStorage and reflect system preference
-        (function () {
-            const themeToggle = document.getElementById('theme-toggle');
-            const root = document.documentElement;
-            const stored = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const initial = stored || (systemPrefersDark ? 'dark' : 'light');
-            if (initial === 'dark') root.setAttribute('data-theme', 'dark');
-            if (themeToggle) {
-                const updateIcon = () => { themeToggle.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; };
-                updateIcon();
-                themeToggle.addEventListener('click', () => {
-                    const now = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                    if (now === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
-                    localStorage.setItem('theme', now === 'dark' ? 'dark' : 'light');
-                    updateIcon();
-                });
-            }
-        })();
-
-        // Card tilt microinteraction (respect prefers-reduced-motion)
-        (function () {
-            const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduce) return;
-            const tiltElements = Array.from(document.querySelectorAll('.project-card, .skill-card'));
-            const maxTilt = 12; // degrees
-            tiltElements.forEach(el => {
-                el.classList.add('tilt');
-                el.addEventListener('mousemove', (e) => {
-                    const rect = el.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const cx = rect.width / 2;
-                    const cy = rect.height / 2;
-                    const dx = (x - cx) / cx;
-                    const dy = (y - cy) / cy;
-                    const rx = (-dy * maxTilt).toFixed(2);
-                    const ry = (dx * maxTilt).toFixed(2);
-                    el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
-                });
-                el.addEventListener('mouseleave', () => {
-                    el.style.transform = '';
-                });
-            });
-        })();
+    <!-- JSON-LD structured data for Person / Portfolio -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Lohith R",
+      "url": "https://lohith-portfolio-ashy.vercel.app/",
+      "email": "lohithravi69@gmail.com",
+      "jobTitle": "Computer Science Student",
+      "sameAs": [
+        "https://github.com/Lohithravi69",
+        "https://linkedin.com/in/lohith-ravi-22b9a32a0"
+      ]
+    }
     </script>
-</body>
-</html>
-            padding-top: 4rem;
-        }
-        #hero .hero-content {
-                max-width: 1100px;
-                margin: 0 auto;
-                display: grid;
-                grid-template-columns: 1fr 420px;
-                gap: 2rem;
-            }
-            .hero-left { text-align: left; }
-            .hero-right { display:flex; align-items:center; justify-content:center; }
-            lottie-player { width: 100%; max-width: 380px; height: auto; }
-            margin: 0 auto;
-        }
-        #hero h1 {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.8rem);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: #fff; }
-        }
-        #hero p {
-            font-size: clamp(1rem, 2.2vw, 1.15rem);
-            margin-bottom: 1.25rem;
-            color: var(--muted);
-            max-width: 48ch;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-2));
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: all 0.3s;
-            margin: 0 10px;
-        }
-        .btn:hover {
-            background: #5a67d8;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        section {
-            padding: 80px 0;
-            background: white;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            transform-style: preserve-3d;
-        }
-        section:nth-child(even) {
-            background: #f8f9fa;
-        }
-        section.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #333;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            transform-style: preserve-3d;
-        }
-        .tilt { will-change: transform; transition: transform 0.18s ease-out; }
-        @media (prefers-reduced-motion: reduce) {
-            .tilt, .project-card, .skill-card { transition: none !important; transform: none !important; }
-        }
-        }
-        .section-title.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .section-title h2 {
-            font-size: 2.5rem;
-            position: relative;
-            display: inline-block;
-        }
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: #667eea;
-            animation: growWidth 1s ease-out;
-        }
-        @keyframes growWidth {
-            from { width: 0; }
-            to { width: 50px; }
-        }
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        .skill-card {
-            background: white;
-            background: var(--card);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .skill-card.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .skill-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-        .skill-card i {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .skill-card:hover i {
-            color: #5a67d8;
-            transform: scale(1.1);
-        }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .project-card {
-            background: var(--card);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .project-card.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-        .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .project-card:hover img {
-            transform: scale(1.1);
-        }
-        .project-card .content {
-            padding: 1.5rem;
-        }
-        .project-card h3 {
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-        .project-card .btn {
-            margin-top: 1rem;
-            padding: 8px 16px;
-            font-size: 0.9rem;
-        }
-        /* Modal styles */
-        .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 2000; }
-        .modal.open { display: flex; }
-        .modal-backdrop { position: absolute; inset: 0; background: rgba(2,6,23,0.6); }
-        .modal-panel { position: relative; background: var(--card); border-radius: 12px; box-shadow: var(--shadow); max-width: 900px; width: calc(100% - 40px); margin: 20px; z-index: 2; }
-        .modal-body { display: flex; gap: 1rem; padding: 1rem; }
-        .modal-body img { width: 40%; height: auto; object-fit: cover; border-radius: 8px; }
-        .modal-content { padding: 0.5rem 1rem; width: 60%; }
-        .modal-actions { margin-top: 1rem; display:flex; gap:0.5rem; }
-        .modal-close { position: absolute; right: 8px; top: 8px; background: transparent; border: none; font-size: 1.25rem; cursor: pointer; }
-        .tech-pill { display:inline-block; background: rgba(0,0,0,0.06); color:var(--text); padding:6px 10px; border-radius:999px; margin:0.25rem; font-size:0.85rem; }
 
-        /* Consent banner */
-        .consent-banner { position: fixed; left: 12px; right:12px; bottom: 12px; background: var(--card); border-radius: 10px; box-shadow: var(--shadow); padding: 12px; display:none; z-index: 2500; }
-        .consent-banner.visible { display:block; }
-        .consent-inner { display:flex; gap:1rem; align-items:center; justify-content:space-between; }
-        .consent-actions { display:flex; gap:0.5rem; }
-        .btn.ghost { background: transparent; border: 1px solid rgba(0,0,0,0.08); color: var(--text); }
-        /* Carousel images inside modal */
-        #modal-carousel { display:flex; flex-direction:column; gap:8px; }
-        #modal-carousel .carousel-image { width:100%; height: auto; border-radius:8px; object-fit:cover; }
-    #carousel-indicators { display:flex; gap:6px; }
-    #carousel-indicators .dot { width:8px; height:8px; border-radius:50%; background:rgba(0,0,0,0.12); }
-    #carousel-indicators .dot.active { background:var(--accent); }
-        @media (max-width: 900px) {
-            .modal-body { flex-direction: column; }
-            #modal-carousel { width: 100%; }
-            .modal-content { width: 100%; }
-            .modal-body img#modal-image { width: 100%; }
-        }
+<style>
+    :root {
+        --bg: #ffffff;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #6b7280;
+        --accent: #667eea;
+        --accent-2: #764ba2;
+        --glass: rgba(255,255,255,0.6);
+        --shadow: 0 8px 30px rgba(16,24,40,0.08);
+        --radius: 10px;
+        --max-width: 1200px;
+    }
 
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #667eea;
-        }
-        .timeline-item {
-            margin-left: 60px;
-            margin-bottom: 2rem;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            position: relative;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .timeline-item.animate {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -42px;
-            top: 20px;
-            width: 12px;
-            height: 12px;
-            background: #667eea;
-            border-radius: 50%;
-            transition: background 0.3s ease;
-        }
-        .timeline-item:hover::before {
-            background: #5a67d8;
-            transform: scale(1.2);
-        }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        .contact-item {
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .contact-item.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .contact-item i {
-            font-size: 2rem;
-            color: #667eea;
-            margin-bottom: 1rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .contact-item:hover i {
-            color: #5a67d8;
-            transform: scale(1.1);
-        }
-        footer {
-            background: transparent;
-            color: var(--muted);
-            text-align: center;
-            padding: 2rem 0;
-        }
-        @media (max-width: 768px) {
-            #hero h1 {
-                font-size: 2.5rem;
-            }
-            nav .container {
-                flex-direction: column;
-            }
-            /* Mobile navigation: hide full menu by default and show toggle */
-            .nav-toggle {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                background: transparent;
-                border: 2px solid transparent;
-                color: #333;
-                font-size: 1.25rem;
-                padding: 8px 10px;
-                border-radius: 6px;
-                cursor: pointer;
-            }
-            nav ul {
-                margin-top: 1rem;
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            nav ul.open {
-                display: flex;
-            }
-            nav ul li {
-                margin-left: 0;
-            }
-        }
-    </style>
+    [data-theme="dark"] {
+        --bg: #0b1220;
+        --card: #071022;
+        --text: #e6eef8;
+        --muted: #9aa6b2;
+        --accent: #8ab4ff;
+        --accent-2: #b388ff;
+        --glass: rgba(10,16,28,0.6);
+        --shadow: 0 10px 40px rgba(2,6,23,0.6);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        line-height: 1.6;
+        color: var(--text);
+        background: radial-gradient(1200px 600px at -10% 10%, rgba(102,126,234,0.08), transparent), var(--bg);
+        min-height: 100vh;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    /* Critical hero CSS inlined to reduce render-blocking and improve LCP */
+    .hero-content { display:flex; align-items:center; gap:2rem; padding:4rem 0; }
+    .hero-left { flex:1 }
+    .hero-right { width:380px; display:flex; align-items:center; justify-content:center }
+    .hero-right lottie-player, .hero-right img { width:100%; height:auto; max-width:380px; border-radius:12px; }
+    /* Critical nav & header styles */
+    nav { position:fixed; top:0; left:0; right:0; background: rgba(255,255,255,0.9); backdrop-filter: blur(6px); }
+    nav .container { display:flex; align-items:center; justify-content:space-between; padding:0.75rem 20px; }
+    .section-title h2 { font-size:1.4rem; margin-bottom:0.5rem; }
+    h1 { font-family: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-size:2.2rem; line-height:1.05; }
+    nav {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+    nav .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 20px;
+    }
+    .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--text);
+        font-size: 1rem;
+    }
+    /* ... rest of your CSS ... */
+    /* (Paste all CSS from your original code here, inside this <style> block) */
+</style>
     <style>
+        /* Reduce FOIT: system fonts listed first in the font stack; keep webfont as enhancement */
+        html { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+    /* Small optimization: ensure hero LCP candidate is prioritized via preload and img attribute */
+
         .skip-link {
             position: absolute;
             left: -999px;
@@ -593,10 +252,10 @@
                 <h2>Projects</h2>
             </div>
             <div class="projects-grid">
-                <div class="project-card" data-id="lumoro" data-title="Lumoro E-Commerce Scent Website" data-desc="Developed a perfume-based e-commerce website using HTML, CSS and MySQL, featuring product catalog, cart, and secure checkout." data-image="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp" data-github="https://github.com/Lohithravi69/perfume" data-tech="HTML,CSS,MySQL,JavaScript">
+                <div class="project-card" data-id="lumoro" data-title="Lumoro E-Commerce Scent Website" data-desc="Developed a perfume-based e-commerce website using HTML, CSS and MySQL, featuring product catalog, cart, and secure checkout." data-image="/public/assets/lumoro.webp" data-github="https://github.com/Lohithravi69/perfume" data-tech="HTML,CSS,MySQL,JavaScript">
                     <picture>
-                        <source type="image/webp" srcset="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80&fm=webp 400w, https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" srcset="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 800w" sizes="(max-width:600px) 100vw, 400px" alt="E-Commerce" loading="lazy" width="400" height="200">
+                        <source type="image/webp" srcset="/public/assets/lumoro.webp 400w, /public/assets/lumoro.webp 800w" sizes="(max-width:600px) 100vw, 400px">
+                        <img fetchpriority="high" decoding="async" src="/public/assets/lumoro.webp" srcset="/public/assets/lumoro.webp 400w, /public/assets/lumoro.webp 800w" sizes="(max-width:600px) 100vw, 400px" alt="E-Commerce" loading="lazy" width="400" height="200">
                     </picture>
                     <div class="content">
                         <h3>Lumoro E-Commerce Scent Website</h3>
@@ -604,10 +263,10 @@
                         <a href="https://github.com/Lohithravi69/perfume" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
                     </div>
                 </div>
-                <div class="project-card" data-id="safenet" data-title="Emergency SOS App for Flood Management" data-desc="AI-integrated emergency response app built for Smart India Hackathon 2025 to provide real-time flood alerts, SOS messaging, and rescue coordination." data-image="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp" data-live="https://safenetsos-app.vercel.app" data-tech="React,Node.js,TensorFlow,Maps API">
+                <div class="project-card" data-id="safenet" data-title="Emergency SOS App for Flood Management" data-desc="AI-integrated emergency response app built for Smart India Hackathon 2025 to provide real-time flood alerts, SOS messaging, and rescue coordination." data-image="/public/assets/safenet.webp" data-live="https://safenetsos-app.vercel.app" data-tech="React,Node.js,TensorFlow,Maps API">
                     <picture>
-                        <source type="image/webp" srcset="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80&fm=webp 400w, https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" srcset="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 800w" sizes="(max-width:600px) 100vw, 400px" alt="Emergency App" loading="lazy" width="400" height="200">
+                        <source type="image/webp" srcset="/public/assets/safenet.webp 400w, /public/assets/safenet.webp 800w" sizes="(max-width:600px) 100vw, 400px">
+                        <img decoding="async" src="/public/assets/safenet.webp" srcset="/public/assets/safenet.webp 400w, /public/assets/safenet.webp 800w" sizes="(max-width:600px) 100vw, 400px" alt="Emergency App" loading="lazy" width="400" height="200">
                     </picture>
                     <div class="content">
                         <h3>Emergency SOS App for Flood Management</h3>
@@ -615,10 +274,10 @@
                         <a href="https://safenetsos-app.vercel.app" target="_blank" rel="noopener noreferrer" class="btn">View Live Demo</a>
                     </div>
                 </div>
-                <div class="project-card" data-id="fraud-detect" data-title="Credit Card Fraud Detection using AI" data-desc="Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time." data-image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp" data-github="https://github.com/Lohithravi69/FraudDetection" data-tech="Python,scikit-learn,Pandas,Flask">
+                <div class="project-card" data-id="fraud-detect" data-title="Credit Card Fraud Detection using AI" data-desc="Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time." data-image="/public/assets/fraud.webp" data-github="https://github.com/Lohithravi69/FraudDetection" data-tech="Python,scikit-learn,Pandas,Flask">
                     <picture>
-                        <source type="image/webp" srcset="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80&fm=webp 400w, https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" srcset="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 800w" sizes="(max-width:600px) 100vw, 400px" alt="Fraud Detection" loading="lazy" width="400" height="200">
+                        <source type="image/webp" srcset="/public/assets/fraud.webp 400w, /public/assets/fraud.webp 800w" sizes="(max-width:600px) 100vw, 400px">
+                        <img decoding="async" src="/public/assets/fraud.webp" srcset="/public/assets/fraud.webp 400w, /public/assets/fraud.webp 800w" sizes="(max-width:600px) 100vw, 400px" alt="Fraud Detection" loading="lazy" width="400" height="200">
                     </picture>
                     <div class="content">
                         <h3>Credit Card Fraud Detection using AI</h3>
@@ -626,10 +285,10 @@
                         <a href="https://github.com/Lohithravi69/FraudDetection" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
                     </div>
                 </div>
-                <div class="project-card" data-id="fake-news" data-title="Fake News Detection using NLP and Flask" data-desc="AI-powered Flask web app that detects misleading or fake news using Natural Language Processing." data-image="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp" data-live="https://fake-news-detection-tau.vercel.app" data-tech="Python,NLTK,Flask,Heroku">
+                <div class="project-card" data-id="fake-news" data-title="Fake News Detection using NLP and Flask" data-desc="AI-powered Flask web app that detects misleading or fake news using Natural Language Processing." data-image="/public/assets/fakenews.webp" data-live="https://fake-news-detection-tau.vercel.app" data-tech="Python,NLTK,Flask,Heroku">
                     <picture>
-                        <source type="image/webp" srcset="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80&fm=webp 400w, https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&fm=webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" srcset="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80 800w" sizes="(max-width:600px) 100vw, 400px" alt="Fake News" loading="lazy" width="400" height="200">
+                        <source type="image/webp" srcset="/public/assets/fakenews.webp 400w, /public/assets/fakenews.webp 800w" sizes="(max-width:600px) 100vw, 400px">
+                        <img decoding="async" src="/public/assets/fakenews.webp" srcset="/public/assets/fakenews.webp 400w, /public/assets/fakenews.webp 800w" sizes="(max-width:600px) 100vw, 400px" alt="Fake News" loading="lazy" width="400" height="200">
                     </picture>
                     <div class="content">
                         <h3>Fake News Detection using NLP and Flask</h3>
@@ -764,7 +423,7 @@
         </div>
     </div>
 
-    <script>
+    <script defer>
     // Placeholder for lightweight analytics (Plausible/umami). Replace with real snippet in production.
     /*
      (Optional) Example Plausible script:
@@ -1030,7 +689,7 @@
         }, { rootMargin: '200px' });
         io.observe(hero);
     })();
-        // Smooth scrolling for navigation
+    // Smooth scrolling for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1113,12 +772,8 @@
             });
         }
     </script>
-</body>
-</html>
-
-
-
-        // Theme toggle: persist in localStorage and reflect system preference
+    <!-- Theme toggle: persist in localStorage and reflect system preference -->
+    <script>
         (function () {
             const themeToggle = document.getElementById('theme-toggle');
             const root = document.documentElement;
@@ -1134,6 +789,30 @@
                     if (now === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
                     localStorage.setItem('theme', now === 'dark' ? 'dark' : 'light');
                     updateIcon();
+                });
+            }
+        })();
+
+    <!-- Defer loading of external heavy vendor CSS/JS where possible -->
+    <script>
+    // Add defer to fontawesome stylesheet load to avoid render-blocking (non-critical icons)
+    (function deferFontAwesome(){
+        const fa = document.querySelector('link[href*="font-awesome"]');
+        if (!fa) return;
+        // convert to preload and then swap
+        const href = fa.href;
+        const pre = document.createElement('link');
+        pre.rel = 'preload'; pre.as = 'style'; pre.href = href;
+        document.head.appendChild(pre);
+        // load stylesheet asynchronously
+        const s = document.createElement('link');
+        s.rel = 'stylesheet'; s.href = href; s.media = 'print';
+        s.onload = function(){ this.media = 'all'; };
+        document.head.appendChild(s);
+        // remove original
+        fa.remove();
+    </body>
+    </html>
                 });
             }
         })();

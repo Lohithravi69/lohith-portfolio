@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+# Sitemap could be added here if you have one
+# Sitemap: https://lohith-portfolio-ashy.vercel.app/sitemap.xml
