@@ -16,7 +16,7 @@
     <meta name="twitter:description" content="Portfolio showcasing projects in AI, web development, and real-world apps.">
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80">
         <!-- No external fonts requested. Using a system font stack. -->
-        <link rel="preload" as="image" href="/assets/lumoro.webp">
+    <link rel="preload" as="image" type="image/webp" href="/assets/lumoro.webp">
     <!-- Font Awesome removed: replaced with inline SVG sprite for only used icons -->
     <!-- lottie-player will be lazy-loaded when hero enters viewport to improve initial load performance -->
     <!-- JSON-LD structured data for Person / Portfolio -->
@@ -225,7 +225,7 @@ nav ul li a:hover {
 
 .hero-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 4rem;
     align-items: center;
 }
@@ -758,7 +758,7 @@ footer {
                 <div class="project-card" data-id="lumoro" data-title="Lumoro E-Commerce Scent Website" data-desc="Developed a perfume-based e-commerce website using HTML, CSS and MySQL, featuring product catalog, cart, and secure checkout." data-image="/assets/lumoro.webp" data-github="https://github.com/Lohithravi69/perfume" data-tech="HTML,CSS,MySQL,JavaScript">
                     <picture>
                         <source type="image/webp" srcset="/assets/lumoro.webp 400w, /assets/lumoro.webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img fetchpriority="high" decoding="async" src="/assets/lumoro.webp" srcset="/assets/lumoro.webp 400w, /assets/lumoro.webp 800w" sizes="(max-width:600px) 100vw, 400px" alt="E-Commerce" loading="lazy" width="400" height="200">
+                        <img fetchpriority="high" decoding="async" src="/assets/lumoro.webp" srcset="/assets/lumoro.webp 400w" sizes="(max-width:600px) 100vw, 400px" alt="E-Commerce" loading="eager" width="400" height="200">
                     </picture>
                     <div class="content">
                         <h3>Lumoro E-Commerce Scent Website</h3>
@@ -1294,32 +1294,6 @@ footer {
             }
         })();
 
-    </script>
-
-    <!-- Defer loading of external heavy vendor CSS/JS where possible -->
-    <script>
-    // Add defer to fontawesome stylesheet load to avoid render-blocking (non-critical icons)
-    (function deferFontAwesome(){
-        try {
-            const fa = document.querySelector('link[href*="font-awesome"]');
-            if (!fa) return;
-            // convert to preload and then swap
-            const href = fa.href;
-            const pre = document.createElement('link');
-            pre.rel = 'preload'; pre.as = 'style'; pre.href = href;
-            document.head.appendChild(pre);
-            // load stylesheet asynchronously
-            const s = document.createElement('link');
-            s.rel = 'stylesheet'; s.href = href; s.media = 'print';
-            s.onload = function(){ this.media = 'all'; };
-            document.head.appendChild(s);
-            // remove original
-            fa.remove();
-        } catch (e) {
-            // swallow errors silently — non-critical
-            console.warn('deferFontAwesome failed', e);
-        }
-    })();
     </script>
 
 </body>

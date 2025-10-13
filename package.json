@@ -4,7 +4,8 @@
   "description": "Portfolio site - helper scripts",
   "scripts": {
     "gen-webp": "node tools/generate-webp.js --src=./images --dest=./public/assets --quality=80",
-    "css-coverage": "node ./tools/css-coverage.js"
+    "css-coverage": "node ./tools/css-coverage.js",
+    "recompress": "node ./tools/recompress-images.js --src=./public/assets --quality=80"
   },
   "devDependencies": {
     "sharp": "^0.32.0",
