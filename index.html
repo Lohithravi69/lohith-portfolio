@@ -259,6 +259,14 @@ nav ul li a:hover {
     color: #666;
 }
 
+.lead {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin: 0 0 1rem 0;
+    color: #666;
+    text-align: left;
+}
+
 .hero-right {
     text-align: center;
     /* allow the right column to shrink and avoid forcing extra whitespace when media hasn't loaded */
@@ -616,10 +624,10 @@ footer {
 
 /* Dark theme */
 [data-theme="dark"] {
-    --bg: #1a202c;
-    --text: #e2e8f0;
-    --secondary: #2d3748;
-    --border: #4a5568;
+    --bg: #0f1724; /* darker background for contrast */
+    --text: #e6eef8; /* brighter body text */
+    --secondary: #111827; /* subtle panel background */
+    --border: #2b3744;
 }
 
 [data-theme="dark"] nav {
@@ -630,7 +638,7 @@ footer {
 [data-theme="dark"] .project-card,
 [data-theme="dark"] .timeline-item,
 [data-theme="dark"] .contact-item {
-    background: var(--secondary);
+    background: #0f1724;
     color: var(--text);
 }
 
@@ -638,7 +646,13 @@ footer {
 [data-theme="dark"] .project-card p,
 [data-theme="dark"] .timeline-item p,
 [data-theme="dark"] .contact-item p {
-    color: #a0aec0;
+    color: #9fb2c8; /* muted but readable */
+}
+
+/* Make paragraph text readable in dark theme */
+[data-theme="dark"] p,
+[data-theme="dark"] .lead {
+    color: #cbd8e6;
 }
 
 /* Responsive */
@@ -729,7 +743,7 @@ footer {
             <div class="section-title">
                 <h2>About Me</h2>
             </div>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
+            <p class="lead">
                 I'm deeply interested in cybersecurity, artificial intelligence, and solving real-world problems using technology. 
                 I've worked on several innovative projects in AI, NLP, and e-commerce platforms. Adept at troubleshooting deployment issues on Vercel and Render. 
                 Active participant in Smart India Hackathon and Naan Mudhalvan program, with a commitment to continuous learning and professional growth.
