@@ -165,6 +165,19 @@ nav .container {
     padding: 0.75rem 20px;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* keep nav links visually grouped on the right and prevent them from stretching */
+nav #primary-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 nav ul {
     display: flex;
     list-style: none;
@@ -225,8 +238,9 @@ nav ul li a:hover {
 
 .hero-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
+    /* use a flexible main column and a narrower visual column so text uses available space */
+    grid-template-columns: 1fr 400px;
+    gap: 2.5rem;
     align-items: center;
 }
 
@@ -246,6 +260,8 @@ nav ul li a:hover {
 
 .hero-right {
     text-align: center;
+    /* allow the right column to shrink and avoid forcing extra whitespace when media hasn't loaded */
+    min-width: 0;
 }
 
 .hero-right lottie-player {
@@ -646,18 +662,20 @@ footer {
     <nav>
         <div class="container">
             <a href="#hero" aria-label="Lohith R homepage" style="color: var(--accent); text-decoration: none; font-weight: 700;">Lohith R</a>
-            <div style="display:flex; gap:0.5rem; align-items:center;">
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
-                <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+            <div class="nav-right">
+                <div class="nav-actions" style="display:flex; gap:0.5rem; align-items:center;">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+                    <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+                </div>
+                <ul id="primary-nav">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
             </div>
-            <ul id="primary-nav">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
         </div>
     </nav>
 
