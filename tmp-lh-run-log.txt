@@ -1,0 +1,231 @@
+﻿lighthouse	Set up job	∩╗┐2025-10-12T04:58:58.2246701Z Current runner version: '2.328.0'
+lighthouse	Set up job	2025-10-12T04:58:58.2270776Z ##[group]Runner Image Provisioner
+lighthouse	Set up job	2025-10-12T04:58:58.2271553Z Hosted Compute Agent
+lighthouse	Set up job	2025-10-12T04:58:58.2272082Z Version: 20250912.392
+lighthouse	Set up job	2025-10-12T04:58:58.2272734Z Commit: d921fda672a98b64f4f82364647e2f10b2267d0b
+lighthouse	Set up job	2025-10-12T04:58:58.2273429Z Build Date: 2025-09-12T15:23:14Z
+lighthouse	Set up job	2025-10-12T04:58:58.2273978Z ##[endgroup]
+lighthouse	Set up job	2025-10-12T04:58:58.2274597Z ##[group]Operating System
+lighthouse	Set up job	2025-10-12T04:58:58.2275160Z Ubuntu
+lighthouse	Set up job	2025-10-12T04:58:58.2275602Z 24.04.3
+lighthouse	Set up job	2025-10-12T04:58:58.2276122Z LTS
+lighthouse	Set up job	2025-10-12T04:58:58.2276561Z ##[endgroup]
+lighthouse	Set up job	2025-10-12T04:58:58.2277049Z ##[group]Runner Image
+lighthouse	Set up job	2025-10-12T04:58:58.2277622Z Image: ubuntu-24.04
+lighthouse	Set up job	2025-10-12T04:58:58.2278146Z Version: 20250929.60.1
+lighthouse	Set up job	2025-10-12T04:58:58.2279098Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250929.60/images/ubuntu/Ubuntu2404-Readme.md
+lighthouse	Set up job	2025-10-12T04:58:58.2280888Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250929.60
+lighthouse	Set up job	2025-10-12T04:58:58.2282049Z ##[endgroup]
+lighthouse	Set up job	2025-10-12T04:58:58.2283155Z ##[group]GITHUB_TOKEN Permissions
+lighthouse	Set up job	2025-10-12T04:58:58.2284921Z Contents: read
+lighthouse	Set up job	2025-10-12T04:58:58.2285424Z Metadata: read
+lighthouse	Set up job	2025-10-12T04:58:58.2286019Z Packages: read
+lighthouse	Set up job	2025-10-12T04:58:58.2286509Z ##[endgroup]
+lighthouse	Set up job	2025-10-12T04:58:58.2288737Z Secret source: Actions
+lighthouse	Set up job	2025-10-12T04:58:58.2289949Z Prepare workflow directory
+lighthouse	Set up job	2025-10-12T04:58:58.2599827Z Prepare all required actions
+lighthouse	Set up job	2025-10-12T04:58:58.2636172Z Getting action download info
+lighthouse	Set up job	2025-10-12T04:58:58.7422008Z Download action repository 'actions/checkout@v4' (SHA:08eba0b27e820071cde6df949e0beb9ba4906955)
+lighthouse	Set up job	2025-10-12T04:58:58.9046686Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+lighthouse	Set up job	2025-10-12T04:58:59.0556835Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+lighthouse	Set up job	2025-10-12T04:58:59.3139095Z Complete job name: lighthouse
+lighthouse	Checkout	∩╗┐2025-10-12T04:58:59.3856677Z ##[group]Run actions/checkout@v4
+lighthouse	Checkout	2025-10-12T04:58:59.3857630Z with:
+lighthouse	Checkout	2025-10-12T04:58:59.3858153Z   repository: Lohithravi69/lohith-portfolio
+lighthouse	Checkout	2025-10-12T04:58:59.3858976Z   token: ***
+lighthouse	Checkout	2025-10-12T04:58:59.3859673Z   ssh-strict: true
+lighthouse	Checkout	2025-10-12T04:58:59.3860139Z   ssh-user: git
+lighthouse	Checkout	2025-10-12T04:58:59.3860589Z   persist-credentials: true
+lighthouse	Checkout	2025-10-12T04:58:59.3861132Z   clean: true
+lighthouse	Checkout	2025-10-12T04:58:59.3861588Z   sparse-checkout-cone-mode: true
+lighthouse	Checkout	2025-10-12T04:58:59.3862145Z   fetch-depth: 1
+lighthouse	Checkout	2025-10-12T04:58:59.3862585Z   fetch-tags: false
+lighthouse	Checkout	2025-10-12T04:58:59.3863040Z   show-progress: true
+lighthouse	Checkout	2025-10-12T04:58:59.3863497Z   lfs: false
+lighthouse	Checkout	2025-10-12T04:58:59.3863896Z   submodules: false
+lighthouse	Checkout	2025-10-12T04:58:59.3864380Z   set-safe-directory: true
+lighthouse	Checkout	2025-10-12T04:58:59.3865162Z ##[endgroup]
+lighthouse	Checkout	2025-10-12T04:58:59.4927790Z Syncing repository: Lohithravi69/lohith-portfolio
+lighthouse	Checkout	2025-10-12T04:58:59.4930106Z ##[group]Getting Git version info
+lighthouse	Checkout	2025-10-12T04:58:59.4931087Z Working directory is '/home/runner/work/lohith-portfolio/lohith-portfolio'
+lighthouse	Checkout	2025-10-12T04:58:59.4932404Z [command]/usr/bin/git version
+lighthouse	Checkout	2025-10-12T04:58:59.5028365Z git version 2.51.0
+lighthouse	Checkout	2025-10-12T04:58:59.5055179Z ##[endgroup]
+lighthouse	Checkout	2025-10-12T04:58:59.5071667Z Temporarily overriding HOME='/home/runner/work/_temp/7eb281b9-a414-4c00-84d3-97b600b08915' before making global git config changes
+lighthouse	Checkout	2025-10-12T04:58:59.5074796Z Adding repository directory to the temporary git global config as a safe directory
+lighthouse	Checkout	2025-10-12T04:58:59.5085599Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lohith-portfolio/lohith-portfolio
+lighthouse	Checkout	2025-10-12T04:58:59.5125066Z Deleting the contents of '/home/runner/work/lohith-portfolio/lohith-portfolio'
+lighthouse	Checkout	2025-10-12T04:58:59.5129659Z ##[group]Initializing the repository
+lighthouse	Checkout	2025-10-12T04:58:59.5134803Z [command]/usr/bin/git init /home/runner/work/lohith-portfolio/lohith-portfolio
+lighthouse	Checkout	2025-10-12T04:58:59.5251975Z hint: Using 'master' as the name for the initial branch. This default branch name
+lighthouse	Checkout	2025-10-12T04:58:59.5253767Z hint: is subject to change. To configure the initial branch name to use in all
+lighthouse	Checkout	2025-10-12T04:58:59.5254951Z hint: of your new repositories, which will suppress this warning, call:
+lighthouse	Checkout	2025-10-12T04:58:59.5256662Z hint:
+lighthouse	Checkout	2025-10-12T04:58:59.5257266Z hint: 	git config --global init.defaultBranch <name>
+lighthouse	Checkout	2025-10-12T04:58:59.5258650Z hint:
+lighthouse	Checkout	2025-10-12T04:58:59.5260067Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+lighthouse	Checkout	2025-10-12T04:58:59.5262118Z hint: 'development'. The just-created branch can be renamed via this command:
+lighthouse	Checkout	2025-10-12T04:58:59.5263814Z hint:
+lighthouse	Checkout	2025-10-12T04:58:59.5264655Z hint: 	git branch -m <name>
+lighthouse	Checkout	2025-10-12T04:58:59.5265548Z hint:
+lighthouse	Checkout	2025-10-12T04:58:59.5266827Z hint: Disable this message with "git config set advice.defaultBranchName false"
+lighthouse	Checkout	2025-10-12T04:58:59.5269525Z Initialized empty Git repository in /home/runner/work/lohith-portfolio/lohith-portfolio/.git/
+lighthouse	Checkout	2025-10-12T04:58:59.5273308Z [command]/usr/bin/git remote add origin https://github.com/Lohithravi69/lohith-portfolio
+lighthouse	Checkout	2025-10-12T04:58:59.5313099Z ##[endgroup]
+lighthouse	Checkout	2025-10-12T04:58:59.5314517Z ##[group]Disabling automatic garbage collection
+lighthouse	Checkout	2025-10-12T04:58:59.5317904Z [command]/usr/bin/git config --local gc.auto 0
+lighthouse	Checkout	2025-10-12T04:58:59.5346664Z ##[endgroup]
+lighthouse	Checkout	2025-10-12T04:58:59.5348091Z ##[group]Setting up auth
+lighthouse	Checkout	2025-10-12T04:58:59.5354430Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+lighthouse	Checkout	2025-10-12T04:58:59.5385346Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+lighthouse	Checkout	2025-10-12T04:58:59.5716078Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+lighthouse	Checkout	2025-10-12T04:58:59.5745077Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+lighthouse	Checkout	2025-10-12T04:58:59.5962529Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+lighthouse	Checkout	2025-10-12T04:58:59.6004415Z ##[endgroup]
+lighthouse	Checkout	2025-10-12T04:58:59.6005953Z ##[group]Fetching the repository
+lighthouse	Checkout	2025-10-12T04:58:59.6015429Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +914961ccba78d8a6c14257f8ab778b4cb3b2d1cc:refs/remotes/origin/portfolio-upgrade-pr
+lighthouse	Checkout	2025-10-12T04:59:00.4179669Z From https://github.com/Lohithravi69/lohith-portfolio
+lighthouse	Checkout	2025-10-12T04:59:00.4182199Z  * [new ref]         914961ccba78d8a6c14257f8ab778b4cb3b2d1cc -> origin/portfolio-upgrade-pr
+lighthouse	Checkout	2025-10-12T04:59:00.4214220Z ##[endgroup]
+lighthouse	Checkout	2025-10-12T04:59:00.4216241Z ##[group]Determining the checkout info
+lighthouse	Checkout	2025-10-12T04:59:00.4218370Z ##[endgroup]
+lighthouse	Checkout	2025-10-12T04:59:00.4222328Z [command]/usr/bin/git sparse-checkout disable
+lighthouse	Checkout	2025-10-12T04:59:00.4262001Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+lighthouse	Checkout	2025-10-12T04:59:00.4290499Z ##[group]Checking out the ref
+lighthouse	Checkout	2025-10-12T04:59:00.4294580Z [command]/usr/bin/git checkout --progress --force -B portfolio-upgrade-pr refs/remotes/origin/portfolio-upgrade-pr
+lighthouse	Checkout	2025-10-12T04:59:00.7094761Z Switched to a new branch 'portfolio-upgrade-pr'
+lighthouse	Checkout	2025-10-12T04:59:00.7096711Z branch 'portfolio-upgrade-pr' set up to track 'origin/portfolio-upgrade-pr'.
+lighthouse	Checkout	2025-10-12T04:59:00.7111748Z ##[endgroup]
+lighthouse	Checkout	2025-10-12T04:59:00.7150660Z [command]/usr/bin/git log -1 --format=%H
+lighthouse	Checkout	2025-10-12T04:59:00.7172925Z 914961ccba78d8a6c14257f8ab778b4cb3b2d1cc
+lighthouse	Setup Node	∩╗┐2025-10-12T04:59:00.7479554Z ##[group]Run actions/setup-node@v4
+lighthouse	Setup Node	2025-10-12T04:59:00.7480820Z with:
+lighthouse	Setup Node	2025-10-12T04:59:00.7481601Z   node-version: 18
+lighthouse	Setup Node	2025-10-12T04:59:00.7482456Z   always-auth: false
+lighthouse	Setup Node	2025-10-12T04:59:00.7483344Z   check-latest: false
+lighthouse	Setup Node	2025-10-12T04:59:00.7484484Z   token: ***
+lighthouse	Setup Node	2025-10-12T04:59:00.7485279Z ##[endgroup]
+lighthouse	Setup Node	2025-10-12T04:59:00.9527973Z Found in cache @ /opt/hostedtoolcache/node/18.20.8/x64
+lighthouse	Setup Node	2025-10-12T04:59:00.9535052Z ##[group]Environment details
+lighthouse	Setup Node	2025-10-12T04:59:03.3336878Z node: v18.20.8
+lighthouse	Setup Node	2025-10-12T04:59:03.3337361Z npm: 10.8.2
+lighthouse	Setup Node	2025-10-12T04:59:03.3337658Z yarn: 1.22.22
+lighthouse	Setup Node	2025-10-12T04:59:03.3338738Z ##[endgroup]
+lighthouse	Install dependencies	∩╗┐2025-10-12T04:59:03.3446844Z ##[group]Run npm ci || true
+lighthouse	Install dependencies	2025-10-12T04:59:03.3447152Z [36;1mnpm ci || true[0m
+lighthouse	Install dependencies	2025-10-12T04:59:03.3447385Z [36;1mnpm install -g @lhci/cli[0m
+lighthouse	Install dependencies	2025-10-12T04:59:03.3562739Z shell: /usr/bin/bash -e {0}
+lighthouse	Install dependencies	2025-10-12T04:59:03.3563000Z ##[endgroup]
+lighthouse	Install dependencies	2025-10-12T04:59:09.2682142Z 
+lighthouse	Install dependencies	2025-10-12T04:59:09.2689624Z added 56 packages, and audited 57 packages in 6s
+lighthouse	Install dependencies	2025-10-12T04:59:09.2690000Z 
+lighthouse	Install dependencies	2025-10-12T04:59:09.2690239Z 10 packages are looking for funding
+lighthouse	Install dependencies	2025-10-12T04:59:09.2690552Z   run `npm fund` for details
+lighthouse	Install dependencies	2025-10-12T04:59:09.2692973Z 
+lighthouse	Install dependencies	2025-10-12T04:59:09.2693262Z found 0 vulnerabilities
+lighthouse	Install dependencies	2025-10-12T04:59:19.3315541Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+lighthouse	Install dependencies	2025-10-12T04:59:19.5491505Z npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+lighthouse	Install dependencies	2025-10-12T04:59:20.2650802Z npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+lighthouse	Install dependencies	2025-10-12T04:59:20.2746655Z npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+lighthouse	Install dependencies	2025-10-12T04:59:22.4763769Z 
+lighthouse	Install dependencies	2025-10-12T04:59:22.4765378Z added 331 packages in 13s
+lighthouse	Install dependencies	2025-10-12T04:59:22.4766865Z 
+lighthouse	Install dependencies	2025-10-12T04:59:22.4767200Z 27 packages are looking for funding
+lighthouse	Install dependencies	2025-10-12T04:59:22.4767756Z   run `npm fund` for details
+lighthouse	Serve site	∩╗┐2025-10-12T04:59:22.5038572Z ##[group]Run npm install -g serve
+lighthouse	Serve site	2025-10-12T04:59:22.5038918Z [36;1mnpm install -g serve[0m
+lighthouse	Serve site	2025-10-12T04:59:22.5039360Z [36;1mserve -s . -l 8080 &[0m
+lighthouse	Serve site	2025-10-12T04:59:22.5039588Z [36;1msleep 2[0m
+lighthouse	Serve site	2025-10-12T04:59:22.5074138Z shell: /usr/bin/bash -e {0}
+lighthouse	Serve site	2025-10-12T04:59:22.5074399Z ##[endgroup]
+lighthouse	Serve site	2025-10-12T04:59:24.8218474Z 
+lighthouse	Serve site	2025-10-12T04:59:24.8219089Z added 86 packages in 2s
+lighthouse	Serve site	2025-10-12T04:59:24.8219725Z 
+lighthouse	Serve site	2025-10-12T04:59:24.8229039Z 25 packages are looking for funding
+lighthouse	Serve site	2025-10-12T04:59:24.8229864Z   run `npm fund` for details
+lighthouse	Serve site	2025-10-12T04:59:25.1573205Z  INFO  Accepting connections at http://localhost:8080
+lighthouse	Run Lighthouse CI (write filesystem report)	∩╗┐2025-10-12T04:59:31.8444067Z ##[group]Run # First run: write LHCI output to ./.lighthouseci so we can upload it as an artifact
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:31.8444730Z [36;1m# First run: write LHCI output to ./.lighthouseci so we can upload it as an artifact[0m
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:31.8445460Z [36;1mlhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags="--no-sandbox --headless" --upload.target=filesystem || true[0m
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:31.8477648Z shell: /usr/bin/bash -e {0}
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:31.8477868Z ##[endgroup]
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:32.4942171Z Γ£à  .lighthouseci/ directory writable
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:32.4946965Z ΓÜá∩╕Å   Configuration file not found
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:32.5121952Z Γ£à  Chrome installation found
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:32.5124301Z Healthcheck passed!
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:32.5192517Z 
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T04:59:32.8528406Z Running Lighthouse 3 time(s) on http://localhost:8080
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T05:00:00.4294886Z Run #1...done.
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T05:00:11.9594634Z Run #2...done.
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T05:00:23.4809464Z Run #3...done.
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T05:00:23.4809813Z Done running Lighthouse!
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T05:00:23.4917595Z 
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T05:00:23.8199991Z Dumping 3 reports to disk at /home/runner/work/lohith-portfolio/lohith-portfolio...
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T05:00:24.5162647Z Done writing reports to disk.
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T05:00:24.5291841Z 
+lighthouse	Run Lighthouse CI (write filesystem report)	2025-10-12T05:00:24.5292285Z Done running autorun.
+lighthouse	Run Lighthouse CI (temporary-public-storage)	∩╗┐2025-10-12T05:00:24.5378093Z ##[group]Run # Second run: upload to temporary-public-storage to get a public report URL
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:24.5378686Z [36;1m# Second run: upload to temporary-public-storage to get a public report URL[0m
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:24.5379793Z [36;1mlhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags="--no-sandbox --headless" --upload.target=temporary-public-storage || true[0m
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:24.5413020Z shell: /usr/bin/bash -e {0}
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:24.5413254Z ##[endgroup]
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:25.2042015Z Γ£à  .lighthouseci/ directory writable
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:25.2043113Z ΓÜá∩╕Å   Configuration file not found
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:25.2197085Z Γ£à  Chrome installation found
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:25.2198033Z Healthcheck passed!
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:25.2263721Z 
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:25.5657324Z Running Lighthouse 3 time(s) on http://localhost:8080
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:37.7447657Z Run #1...done.
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:00:49.2180083Z Run #2...done.
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:01:00.7426780Z Run #3...done.
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:01:00.7427446Z Done running Lighthouse!
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:01:00.7522403Z 
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:01:02.6827440Z Uploading median LHR of http://localhost:8080/...success!
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:01:02.6828456Z Open the report at https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1760245262341-43902.report.html
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:01:02.6880010Z No GitHub token set, skipping GitHub status check.
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:01:02.7015272Z 
+lighthouse	Run Lighthouse CI (temporary-public-storage)	2025-10-12T05:01:02.7015521Z Done running autorun.
+lighthouse	Run standalone Lighthouse and save HTML report	∩╗┐2025-10-12T05:01:02.7098719Z ##[group]Run # Generate a standalone Lighthouse HTML report (fallback) so we can always upload an artifact
+lighthouse	Run standalone Lighthouse and save HTML report	2025-10-12T05:01:02.7099809Z [36;1m# Generate a standalone Lighthouse HTML report (fallback) so we can always upload an artifact[0m
+lighthouse	Run standalone Lighthouse and save HTML report	2025-10-12T05:01:02.7100597Z [36;1mnpx -y lighthouse http://localhost:8080 --output html --output-path=./lighthouse-report.html --quiet --chrome-flags='--no-sandbox --headless' || true[0m
+lighthouse	Run standalone Lighthouse and save HTML report	2025-10-12T05:01:02.7136544Z shell: /usr/bin/bash -e {0}
+lighthouse	Run standalone Lighthouse and save HTML report	2025-10-12T05:01:02.7136776Z ##[endgroup]
+lighthouse	Upload artifact (report)	∩╗┐2025-10-12T05:01:22.4823308Z ##[group]Run actions/upload-artifact@v4
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.4823596Z with:
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.4823773Z   name: lighthouse-report
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.4824037Z   path: ./.lighthouseci/**
+lighthouse	Upload artifact (report)	./lighthouse-report.html
+lighthouse	Upload artifact (report)	
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.4824330Z   if-no-files-found: warn
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.4824541Z   compression-level: 6
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.4824725Z   overwrite: false
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.4824911Z   include-hidden-files: false
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.4825121Z ##[endgroup]
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.6917187Z Multiple search paths detected. Calculating the least common ancestor of all paths
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.6921647Z The least common ancestor is /home/runner/work/lohith-portfolio/lohith-portfolio. This will be the root directory of the artifact
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.6922906Z With the provided path, there will be 1 file uploaded
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.6927641Z Artifact name is valid!
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.6929964Z Root directory input is valid!
+lighthouse	Upload artifact (report)	2025-10-12T05:01:22.9985463Z Beginning upload of artifact content to blob storage
+lighthouse	Upload artifact (report)	2025-10-12T05:01:23.6833983Z Uploaded bytes 570103
+lighthouse	Upload artifact (report)	2025-10-12T05:01:23.7649611Z Finished uploading artifact content to blob storage!
+lighthouse	Upload artifact (report)	2025-10-12T05:01:23.7653393Z SHA256 digest of uploaded artifact zip is 5c39a0dce9bb339854279f23aa6fe72fbe6f667edcf73c3a76a2c3a5aaf01f2c
+lighthouse	Upload artifact (report)	2025-10-12T05:01:23.7655108Z Finalizing artifact upload
+lighthouse	Upload artifact (report)	2025-10-12T05:01:23.9058611Z Artifact lighthouse-report.zip successfully finalized. Artifact ID 4247010119
+lighthouse	Upload artifact (report)	2025-10-12T05:01:23.9060493Z Artifact lighthouse-report has been successfully uploaded! Final size is 570103 bytes. Artifact ID is 4247010119
+lighthouse	Upload artifact (report)	2025-10-12T05:01:23.9067275Z Artifact download URL: https://github.com/Lohithravi69/lohith-portfolio/actions/runs/18439409703/artifacts/4247010119
+lighthouse	Post Setup Node	∩╗┐2025-10-12T05:01:23.9221855Z Post job cleanup.
+lighthouse	Post Checkout	∩╗┐2025-10-12T05:01:24.0841348Z Post job cleanup.
+lighthouse	Post Checkout	2025-10-12T05:01:24.1769414Z [command]/usr/bin/git version
+lighthouse	Post Checkout	2025-10-12T05:01:24.1804476Z git version 2.51.0
+lighthouse	Post Checkout	2025-10-12T05:01:24.1846391Z Temporarily overriding HOME='/home/runner/work/_temp/35872698-e8a9-4974-815e-d53a5d558b48' before making global git config changes
+lighthouse	Post Checkout	2025-10-12T05:01:24.1847448Z Adding repository directory to the temporary git global config as a safe directory
+lighthouse	Post Checkout	2025-10-12T05:01:24.1851517Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lohith-portfolio/lohith-portfolio
+lighthouse	Post Checkout	2025-10-12T05:01:24.1885731Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+lighthouse	Post Checkout	2025-10-12T05:01:24.1917084Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+lighthouse	Post Checkout	2025-10-12T05:01:24.2141929Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+lighthouse	Post Checkout	2025-10-12T05:01:24.2161638Z http.https://github.com/.extraheader
+lighthouse	Post Checkout	2025-10-12T05:01:24.2174413Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+lighthouse	Post Checkout	2025-10-12T05:01:24.2204660Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+lighthouse	Complete job	∩╗┐2025-10-12T05:01:24.2525680Z Cleaning up orphan processes
+lighthouse	Complete job	2025-10-12T05:01:24.2826647Z Terminate orphan process: pid (2181) (node)

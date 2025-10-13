@@ -1,0 +1,279 @@
+[
+  {
+    "url": "http://localhost:8080/",
+    "totalBytes": 9800,
+    "usedBytes": 6995,
+    "unusedBytes": 2805,
+    "usedPercent": 71.38,
+    "ranges": [
+      {
+        "start": 1,
+        "end": 156
+      },
+      {
+        "start": 158,
+        "end": 191
+      },
+      {
+        "start": 193,
+        "end": 422
+      },
+      {
+        "start": 424,
+        "end": 502
+      },
+      {
+        "start": 504,
+        "end": 711
+      },
+      {
+        "start": 749,
+        "end": 1000
+      },
+      {
+        "start": 1076,
+        "end": 1182
+      },
+      {
+        "start": 1255,
+        "end": 1453
+      },
+      {
+        "start": 1455,
+        "end": 1526
+      },
+      {
+        "start": 1528,
+        "end": 1580
+      },
+      {
+        "start": 1582,
+        "end": 1636
+      },
+      {
+        "start": 1638,
+        "end": 1694
+      },
+      {
+        "start": 1696,
+        "end": 1726
+      },
+      {
+        "start": 1745,
+        "end": 1956
+      },
+      {
+        "start": 1958,
+        "end": 2083
+      },
+      {
+        "start": 2085,
+        "end": 2182
+      },
+      {
+        "start": 2184,
+        "end": 2360
+      },
+      {
+        "start": 2825,
+        "end": 2859
+      },
+      {
+        "start": 2959,
+        "end": 3068
+      },
+      {
+        "start": 3070,
+        "end": 3182
+      },
+      {
+        "start": 3184,
+        "end": 3395
+      },
+      {
+        "start": 3397,
+        "end": 3478
+      },
+      {
+        "start": 3480,
+        "end": 3519
+      },
+      {
+        "start": 3521,
+        "end": 3607
+      },
+      {
+        "start": 3629,
+        "end": 3660
+      },
+      {
+        "start": 3683,
+        "end": 3749
+      },
+      {
+        "start": 3751,
+        "end": 3888
+      },
+      {
+        "start": 3890,
+        "end": 4074
+      },
+      {
+        "start": 4132,
+        "end": 4238
+      },
+      {
+        "start": 4240,
+        "end": 4285
+      },
+      {
+        "start": 4287,
+        "end": 4344
+      },
+      {
+        "start": 4369,
+        "end": 4403
+      },
+      {
+        "start": 4405,
+        "end": 4544
+      },
+      {
+        "start": 4546,
+        "end": 4732
+      },
+      {
+        "start": 4792,
+        "end": 4872
+      },
+      {
+        "start": 4874,
+        "end": 4921
+      },
+      {
+        "start": 4923,
+        "end": 4970
+      },
+      {
+        "start": 4972,
+        "end": 5056
+      },
+      {
+        "start": 5082,
+        "end": 5151
+      },
+      {
+        "start": 5153,
+        "end": 5212
+      },
+      {
+        "start": 5214,
+        "end": 5366
+      },
+      {
+        "start": 5368,
+        "end": 5566
+      },
+      {
+        "start": 5568,
+        "end": 5757
+      },
+      {
+        "start": 5759,
+        "end": 5807
+      },
+      {
+        "start": 5809,
+        "end": 5874
+      },
+      {
+        "start": 5898,
+        "end": 5931
+      },
+      {
+        "start": 5933,
+        "end": 6071
+      },
+      {
+        "start": 6073,
+        "end": 6259
+      },
+      {
+        "start": 6319,
+        "end": 6427
+      },
+      {
+        "start": 6429,
+        "end": 6476
+      },
+      {
+        "start": 6478,
+        "end": 6514
+      },
+      {
+        "start": 6516,
+        "end": 6588
+      },
+      {
+        "start": 6662,
+        "end": 6764
+      },
+      {
+        "start": 6778,
+        "end": 7063
+      },
+      {
+        "start": 7123,
+        "end": 7220
+      },
+      {
+        "start": 7222,
+        "end": 7391
+      },
+      {
+        "start": 7393,
+        "end": 7563
+      },
+      {
+        "start": 7565,
+        "end": 7633
+      },
+      {
+        "start": 7635,
+        "end": 7666
+      },
+      {
+        "start": 7668,
+        "end": 7714
+      },
+      {
+        "start": 7716,
+        "end": 7778
+      },
+      {
+        "start": 7780,
+        "end": 7854
+      },
+      {
+        "start": 8111,
+        "end": 8348
+      },
+      {
+        "start": 8409,
+        "end": 8565
+      },
+      {
+        "start": 8567,
+        "end": 8621
+      }
+    ]
+  },
+  {
+    "url": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap",
+    "totalBytes": 12355,
+    "usedBytes": 0,
+    "unusedBytes": 12355,
+    "usedPercent": 0,
+    "ranges": []
+  }
+]
