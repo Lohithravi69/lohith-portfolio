@@ -4,7 +4,7 @@
     "title": "Lumoro E-Commerce Scent Website",
     "description": "A perfume e-commerce site with product catalog, cart, and secure checkout. Built with HTML/CSS and MySQL.",
     "tech": ["HTML","CSS","JavaScript","MySQL"],
-    "images": ["/assets/lumoro-1.webp","/assets/lumoro-2.webp"],
+    "images": ["/assets/lumoro.webp"],
     "github": "https://github.com/Lohithravi69/perfume",
     "embed": "/demos/lumoro-demo.html"
   },
@@ -13,8 +13,24 @@
     "title": "Emergency SOS App for Flood Management",
     "description": "AI-integrated emergency response app with real-time alerts and rescue coordination.",
     "tech": ["React","Node.js","TensorFlow","Maps API"],
-    "images": ["/assets/safenet-1.webp"],
+    "images": ["/assets/safenet.webp"],
     "live": "https://safenetsos-app.vercel.app",
     "embed": "https://codesandbox.io/embed/new"
+  },
+  {
+    "id": "fraud-detect",
+    "title": "Credit Card Fraud Detection using AI",
+    "description": "Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time.",
+    "tech": ["Python","scikit-learn","Pandas","Flask"],
+    "images": ["/assets/fraud.webp"],
+    "github": "https://github.com/Lohithravi69/FraudDetection"
+  },
+  {
+    "id": "fake-news",
+    "title": "Fake News Detection using NLP and Flask",
+    "description": "AI-powered Flask web app that detects misleading or fake news using Natural Language Processing.",
+    "tech": ["Python","NLTK","Flask","Heroku"],
+    "images": ["/assets/fakenews.webp"],
+    "live": "https://fake-news-detection-tau.vercel.app"
   }
 ]

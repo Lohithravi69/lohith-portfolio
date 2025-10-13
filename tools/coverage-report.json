@@ -269,10 +269,10 @@
     ]
   },
   {
-    "url": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap",
-    "totalBytes": 12355,
+    "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap",
+    "totalBytes": 4942,
     "usedBytes": 0,
-    "unusedBytes": 12355,
+    "unusedBytes": 4942,
     "usedPercent": 0,
     "ranges": []
   }
