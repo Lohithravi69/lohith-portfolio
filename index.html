@@ -238,9 +238,10 @@ nav ul li a:hover {
 
 .hero-content {
     display: grid;
-    /* use a flexible main column and a narrower visual column so text uses available space */
-    grid-template-columns: 1fr 400px;
-    gap: 2.5rem;
+    /* Fluid right column: uses up to 40vw but never larger than 480px.
+       The left column is flexible so the description can use most of the width. */
+    grid-template-columns: 1fr min(40vw, 480px);
+    gap: 2rem;
     align-items: center;
 }
 
@@ -262,12 +263,20 @@ nav ul li a:hover {
     text-align: center;
     /* allow the right column to shrink and avoid forcing extra whitespace when media hasn't loaded */
     min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero-right lottie-player {
     width: 100%;
     max-width: 400px;
     height: auto;
+}
+
+/* Ensure hero-left can shrink inside the grid (prevents overflow on narrow containers) */
+.hero-left {
+    min-width: 0;
 }
 
 /* About Section */
