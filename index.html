@@ -53,7 +53,10 @@
                         }
                     }
                 }
-                toRemove.forEach(e => e.remove());
+                if (toRemove.length) {
+                    try { console.info('[cleanup] removed', toRemove.length, 'server-error-like nodes'); } catch (e) {}
+                    toRemove.forEach(e => e.remove());
+                }
             }
 
             function sanitizeIframes() {
@@ -71,7 +74,8 @@
                         placeholder.style.borderRadius = '8px';
                         placeholder.style.color = '#666';
                         placeholder.textContent = 'Embedded demo unavailable';
-                        iframe.replaceWith(placeholder);
+                            try { console.info('[cleanup] sanitizing iframe', src); } catch (e) {}
+                            iframe.replaceWith(placeholder);
                     }
                 });
             }
@@ -1343,73 +1347,9 @@ footer {
     <!-- Runtime image swapper: update both <source> and <img> using data-id and fallback to inline SVG placeholder -->
     <script>
         (function() {
-            const placeholder = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><rect fill="#f3f4f6" width="400" height="200" rx="8"/><g fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle"><text x="200" y="100">Image unavailable</text></g></svg>');
-
-            // small helper to probe whether a URL exists (HEAD) with timeout
-            async function exists(url, timeout = 1500) {
-                try {
-                    const controller = new AbortController();
-                    const id = setTimeout(() => controller.abort(), timeout);
-                    const res = await fetch(url, { method: 'HEAD', signal: controller.signal });
-                    clearTimeout(id);
-                    return res && res.ok;
-                } catch (err) {
-                    return false;
-                }
-            }
-
-            (async function setProjectImages() {
-                const cards = document.querySelectorAll('.project-card');
-                for (const card of cards) {
-                    const id = (card.dataset.id || '').toLowerCase();
-                    if (!id) continue;
-                    const pic = card.querySelector('picture');
-                    if (!pic) continue;
-                    const source = pic.querySelector('source');
-                    const img = pic.querySelector('img');
-
-                    // If the card provides a data-image attribute, prefer it (it contains correct filename).
-                    const dataImage = (card.dataset.image || '').trim();
-                    const candidates = [];
-                    if (dataImage) {
-                        if (dataImage.startsWith('/')) candidates.push(dataImage);
-                        else candidates.push('/' + dataImage);
-                        if (!dataImage.startsWith('/public/')) candidates.push('/public' + (dataImage.startsWith('/') ? '' : '/') + dataImage.replace(/^\//, ''));
-                    }
-                    // generate normalized name variants from id to handle hyphen/underscore differences
-                    const variants = [id];
-                    if (id.includes('-')) variants.push(id.replace(/-/g, ''));
-                    if (id.includes('_')) variants.push(id.replace(/_/g, ''));
-                    // also try first token (e.g., 'fraud-detect' -> 'fraud')
-                    const first = id.split(/[-_]/)[0];
-                    if (first && !variants.includes(first)) variants.push(first);
-                    // build candidates from variants
-                    for (const v of variants) {
-                        candidates.push('/public/assets/' + v + '.webp');
-                        candidates.push('/assets/' + v + '.webp');
-                        candidates.push('images/' + v + '.jpg');
-                    }
-                    let chosen = null;
-                    for (const c of candidates) {
-                        // For local file:// preview, fetch will fail; skip probing if scheme is file:
-                        if (location.protocol === 'file:' && c.startsWith('/')) continue;
-                        if (await exists(c)) { chosen = c; break; }
-                    }
-                    // Fallback rules when probing didn't find a candidate
-                    if (!chosen) {
-                        // If serving via http(s), try /assets first (common for Vercel), otherwise images/
-                        if (location.protocol === 'http:' || location.protocol === 'https:') chosen = '/assets/' + id + '.webp';
-                        else chosen = 'images/' + id + '.jpg';
-                    }
-
-                    if (source) source.srcset = chosen + ' 400w, ' + chosen + ' 800w';
-                    if (img) {
-                        img.src = chosen;
-                        img.srcset = source ? source.srcset : (chosen + ' 400w');
-                        img.onerror = function() { this.onerror = null; this.src = placeholder; };
-                    }
-                }
-            })();
+            // (removed) older probing-based swapper in favor of a single deterministic mapping below.
+            // Keeping this stub for backward-compatibility and to avoid errors in browsers that may
+            // try to reference this script textually.
         })();
     </script>
     <!-- Theme toggle: persist in localStorage and reflect system preference -->
@@ -1438,37 +1378,77 @@ footer {
     <!-- Deterministic runtime image mapping: use /public/assets on localhost, /assets in production -->
     <script>
         (function() {
+            // Improved deterministic mapping with a light HEAD-check for same-origin assets.
             const placeholder = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><rect fill="#f3f4f6" width="400" height="200" rx="8"/><g fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle"><text x="200" y="100">Image unavailable</text></g></svg>');
             const hostname = location.hostname;
             const usePublicPrefix = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '';
             const base = usePublicPrefix ? '/public' : '';
 
-            document.querySelectorAll('.project-card').forEach(card => {
-                const id = (card.dataset.id || '').toLowerCase();
-                if (!id) return;
-                const pic = card.querySelector('picture');
-                if (!pic) return;
-                const source = pic.querySelector('source');
-                const img = pic.querySelector('img');
-
-                const assetPath = base + '/assets/' + id + '.webp';
-                const imageFallback = 'images/' + id + '.jpg';
-
-                if (source) source.srcset = assetPath + ' 400w, ' + assetPath + ' 800w';
-                if (img) {
-                    img.src = assetPath;
-                    img.srcset = assetPath + ' 400w, ' + assetPath + ' 800w';
-                    img.onerror = function() {
-                        if (!this.dataset._triedFallback) {
-                            this.dataset._triedFallback = '1';
-                            this.src = imageFallback;
-                        } else {
-                            this.onerror = null;
-                            this.src = placeholder;
-                        }
-                    };
+            // small helper to attempt a HEAD request with timeout for same-origin URLs
+            async function headOk(url, timeout = 1200) {
+                if (location.protocol === 'file:') return false;
+                try {
+                    const controller = new AbortController();
+                    const id = setTimeout(() => controller.abort(), timeout);
+                    const res = await fetch(url, { method: 'HEAD', signal: controller.signal });
+                    clearTimeout(id);
+                    return res && res.ok;
+                } catch (err) {
+                    return false;
                 }
-            });
+            }
+
+            (async function applyImages() {
+                const cards = Array.from(document.querySelectorAll('.project-card'));
+                for (const card of cards) {
+                    const id = (card.dataset.id || '').toLowerCase();
+                    if (!id) continue;
+                    const pic = card.querySelector('picture');
+                    if (!pic) continue;
+                    const source = pic.querySelector('source');
+                    const img = pic.querySelector('img');
+
+                    const assetPath = base + '/assets/' + id + '.webp';
+                    const imageFallback = 'images/' + id + '.jpg';
+
+                    let chosen = assetPath;
+                    // prefer to verify same-origin assets before assigning to avoid noisy 404s
+                    if (assetPath.startsWith('/') && (location.protocol === 'http:' || location.protocol === 'https:')) {
+                        const ok = await headOk(assetPath);
+                        if (!ok) {
+                            chosen = imageFallback;
+                            console.debug('[images] asset not found, falling back:', assetPath, '->', chosen);
+                        } else {
+                            console.debug('[images] using asset:', assetPath);
+                        }
+                    } else {
+                        // file:// or unknown environment: use local images folder
+                        if (location.protocol === 'file:') {
+                            chosen = imageFallback;
+                            console.debug('[images] file:// environment - using fallback', chosen);
+                        }
+                    }
+
+                    if (source) source.srcset = chosen + ' 400w, ' + chosen + ' 800w';
+                    if (img) {
+                        img.src = chosen;
+                        img.srcset = chosen + ' 400w, ' + chosen + ' 800w';
+                        img.onerror = function() {
+                            if (!this.dataset._triedFallback) {
+                                this.dataset._triedFallback = '1';
+                                // try the other path if we initially set the asset path
+                                const alt = (chosen === imageFallback) ? (base + '/assets/' + id + '.webp') : imageFallback;
+                                console.debug('[images] onerror, trying alternative:', alt);
+                                this.src = alt;
+                            } else {
+                                this.onerror = null;
+                                this.src = placeholder;
+                                console.warn('[images] failed to load image for', id, '- using placeholder');
+                            }
+                        };
+                    }
+                }
+            })();
         })();
     </script>
 
