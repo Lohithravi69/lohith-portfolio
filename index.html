@@ -1343,6 +1343,36 @@ footer {
             });
         }
     </script>
+    <!-- Runtime image swapper: prefer /assets on HTTP(S) and robust fallback -->
+    <script>
+        (function() {
+            const placeholder = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><rect fill="#f3f4f6" width="400" height="200" rx="8"/><g fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle"><text x="200" y="100">Image unavailable</text></g></svg>');
+            const cards = document.querySelectorAll('.project-card picture img');
+            // If served over http(s) prefer /assets/ (Vercel) paths
+            const isHttp = location.protocol === 'http:' || location.protocol === 'https:';
+            cards.forEach(img => {
+                const src = img.getAttribute('src') || '';
+                const nameMatch = src.match(/(lumoro|safenet|fraud|fakenews)\.(jpg|webp)/i);
+                if (isHttp && nameMatch) {
+                    const name = nameMatch[1].toLowerCase();
+                    img.src = '/assets/' + name + '.webp';
+                }
+                // chain fallback onerror: try /assets, then placeholder
+                img.onerror = function() {
+                    if (!this.dataset._triedAssets) {
+                        this.dataset._triedAssets = '1';
+                        // attempt assets path
+                        const nm = (this.src.match(/([^/]+)\.(jpg|webp)$/i) || [])[1];
+                        if (nm) this.src = '/assets/' + nm + '.webp';
+                        else this.src = placeholder;
+                    } else {
+                        this.onerror = null;
+                        this.src = placeholder;
+                    }
+                };
+            });
+        })();
+    </script>
     <!-- Theme toggle: persist in localStorage and reflect system preference -->
     <script>
         (function () {
