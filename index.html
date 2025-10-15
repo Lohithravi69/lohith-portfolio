@@ -977,10 +977,31 @@ footer {
                     }
                     // show embed if available
                     const embedContainer = document.getElementById('modal-embed');
-                    if (found.embed && embedContainer) {
-                        embedContainer.innerHTML = `<iframe src="${found.embed}" title="Interactive demo" style="width:100%;height:300px;border:0;border-radius:8px;" loading="lazy"></iframe>`;
-                    } else if (embedContainer) {
-                        embedContainer.innerHTML = '';
+                    if (embedContainer) {
+                        if (found.embed) {
+                            // Only insert iframe if the embed is reachable (avoid showing server 404 pages inside the modal)
+                            try {
+                                const embedUrl = String(found.embed);
+                                // For cross-origin absolute URLs, we cannot HEAD-check reliably, so insert as-is
+                                const isAbsolute = embedUrl.startsWith('http://') || embedUrl.startsWith('https://') || embedUrl.startsWith('//');
+                                if (isAbsolute) {
+                                    embedContainer.innerHTML = `<iframe src="${embedUrl}" title="Interactive demo" style="width:100%;height:300px;border:0;border-radius:8px;" loading="lazy"></iframe>`;
+                                } else {
+                                    // same-origin/relative path: try a HEAD request first
+                                    const headResp = await fetch(embedUrl, { method: 'HEAD' });
+                                    if (headResp.ok) {
+                                        embedContainer.innerHTML = `<iframe src="${embedUrl}" title="Interactive demo" style="width:100%;height:300px;border:0;border-radius:8px;" loading="lazy"></iframe>`;
+                                    } else {
+                                        embedContainer.innerHTML = '<div style="padding:1rem;background:var(--secondary);border-radius:8px;color:#666">Demo not available</div>';
+                                    }
+                                }
+                            } catch (err) {
+                                // network error or CORS - show friendly message instead of the server error page
+                                embedContainer.innerHTML = '<div style="padding:1rem;background:var(--secondary);border-radius:8px;color:#666">Demo not available</div>';
+                            }
+                        } else {
+                            embedContainer.innerHTML = '';
+                        }
                     }
                 }
             } else {
