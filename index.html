@@ -1371,8 +1371,27 @@ footer {
                     const source = pic.querySelector('source');
                     const img = pic.querySelector('img');
 
-                    // candidates in priority order: /assets, /public/assets, images/
-                    const candidates = ['/assets/' + id + '.webp', '/public/assets/' + id + '.webp', 'images/' + id + '.jpg'];
+                    // If the card provides a data-image attribute, prefer it (it contains correct filename).
+                    const dataImage = (card.dataset.image || '').trim();
+                    const candidates = [];
+                    if (dataImage) {
+                        if (dataImage.startsWith('/')) candidates.push(dataImage);
+                        else candidates.push('/' + dataImage);
+                        if (!dataImage.startsWith('/public/')) candidates.push('/public' + (dataImage.startsWith('/') ? '' : '/') + dataImage.replace(/^\//, ''));
+                    }
+                    // generate normalized name variants from id to handle hyphen/underscore differences
+                    const variants = [id];
+                    if (id.includes('-')) variants.push(id.replace(/-/g, ''));
+                    if (id.includes('_')) variants.push(id.replace(/_/g, ''));
+                    // also try first token (e.g., 'fraud-detect' -> 'fraud')
+                    const first = id.split(/[-_]/)[0];
+                    if (first && !variants.includes(first)) variants.push(first);
+                    // build candidates from variants
+                    for (const v of variants) {
+                        candidates.push('/public/assets/' + v + '.webp');
+                        candidates.push('/assets/' + v + '.webp');
+                        candidates.push('images/' + v + '.jpg');
+                    }
                     let chosen = null;
                     for (const c of candidates) {
                         // For local file:// preview, fetch will fail; skip probing if scheme is file:
