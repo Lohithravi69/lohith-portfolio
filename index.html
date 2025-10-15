@@ -34,6 +34,53 @@
       ]
     }
     </script>
+    <!-- Defensive cleanup: remove any server error HTML accidentally injected and sanitize stray iframes -->
+    <script>
+        (function() {
+            function removeServerErrors() {
+                // Remove elements that look like server error pages
+                const patterns = ['Error response', 'Error code', 'File not found', 'Nothing matches the given URI', 'Error code explanation'];
+                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, null);
+                const toRemove = [];
+                while (walker.nextNode()) {
+                    const el = walker.currentNode;
+                    const text = (el.textContent || '').trim();
+                    if (!text) continue;
+                    for (const p of patterns) {
+                        if (text.includes(p) && el !== document.body && !el.closest('#project-modal')) {
+                            toRemove.push(el);
+                            break;
+                        }
+                    }
+                }
+                toRemove.forEach(e => e.remove());
+            }
+
+            function sanitizeIframes() {
+                const iframes = Array.from(document.querySelectorAll('iframe'));
+                iframes.forEach(iframe => {
+                    // keep iframes inside the modal (they will be controlled by modal logic)
+                    if (iframe.closest('#project-modal')) return;
+                    const src = iframe.getAttribute('src') || '';
+                    // remove local demo embeds that may render server error pages; replace with placeholder
+                    if (src.includes('/demos/') || src.includes('/data/') || src.endsWith('.html')) {
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'embed-placeholder';
+                        placeholder.style.padding = '1rem';
+                        placeholder.style.background = 'var(--secondary)';
+                        placeholder.style.borderRadius = '8px';
+                        placeholder.style.color = '#666';
+                        placeholder.textContent = 'Embedded demo unavailable';
+                        iframe.replaceWith(placeholder);
+                    }
+                });
+            }
+
+            // Run on DOMContentLoaded and again after a short timeout to catch late injections
+            document.addEventListener('DOMContentLoaded', () => { removeServerErrors(); sanitizeIframes(); });
+            setTimeout(() => { removeServerErrors(); sanitizeIframes(); }, 1200);
+        })();
+    </script>
 
     <style>
 :root {
