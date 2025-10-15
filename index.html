@@ -71,78 +71,7 @@ body {
     top: -40px;
     left: 6px;
     background: var(--accent);
-    color: white;
-    padding: 8px;
-    text-decoration: none;
-    border-radius: 4px;
-    z-index: 10000;
-}
-
-.skip-link:focus {
-    top: 6px;
-}
-
-.btn {
-    display: inline-block;
-    padding: 12px 24px;
-    background: var(--accent);
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    background: #5a67d8;
-    transform: translateY(-2px);
-}
-
-.btn.ghost {
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-}
-
-.btn.ghost:hover {
-    background: var(--accent);
-    color: white;
-}
-
-.theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--text);
-    font-size: 1rem;
-}
-
-.section-title h2 {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-}
-
-h1 {
-    font-size: 2.2rem;
-    line-height: 1.05;
-}
-
-h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-}
-
-h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-}
-
-p {
+    
     margin-bottom: 1rem;
 }
 
@@ -1436,6 +1365,43 @@ footer {
             }
         })();
 
+    </script>
+
+    <!-- Deterministic runtime image mapping: use /public/assets on localhost, /assets in production -->
+    <script>
+        (function() {
+            const placeholder = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><rect fill="#f3f4f6" width="400" height="200" rx="8"/><g fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle"><text x="200" y="100">Image unavailable</text></g></svg>');
+            const hostname = location.hostname;
+            const usePublicPrefix = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '';
+            const base = usePublicPrefix ? '/public' : '';
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                const id = (card.dataset.id || '').toLowerCase();
+                if (!id) return;
+                const pic = card.querySelector('picture');
+                if (!pic) return;
+                const source = pic.querySelector('source');
+                const img = pic.querySelector('img');
+
+                const assetPath = base + '/assets/' + id + '.webp';
+                const imageFallback = 'images/' + id + '.jpg';
+
+                if (source) source.srcset = assetPath + ' 400w, ' + assetPath + ' 800w';
+                if (img) {
+                    img.src = assetPath;
+                    img.srcset = assetPath + ' 400w, ' + assetPath + ' 800w';
+                    img.onerror = function() {
+                        if (!this.dataset._triedFallback) {
+                            this.dataset._triedFallback = '1';
+                            this.src = imageFallback;
+                        } else {
+                            this.onerror = null;
+                            this.src = placeholder;
+                        }
+                    };
+                }
+            });
+        })();
     </script>
 
 </body>
