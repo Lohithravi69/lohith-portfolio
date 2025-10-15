@@ -1347,30 +1347,53 @@ footer {
     <script>
         (function() {
             const placeholder = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><rect fill="#f3f4f6" width="400" height="200" rx="8"/><g fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle"><text x="200" y="100">Image unavailable</text></g></svg>');
-            const cards = document.querySelectorAll('.project-card');
-            const isHttp = location.protocol === 'http:' || location.protocol === 'https:';
-            cards.forEach(card => {
-                const id = (card.dataset.id || '').toLowerCase();
-                if (!id) return;
-                const pic = card.querySelector('picture');
-                if (!pic) return;
-                const source = pic.querySelector('source');
-                const img = pic.querySelector('img');
-                if (source) {
-                    // ensure source points to the deployed /assets path
-                    source.srcset = '/assets/' + id + '.webp 400w, /assets/' + id + '.webp 800w';
+
+            // small helper to probe whether a URL exists (HEAD) with timeout
+            async function exists(url, timeout = 1500) {
+                try {
+                    const controller = new AbortController();
+                    const id = setTimeout(() => controller.abort(), timeout);
+                    const res = await fetch(url, { method: 'HEAD', signal: controller.signal });
+                    clearTimeout(id);
+                    return res && res.ok;
+                } catch (err) {
+                    return false;
                 }
-                if (img) {
-                    // pick deployed asset when served over network, otherwise use local images/ fallback
-                    img.src = isHttp ? '/assets/' + id + '.webp' : ('images/' + id + '.jpg');
-                    img.srcset = isHttp ? ('/assets/' + id + '.webp 400w, /assets/' + id + '.webp 800w') : ('images/' + id + '.jpg 400w, images/' + id + '.jpg 800w');
-                    // single-step onerror: if asset fails, show placeholder
-                    img.onerror = function() {
-                        this.onerror = null;
-                        this.src = placeholder;
-                    };
+            }
+
+            (async function setProjectImages() {
+                const cards = document.querySelectorAll('.project-card');
+                for (const card of cards) {
+                    const id = (card.dataset.id || '').toLowerCase();
+                    if (!id) continue;
+                    const pic = card.querySelector('picture');
+                    if (!pic) continue;
+                    const source = pic.querySelector('source');
+                    const img = pic.querySelector('img');
+
+                    // candidates in priority order: /assets, /public/assets, images/
+                    const candidates = ['/assets/' + id + '.webp', '/public/assets/' + id + '.webp', 'images/' + id + '.jpg'];
+                    let chosen = null;
+                    for (const c of candidates) {
+                        // For local file:// preview, fetch will fail; skip probing if scheme is file:
+                        if (location.protocol === 'file:' && c.startsWith('/')) continue;
+                        if (await exists(c)) { chosen = c; break; }
+                    }
+                    // Fallback rules when probing didn't find a candidate
+                    if (!chosen) {
+                        // If serving via http(s), try /assets first (common for Vercel), otherwise images/
+                        if (location.protocol === 'http:' || location.protocol === 'https:') chosen = '/assets/' + id + '.webp';
+                        else chosen = 'images/' + id + '.jpg';
+                    }
+
+                    if (source) source.srcset = chosen + ' 400w, ' + chosen + ' 800w';
+                    if (img) {
+                        img.src = chosen;
+                        img.srcset = source ? source.srcset : (chosen + ' 400w');
+                        img.onerror = function() { this.onerror = null; this.src = placeholder; };
+                    }
                 }
-            });
+            })();
         })();
     </script>
     <!-- Theme toggle: persist in localStorage and reflect system preference -->
