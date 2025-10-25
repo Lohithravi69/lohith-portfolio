@@ -9,23 +9,17 @@
     <meta property="og:description" content="Portfolio showcasing projects in AI, web development, and real-world apps. Contact: lohithravi69@gmail.com">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#667eea">
-    <link rel="canonical" href="https://lohith-portfolio-crhmbj34k-lohithravi69s-projects.vercel.app/">
-    <!-- No external webfonts: prefer system font stack for fastest load -->
+    <link rel="canonical" href="https://lohith-portfolio-flo8idrex-lohithravi69s-projects.vercel.app/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Lohith R — Portfolio">
     <meta name="twitter:description" content="Portfolio showcasing projects in AI, web development, and real-world apps.">
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80">
-        <!-- No external fonts requested. Using a system font stack. -->
-    <link rel="preload" as="image" type="image/webp" href="/assets/lumoro.webp">
-    <!-- Font Awesome removed: replaced with inline SVG sprite for only used icons -->
-    <!-- lottie-player will be lazy-loaded when hero enters viewport to improve initial load performance -->
-    <!-- JSON-LD structured data for Person / Portfolio -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Lohith R",
-      "url": "https://lohith-portfolio-crhmbj34k-lohithravi69s-projects.vercel.app/",
+      "url": "https://lohith-portfolio-flo8idrex-lohithravi69s-projects.vercel.app/",
       "email": "lohithravi69@gmail.com",
       "jobTitle": "Computer Science Student",
       "sameAs": [
@@ -34,58 +28,6 @@
       ]
     }
     </script>
-    <!-- Defensive cleanup: remove any server error HTML accidentally injected and sanitize stray iframes -->
-    <script>
-        (function() {
-            function removeServerErrors() {
-                // Remove elements that look like server error pages
-                const patterns = ['Error response', 'Error code', 'File not found', 'Nothing matches the given URI', 'Error code explanation'];
-                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, null);
-                const toRemove = [];
-                while (walker.nextNode()) {
-                    const el = walker.currentNode;
-                    const text = (el.textContent || '').trim();
-                    if (!text) continue;
-                    for (const p of patterns) {
-                        if (text.includes(p) && el !== document.body && !el.closest('#project-modal')) {
-                            toRemove.push(el);
-                            break;
-                        }
-                    }
-                }
-                if (toRemove.length) {
-                    try { console.info('[cleanup] removed', toRemove.length, 'server-error-like nodes'); } catch (e) {}
-                    toRemove.forEach(e => e.remove());
-                }
-            }
-
-            function sanitizeIframes() {
-                const iframes = Array.from(document.querySelectorAll('iframe'));
-                iframes.forEach(iframe => {
-                    // keep iframes inside the modal (they will be controlled by modal logic)
-                    if (iframe.closest('#project-modal')) return;
-                    const src = iframe.getAttribute('src') || '';
-                    // remove local demo embeds that may render server error pages; replace with placeholder
-                    if (src.includes('/demos/') || src.includes('/data/') || src.endsWith('.html')) {
-                        const placeholder = document.createElement('div');
-                        placeholder.className = 'embed-placeholder';
-                        placeholder.style.padding = '1rem';
-                        placeholder.style.background = 'var(--secondary)';
-                        placeholder.style.borderRadius = '8px';
-                        placeholder.style.color = '#666';
-                        placeholder.textContent = 'Embedded demo unavailable';
-                            try { console.info('[cleanup] sanitizing iframe', src); } catch (e) {}
-                            iframe.replaceWith(placeholder);
-                    }
-                });
-            }
-
-            // Run on DOMContentLoaded and again after a short timeout to catch late injections
-            document.addEventListener('DOMContentLoaded', () => { removeServerErrors(); sanitizeIframes(); });
-            setTimeout(() => { removeServerErrors(); sanitizeIframes(); }, 1200);
-        })();
-    </script>
-
     <style>
 :root {
     --bg: #ffffff;
@@ -94,6 +36,8 @@
     --secondary: #f8f9fa;
     --border: #e9ecef;
     --shadow: rgba(0, 0, 0, 0.1);
+    --success: #28a745;
+    --error: #dc3545;
 }
 
 * {
@@ -103,7 +47,6 @@
 body {
     margin: 0;
     padding: 0;
-    /* System-first font stack to avoid external font downloads */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
     color: var(--text);
@@ -122,8 +65,44 @@ body {
     top: -40px;
     left: 6px;
     background: var(--accent);
-    
-    margin-bottom: 1rem;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1001;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #5a67d8;
+    transform: translateY(-2px);
+}
+
+.btn.ghost {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+.btn.ghost:hover {
+    background: var(--accent);
+    color: white;
 }
 
 /* Navigation */
@@ -145,14 +124,14 @@ nav .container {
     padding: 0.75rem 20px;
 }
 
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
 }
 
-/* keep nav links visually grouped on the right and prevent them from stretching */
-nav #primary-nav {
+.nav-right {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -175,9 +154,32 @@ nav ul li a {
     transition: background 0.3s ease;
 }
 
-nav ul li a:hover {
+nav ul li a:hover,
+nav ul li a:focus {
     background: var(--accent);
     color: #fff;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--secondary);
 }
 
 @media (max-width: 768px) {
@@ -193,18 +195,13 @@ nav ul li a:hover {
         gap: 0.5rem;
         transform: translateY(-100%);
         transition: transform 0.3s ease;
+        box-shadow: 0 4px 6px var(--shadow);
     }
 
     nav ul.open {
         transform: translateY(0);
     }
-}
 
-.nav-toggle {
-    display: none;
-}
-
-@media (max-width: 768px) {
     .nav-toggle {
         display: block;
     }
@@ -214,18 +211,16 @@ nav ul li a:hover {
 #hero {
     padding: 120px 0 80px;
     background: linear-gradient(135deg, var(--secondary) 0%, #fff 100%);
+    text-align: center;
 }
 
 .hero-content {
-    display: grid;
-    /* Fluid right column: uses up to 40vw but never larger than 480px.
-       The left column is flexible so the description can use most of the width. */
-    grid-template-columns: 1fr min(40vw, 480px);
-    gap: 2rem;
-    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.hero-left h1 {
+.hero-content h1 {
+    font-size: 3rem;
     margin-bottom: 1rem;
     background: linear-gradient(135deg, var(--accent), #5a67d8);
     -webkit-background-clip: text;
@@ -233,48 +228,56 @@ nav ul li a:hover {
     background-clip: text;
 }
 
-.hero-left p {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
     color: #666;
 }
 
-.lead {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin: 0 0 1rem 0;
-    color: #666;
-    text-align: left;
-}
-
-.hero-right {
-    text-align: center;
-    /* allow the right column to shrink and avoid forcing extra whitespace when media hasn't loaded */
-    min-width: 0;
+.hero-actions {
     display: flex;
+    gap: 1rem;
     justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
 }
 
-.hero-right lottie-player {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
+/* Sections */
+section {
+    padding: 80px 0;
 }
 
-/* Ensure hero-left can shrink inside the grid (prevents overflow on narrow containers) */
-.hero-left {
-    min-width: 0;
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
 }
 
 /* About Section */
-#about {
-    padding: 80px 0;
+#about .container {
+    max-width: 800px;
+    text-align: center;
 }
 
 /* Skills Section */
 #skills {
-    padding: 80px 0;
     background: var(--secondary);
 }
 
@@ -298,24 +301,14 @@ nav ul li a:hover {
     transform: translateY(-5px);
 }
 
-    .skill-card .icon {
-    width: 48px;
-    height: 48px;
+.skill-icon {
+    width: 64px;
+    height: 64px;
     margin: 0 auto 1rem;
-    color: var(--accent); /* icons use stroke=currentColor */
+    color: var(--accent);
     fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-/* Generic icon sizing and alignment for all inline SVG icons */
-.icon {
-    width: 48px;
-    height: 48px;
-    display: block;
-    margin: 0 auto 1rem;
-    color: var(--accent); /* use currentColor in SVG stroke */
-    fill: none; /* prefer stroked outlines */
+    stroke: currentColor;
+    stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
@@ -330,10 +323,6 @@ nav ul li a:hover {
 }
 
 /* Projects Section */
-#projects {
-    padding: 80px 0;
-}
-
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -354,29 +343,38 @@ nav ul li a:hover {
     transform: translateY(-5px);
 }
 
-.project-card img {
+.project-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.project-card .content {
+.project-card:hover .project-image {
+    transform: scale(1.05);
+}
+
+.project-content {
     padding: 1.5rem;
 }
 
-.project-card h3 {
+.project-content h3 {
     margin-bottom: 0.5rem;
 }
 
-.project-card p {
+.project-content p {
     color: #666;
     font-size: 0.9rem;
     margin-bottom: 1rem;
 }
 
+.project-links {
+    display: flex;
+    gap: 1rem;
+}
+
 /* Education Section */
 #education {
-    padding: 80px 0;
     background: var(--secondary);
 }
 
@@ -426,10 +424,6 @@ nav ul li a:hover {
 }
 
 /* Contact Section */
-#contact {
-    padding: 80px 0;
-}
-
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -450,11 +444,16 @@ nav ul li a:hover {
     transform: translateY(-5px);
 }
 
-.contact-item .icon {
+.contact-icon {
     width: 48px;
     height: 48px;
     margin: 0 auto 1rem;
-    fill: var(--accent);
+    color: var(--accent);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .contact-item h3 {
@@ -472,6 +471,68 @@ nav ul li a:hover {
 
 .contact-item a:hover {
     text-decoration: underline;
+}
+
+/* Contact Form */
+.contact-form {
+    grid-column: 1 / -1;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-status {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.form-status.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.form-status.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
 
 /* Footer */
@@ -512,7 +573,7 @@ footer {
     bottom: 0;
 }
 
-.modal-panel {
+.modal-content {
     background: white;
     border-radius: 12px;
     max-width: 90vw;
@@ -520,6 +581,8 @@ footer {
     overflow-y: auto;
     position: relative;
     z-index: 1;
+    width: 800px;
+    max-width: 90vw;
 }
 
 .modal-close {
@@ -531,42 +594,54 @@ footer {
     font-size: 2rem;
     cursor: pointer;
     z-index: 2;
+    color: #666;
+}
+
+.modal-close:hover {
+    color: var(--text);
 }
 
 .modal-body {
-    display: flex;
-    gap: 2rem;
     padding: 2rem;
 }
 
-.modal-content {
-    flex: 1;
-}
-
-.modal-content h2 {
+.modal-header h2 {
     margin-bottom: 1rem;
+    color: var(--accent);
 }
 
-.modal-content p {
+.modal-description {
     color: #666;
     margin-bottom: 1rem;
+    line-height: 1.6;
 }
 
-.modal-actions {
-    margin-top: 2rem;
+.tech-tags {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
 }
 
-.tech-pill {
-    display: inline-block;
+.tech-tag {
     background: var(--secondary);
     color: var(--accent);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.modal-embed {
+    margin: 2rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
 /* Consent Banner */
@@ -587,7 +662,7 @@ footer {
     transform: translateY(0);
 }
 
-.consent-inner {
+.consent-content {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -599,6 +674,51 @@ footer {
 .consent-actions {
     display: flex;
     gap: 1rem;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --bg: #0f1724;
+    --text: #e6eef8;
+    --secondary: #111827;
+    --border: #2b3744;
+}
+
+[data-theme="dark"] nav {
+    background: rgba(26, 32, 44, 0.9);
+}
+
+[data-theme="dark"] .skill-card,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .timeline-item,
+[data-theme="dark"] .contact-item,
+[data-theme="dark"] .contact-form {
+    background: var(--secondary);
+    color: var(--text);
+}
+
+[data-theme="dark"] .skill-card p,
+[data-theme="dark"] .project-card p,
+[data-theme="dark"] .timeline-item p,
+[data-theme="dark"] .contact-item p,
+[data-theme="dark"] .modal-description {
+    color: #cbd8e6;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] .hero-content p {
+    color: #cbd8e6;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+    background: var(--bg);
+    border-color: var(--border);
+    color: var(--text);
+}
+
+[data-theme="dark"] .modal-content {
+    background: var(--secondary);
 }
 
 /* Animations */
@@ -617,74 +737,90 @@ footer {
     }
 }
 
-/* Dark theme */
-[data-theme="dark"] {
-    --bg: #0f1724; /* darker background for contrast */
-    --text: #e6eef8; /* brighter body text */
-    --secondary: #111827; /* subtle panel background */
-    --border: #2b3744;
+/* Loading */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
 }
 
-[data-theme="dark"] nav {
-    background: rgba(26, 32, 44, 0.9);
-}
-
-[data-theme="dark"] .skill-card,
-[data-theme="dark"] .project-card,
-[data-theme="dark"] .timeline-item,
-[data-theme="dark"] .contact-item {
-    background: #0f1724;
-    color: var(--text);
-}
-
-[data-theme="dark"] .skill-card p,
-[data-theme="dark"] .project-card p,
-[data-theme="dark"] .timeline-item p,
-[data-theme="dark"] .contact-item p {
-    color: #9fb2c8; /* muted but readable */
-}
-
-/* Make paragraph text readable in dark theme */
-[data-theme="dark"] p,
-[data-theme="dark"] .lead {
-    color: #cbd8e6;
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hero-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        text-align: center;
+    .hero-content h1 {
+        font-size: 2rem;
     }
 
-    .hero-right {
-        order: -1;
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .modal-body {
+    .form-row {
         flex-direction: column;
     }
 
-    .consent-inner {
+    .modal-content {
+        width: 95vw;
+        margin: 1rem;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .consent-content {
         flex-direction: column;
         text-align: center;
         gap: 1rem;
     }
+
+    .project-links {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+    .section-title h2 {
+        font-size: 2rem;
+    }
+
+    .skills-grid,
+    .projects-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
 }
     </style>
-    <!-- Moved system-first font stack into main body rule and removed duplicate style block to reduce inline CSS. Skip-link and focus styles remain in the main stylesheet. -->
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
+
     <nav>
         <div class="container">
-            <a href="#hero" aria-label="Lohith R homepage" style="color: var(--accent); text-decoration: none; font-weight: 700;">Lohith R</a>
+            <a href="#hero" class="nav-brand" aria-label="Lohith R homepage">Lohith R</a>
             <div class="nav-right">
-                <div class="nav-actions" style="display:flex; gap:0.5rem; align-items:center;">
-                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
-                    <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
-                </div>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+                <button class="nav-toggle" id="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
                 <ul id="primary-nav">
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#about">About</a></li>
@@ -697,240 +833,135 @@ footer {
         </div>
     </nav>
 
-        <main id="main-content">
-
-        <!-- Inline SVG sprite: only icons used on the page. Improves performance vs loading full Font Awesome font files -->
-        <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;" focusable="false">
-            <defs>
-                <!-- Java -->
-                <symbol id="icon-java" viewBox="0 0 24 24"><path d="M8 17c0 1.1 1.8 2 4 2s4-.9 4-2m-8-3c0 1.1 1.8 2 4 2s4-.9 4-2m-8-3c0 1.1 1.8 2 4 2s4-.9 4-2m-8-3c0 1.1 1.8 2 4 2s4-.9 4-2M12 3v1m0 2v1m0 2v1" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
-                <!-- HTML5 -->
-                <symbol id="icon-html5" viewBox="0 0 24 24"><path d="M4 3l2 16 6 2 6-2 2-16z" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
-                <!-- Database -->
-                <symbol id="icon-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
-                <!-- Brain -->
-                <symbol id="icon-brain" viewBox="0 0 24 24"><path d="M8 12a4 4 0 0 1 8 0m-8 0a4 4 0 0 0 8 0m-8 0v4m8-4v4" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
-                <!-- GitHub -->
-                <symbol id="icon-github" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.1 7 9.4.5.1.7-.2.7-.5v-1.7c-2.9.6-3.5-1.4-3.5-1.4-.4-1-.9-1.3-.9-1.3-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.8.9 2.2.7.1-.5.3-.9.5-1.1-2.3-.3-4.7-1.1-4.7-5 0-1.1.4-2 .9-2.7-.1-.2-.4-1.3.1-2.7 0 0 .8-.3 2.7 1.1a9.3 9.3 0 0 1 5 0c1.9-1.4 2.7-1.1 2.7-1.1.5 1.4.2 2.5.1 2.7.5.7.9 1.6.9 2.7 0 3.9-2.4 4.7-4.7 5 .3.3.5.7.5 1.4v2c0 .3.2.6.7.5A10 10 0 0 0 22 12c0-5.5-4.5-10-10-10z" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
-                <!-- Users -->
-                <symbol id="icon-users" viewBox="0 0 24 24"><circle cx="7" cy="7" r="3" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="17" cy="7" r="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M2 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M15 21v-2a4 4 0 0 1 4-4h2" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
-                <!-- Envelope -->
-                <symbol id="icon-envelope" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><polyline points="3 7 12 13 21 7" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
-                <!-- Phone -->
-                <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M22 16.92V19a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3 5.18 2 2 0 0 1 5 3h2.09a2 2 0 0 1 2 1.72c.13.81.28 1.6.46 2.36a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c.76.18 1.55.33 2.36.46A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
-                <!-- Map marker -->
-                <symbol id="icon-map-marker-alt" viewBox="0 0 24 24"><path d="M12 21s-6-5.33-6-10A6 6 0 0 1 12 5a6 6 0 0 1 6 6c0 4.67-6 10-6 10z" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="12" cy="11" r="2" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
-                <!-- LinkedIn (clean outline) -->
-                <symbol id="icon-linkedin" viewBox="0 0 24 24">
-                    <path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v6h-4v-12h4v2" stroke="currentColor" stroke-width="2" fill="none"/>
-                    <rect x="2" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
-                </symbol>
-            </defs>
-        </svg>
-
-    <section id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-left">
+    <main id="main-content">
+        <section id="hero">
+            <div class="container">
+                <div class="hero-content">
                     <h1>Lohith R</h1>
                     <p>Computer Science and Engineering Student | Full-Stack Developer | AI Enthusiast</p>
-                    <p>Methodical and driven Computer Science and Engineering student with a strong foundation in full-stack web development and real-world application design. Experienced in building scalable, user-friendly systems using HTML, CSS, JavaScript, Flask, and MySQL. Passionate about solving practical problems through innovative tech solutions.</p>
-                    <a href="#projects" class="btn">View My Work</a>
-                    <a href="#contact" class="btn">Get In Touch</a>
-                </div>
-                <div class="hero-right">
-                    <!-- Decorative animation: hidden from assistive tech to avoid noisy screen reader output -->
-                    <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_2zv6fglg.json" background="transparent" speed="1" loop autoplay aria-hidden="true" title="Decorative animation"></lottie-player>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-            </div>
-            <p class="lead">
-                I'm deeply interested in cybersecurity, artificial intelligence, and solving real-world problems using technology. 
-                I've worked on several innovative projects in AI, NLP, and e-commerce platforms. Adept at troubleshooting deployment issues on Vercel and Render. 
-                Active participant in Smart India Hackathon and Naan Mudhalvan program, with a commitment to continuous learning and professional growth.
-            </p>
-        </div>
-    </section>
-
-    <section id="skills">
-        <div class="container">
-            <div class="section-title">
-                <h2>Technical Skills</h2>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <svg class="icon icon-java" aria-hidden="true"><use href="#icon-java"></use></svg>
-                    <h3>Java</h3>
-                    <p>Object-oriented programming and application development</p>
-                </div>
-                <div class="skill-card">
-                    <svg class="icon icon-html5" aria-hidden="true"><use href="#icon-html5"></use></svg>
-                    <h3>Web Development</h3>
-                    <p>HTML, CSS, JavaScript, Flask</p>
-                </div>
-                <div class="skill-card">
-                    <svg class="icon icon-database" aria-hidden="true"><use href="#icon-database"></use></svg>
-                    <h3>Database</h3>
-                    <p>MySQL for data management</p>
-                </div>
-                <div class="skill-card">
-                    <svg class="icon icon-brain" aria-hidden="true"><use href="#icon-brain"></use></svg>
-                    <h3>AI & ML</h3>
-                    <p>Full Stack Web Apps, AI-based Systems, NLP Classifiers</p>
-                </div>
-                <div class="skill-card">
-                    <svg class="icon icon-github" aria-hidden="true"><use href="#icon-github"></use></svg>
-                    <h3>Tools & Platforms</h3>
-                    <p>Vercel, Render, GitHub</p>
-                </div>
-                <div class="skill-card">
-                    <svg class="icon icon-users" aria-hidden="true"><use href="#icon-users"></use></svg>
-                    <h3>Soft Skills</h3>
-                    <p>Problem Solving, Teamwork, Adaptability, Communication</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <div class="container">
-            <div class="section-title">
-                <h2>Projects</h2>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card" data-id="lumoro" data-title="Lumoro E-Commerce Scent Website" data-desc="Developed a perfume-based e-commerce website using HTML, CSS and MySQL, featuring product catalog, cart, and secure checkout." data-image="/assets/lumoro.webp" data-github="https://github.com/Lohithravi69/perfume" data-tech="HTML,CSS,MySQL,JavaScript">
-                    <picture>
-                        <source type="image/webp" srcset="/assets/lumoro.webp 400w, /assets/lumoro.webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img fetchpriority="high" decoding="async" src="images/lumoro.jpg" srcset="images/lumoro.jpg 400w" sizes="(max-width:600px) 100vw, 400px" alt="E-Commerce" loading="eager" width="400" height="200" onerror="this.onerror=null;this.src='/assets/lumoro.webp'">
-                    </picture>
-                    <div class="content">
-                        <h3>Lumoro E-Commerce Scent Website</h3>
-                        <p>Developed a perfume-based e-commerce website using HTML, CSS, and MySQL, featuring product catalog, cart, and secure checkout.</p>
-                        <a href="https://github.com/Lohithravi69/perfume" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card" data-id="safenet" data-title="Emergency SOS App for Flood Management" data-desc="AI-integrated emergency response app built for Smart India Hackathon 2025 to provide real-time flood alerts, SOS messaging, and rescue coordination." data-image="/assets/safenet.webp" data-live="https://safenetsos-app.vercel.app" data-tech="React,Node.js,TensorFlow,Maps API">
-                    <picture>
-                        <source type="image/webp" srcset="/assets/safenet.webp 400w, /assets/safenet.webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img decoding="async" src="images/safenet.jpg" srcset="images/safenet.jpg 400w, images/safenet.jpg 800w" sizes="(max-width:600px) 100vw, 400px" alt="Emergency App" loading="lazy" width="400" height="200" onerror="this.onerror=null;this.src='/assets/safenet.webp'">
-                    </picture>
-                    <div class="content">
-                        <h3>Emergency SOS App for Flood Management</h3>
-                        <p>AI-integrated emergency response app built for Smart India Hackathon 2025 to provide real-time flood alerts, SOS messaging, and rescue coordination.</p>
-                        <a href="https://safenetsos-app.vercel.app" target="_blank" rel="noopener noreferrer" class="btn">View Live Demo</a>
-                    </div>
-                </div>
-                <div class="project-card" data-id="fraud-detect" data-title="Credit Card Fraud Detection using AI" data-desc="Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time." data-image="/assets/fraud.webp" data-github="https://github.com/Lohithravi69/FraudDetection" data-tech="Python,scikit-learn,Pandas,Flask">
-                    <picture>
-                        <source type="image/webp" srcset="/assets/fraud.webp 400w, /assets/fraud.webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img decoding="async" src="images/fraud.jpg" srcset="images/fraud.jpg 400w, images/fraud.jpg 800w" sizes="(max-width:600px) 100vw, 400px" alt="Fraud Detection" loading="lazy" width="400" height="200" onerror="this.onerror=null;this.src='/assets/fraud.webp'">
-                    </picture>
-                    <div class="content">
-                        <h3>Credit Card Fraud Detection using AI</h3>
-                        <p>Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time.</p>
-                        <a href="https://github.com/Lohithravi69/FraudDetection" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card" data-id="fake-news" data-title="Fake News Detection using NLP and Flask" data-desc="AI-powered Flask web app that detects misleading or fake news using Natural Language Processing." data-image="/assets/fakenews.webp" data-live="https://fake-news-detection-tau.vercel.app" data-tech="Python,NLTK,Flask,Heroku">
-                    <picture>
-                        <source type="image/webp" srcset="/assets/fakenews.webp 400w, /assets/fakenews.webp 800w" sizes="(max-width:600px) 100vw, 400px">
-                        <img decoding="async" src="images/fakenews.jpg" srcset="images/fakenews.jpg 400w, images/fakenews.jpg 800w" sizes="(max-width:600px) 100vw, 400px" alt="Fake News" loading="lazy" width="400" height="200" onerror="this.onerror=null;this.src='/assets/fakenews.webp'">
-                    </picture>
-                    <div class="content">
-                        <h3>Fake News Detection using NLP and Flask</h3>
-                        <p>AI-powered Flask web app that detects misleading or fake news using Natural Language Processing.</p>
-                        <a href="https://fake-news-detection-tau.vercel.app" target="_blank" rel="noopener noreferrer" class="btn">View Live Demo</a>
+                    <p>Passionate about creating innovative solutions using technology. Experienced in web development, AI/ML, and real-world applications.</p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn">View My Work</a>
+                        <a href="#contact" class="btn ghost">Get In Touch</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="education">
-        <div class="container">
-            <div class="section-title">
-                <h2>Education & Achievements</h2>
+        <section id="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About Me</h2>
+                </div>
+                <p>I'm deeply interested in cybersecurity, artificial intelligence, and solving real-world problems using technology. I've worked on several innovative projects in AI, NLP, and e-commerce platforms. Adept at troubleshooting deployment issues and committed to continuous learning.</p>
             </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h3>Bachelor of Engineering (B.E.) in Computer Science and Engineering</h3>
-                    <p>PPG Institute of Technology, Coimbatore | Affiliated to Anna University</p>
-                    <p>2022 – 2027 | CGPA: 7.83 / 10 (as of 4th semester)</p>
-                </div>
-                <div class="timeline-item">
-                    <h3>NPTEL Course – Introduction to Internet of Things</h3>
-                    <p>Score: 63%</p>
-                </div>
-                <div class="timeline-item">
-                    <h3>Active Participant – Smart India Hackathon 2025</h3>
-                    <p>Emergency SOS App for Flood Management</p>
-                </div>
-                <div class="timeline-item">
-                    <h3>Completed Naan Mudhalvan AI & Full Stack Development Program</h3>
-                    <p>Credit Card Fraud Detection and other projects</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact Me</h2>
+        <section id="skills">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Technical Skills</h2>
+                </div>
+                <div class="skills-grid" id="skills-grid">
+                    <!-- Skills loaded dynamically -->
+                </div>
             </div>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <svg class="icon icon-envelope" aria-hidden="true"><use href="#icon-envelope"></use></svg>
-                    <h3>Email</h3>
-                    <p><a href="mailto:lohithravi69@gmail.com">lohithravi69@gmail.com</a></p>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Projects</h2>
                 </div>
-                <div class="contact-item">
-                    <svg class="icon icon-phone" aria-hidden="true"><use href="#icon-phone"></use></svg>
-                    <h3>Phone</h3>
-                    <p><a href="tel:+917010102623">+91 70101 02623</a></p>
+                <div class="projects-grid" id="projects-grid">
+                    <!-- Projects loaded dynamically -->
                 </div>
-                <div class="contact-item">
-                    <svg class="icon icon-map-marker-alt" aria-hidden="true"><use href="#icon-map-marker-alt"></use></svg>
-                    <h3>Location</h3>
-                    <p>Coimbatore, Tamil Nadu, India</p>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Education & Achievements</h2>
                 </div>
-                <div class="contact-item">
-                    <svg class="icon icon-github" aria-hidden="true"><use href="#icon-github"></use></svg>
-                    <h3>GitHub</h3>
-                    <p><a href="https://github.com/Lohithravi69" target="_blank" rel="noopener noreferrer">github.com/Lohithravi69</a></p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Bachelor of Engineering (B.E.) in Computer Science and Engineering</h3>
+                        <p>PPG Institute of Technology, Coimbatore | Affiliated to Anna University</p>
+                        <p>2022 – 2027 | CGPA: 7.83 / 10 (as of 4th semester)</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>NPTEL Course – Introduction to Internet of Things</h3>
+                        <p>Score: 63%</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Active Participant – Smart India Hackathon 2025</h3>
+                        <p>Emergency SOS App for Flood Management</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Completed Naan Mudhalvan AI & Full Stack Development Program</h3>
+                        <p>Credit Card Fraud Detection and other projects</p>
+                    </div>
                 </div>
-                <div class="contact-item">
-                    <svg class="icon icon-linkedin" aria-hidden="true"><use href="#icon-linkedin"></use></svg>
-                    <h3>LinkedIn</h3>
-                    <p><a href="https://linkedin.com/in/lohith-ravi-22b9a32a0" target="_blank" rel="noopener noreferrer">linkedin.com/in/lohith-ravi-22b9a32a0</a></p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Contact Me</h2>
                 </div>
-                <div class="contact-item" style="grid-column: 1 / -1; text-align: left;">
-                    <h3>Send a message</h3>
-                    <form id="contact-form" aria-label="Contact form">
-                        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-                            <input type="text" id="cf-name" name="name" placeholder="Your name" required style="flex:1;padding:0.5rem;border-radius:6px;border:1px solid #ddd;">
-                            <input type="email" id="cf-email" name="email" placeholder="Your email" required style="flex:1;padding:0.5rem;border-radius:6px;border:1px solid #ddd;">
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <h3>Email</h3>
+                        <p><a href="mailto:lohithravi69@gmail.com">lohithravi69@gmail.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <h3>Phone</h3>
+                        <p><a href="tel:+917010102623">+91 70101 02623</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <h3>Location</h3>
+                        <p>Coimbatore, Tamil Nadu, India</p>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg>
+                        <h3>GitHub</h3>
+                        <p><a href="https://github.com/Lohithravi69" target="_blank" rel="noopener noreferrer">github.com/Lohithravi69</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        <h3>LinkedIn</h3>
+                        <p><a href="https://linkedin.com/in/lohith-ravi-22b9a32a0" target="_blank" rel="noopener noreferrer">linkedin.com/in/lohith-ravi-22b9a32a0</a></p>
+                    </div>
+                    <form class="contact-form" id="contact-form" aria-label="Contact form">
+                        <h3>Send a message</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
                         </div>
-                        <div style="margin-top:0.5rem;">
-                            <textarea id="cf-message" name="message" rows="5" placeholder="How can I help?" required style="width:100%;padding:0.5rem;border-radius:6px;border:1px solid #ddd;"></textarea>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
                         </div>
-                        <div style="margin-top:0.5rem; display:flex; gap:0.5rem; align-items:center;">
-                            <button type="submit" class="btn">Send Message</button>
-                            <span id="cf-status" aria-live="polite" style="color:#333"></span>
-                        </div>
+                        <button type="submit" class="btn">
+                            <span id="btn-text">Send Message</span>
+                            <span id="btn-loading" class="loading" style="display: none;"></span>
+                        </button>
+                        <div id="form-status" class="form-status" style="display: none;" aria-live="polite"></div>
                     </form>
                 </div>
             </div>
-        </div>
-    </section>
-
+        </section>
     </main>
 
     <footer>
@@ -939,35 +970,29 @@ footer {
         </div>
     </footer>
 
-    <!-- Project detail modal (accessible) -->
+    <!-- Project Modal -->
     <div id="project-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
         <div class="modal-backdrop" data-dismiss="modal"></div>
-        <div class="modal-panel" role="document">
+        <div class="modal-content" role="document">
             <button class="modal-close" aria-label="Close project details">×</button>
-                <div class="modal-body">
-                <div id="modal-carousel" style="width:40%; position:relative;">
-                    <button id="carousel-prev" class="btn" aria-label="Previous image" style="position:absolute;left:6px;top:6px;z-index:3;">◀</button>
-                    <button id="carousel-next" class="btn" aria-label="Next image" style="position:absolute;right:6px;top:6px;z-index:3;">▶</button>
-                    <div id="carousel-indicators" aria-hidden="true" style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);display:flex;gap:6px;z-index:4;"></div>
-                </div>
-                <img id="modal-image" alt="Project screenshot" loading="lazy" style="display:none;">
-                <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
                     <h2 id="modal-title"></h2>
-                    <p id="modal-desc"></p>
-                    <div id="modal-tech" style="margin-top:0.5rem;" aria-hidden="false"></div>
-                    <div id="modal-embed" style="margin-top:0.75rem;"></div>
-                    <div class="modal-actions">
-                        <a id="modal-live" class="btn" target="_blank" rel="noopener noreferrer">View Live</a>
-                        <a id="modal-github" class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-                    </div>
+                </div>
+                <p class="modal-description" id="modal-description"></p>
+                <div class="tech-tags" id="modal-tech"></div>
+                <div id="modal-embed"></div>
+                <div class="modal-actions">
+                    <a id="modal-live" class="btn" target="_blank" rel="noopener noreferrer" style="display: none;">View Live Demo</a>
+                    <a id="modal-github" class="btn" target="_blank" rel="noopener noreferrer" style="display: none;">View on GitHub</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Analytics consent banner -->
+    <!-- Consent Banner -->
     <div id="consent-banner" class="consent-banner" aria-hidden="true">
-        <div class="consent-inner">
+        <div class="consent-content">
             <p>We use optional analytics to improve this site. Do you allow anonymous usage tracking?</p>
             <div class="consent-actions">
                 <button id="consent-accept" class="btn">Yes, allow analytics</button>
@@ -976,197 +1001,230 @@ footer {
         </div>
     </div>
 
-    <script defer>
-    // Placeholder for lightweight analytics (Plausible/umami). Replace with real snippet in production.
-    // (Optional) Example Plausible script:
-    // <script async defer data-domain="yourdomain.com" src="https://plausible.io/js/plausible.js"></script>
+    <script>
+    // Theme toggle
+    (function() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        const stored = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initial = stored || (systemPrefersDark ? 'dark' : 'light');
 
-    // Project modal logic (delegated)
-    (() => {
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                root.setAttribute('data-theme', 'dark');
+            } else {
+                root.removeAttribute('data-theme');
+            }
+            localStorage.setItem('theme', theme);
+            updateThemeIcon(theme);
+        }
+
+        function updateThemeIcon(theme) {
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        setTheme(initial);
+
+        themeToggle.addEventListener('click', () => {
+            const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            setTheme(next);
+        });
+    })();
+
+    // Navigation toggle
+    (function() {
+        const navToggle = document.getElementById('nav-toggle');
+        const nav = document.getElementById('primary-nav');
+
+        navToggle.addEventListener('click', () => {
+            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', String(!expanded));
+            nav.classList.toggle('open');
+        });
+
+        // Close mobile nav on link click
+        nav.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                nav.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
+
+    // Smooth scrolling
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Load skills
+    (function() {
+        const skillsGrid = document.getElementById('skills-grid');
+        const skills = [
+            {
+                icon: 'code',
+                title: 'Web Development',
+                description: 'HTML, CSS, JavaScript, Flask, React'
+            },
+            {
+                icon: 'database',
+                title: 'Database',
+                description: 'MySQL, MongoDB'
+            },
+            {
+                icon: 'brain',
+                title: 'AI & ML',
+                description: 'Python, scikit-learn, TensorFlow, NLP'
+            },
+            {
+                icon: 'cpu',
+                title: 'Programming',
+                description: 'Java, Python, C++'
+            },
+            {
+                icon: 'git-branch',
+                title: 'Tools & Platforms',
+                description: 'Git, Docker, Vercel, AWS'
+            },
+            {
+                icon: 'users',
+                title: 'Soft Skills',
+                description: 'Problem Solving, Teamwork, Communication'
+            }
+        ];
+
+        const iconMap = {
+            code: '<path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>',
+            database: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/>',
+            brain: '<path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v3a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08A2.5 2.5 0 0 1 9.5 2Z"/><path d="M7 10.5a2.5 2.5 0 0 1 5 0v3a2.5 2.5 0 0 1-5 0v-3Z"/><path d="M19.5 2A2.5 2.5 0 0 0 17 4.5v3a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08A2.5 2.5 0 0 0 19.5 2Z"/><path d="M17 10.5a2.5 2.5 0 0 0 5 0v-3a2.5 2.5 0 0 0-5 0v3Z"/>',
+            cpu: '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 9h6v6H9z"/><path d="M2 9v6m20-6v6M9 2h6m-6 20h6"/>',
+            'git-branch': '<circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v12"/><path d="M18 9v4a2 2 0 0 1-2 2H8"/>',
+            users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'
+        };
+
+        skills.forEach(skill => {
+            const card = document.createElement('div');
+            card.className = 'skill-card';
+            card.innerHTML = `
+                <svg class="skill-icon" viewBox="0 0 24 24">
+                    ${iconMap[skill.icon] || ''}
+                </svg>
+                <h3>${skill.title}</h3>
+                <p>${skill.description}</p>
+            `;
+            skillsGrid.appendChild(card);
+        });
+    })();
+
+    // Load projects
+    (function() {
+        const projectsGrid = document.getElementById('projects-grid');
+        const projects = [
+            {
+                id: 'lumoro',
+                title: 'Lumoro E-Commerce Scent Website',
+                description: 'A perfume e-commerce site with product catalog, cart, and secure checkout. Built with HTML/CSS and MySQL.',
+                tech: ['HTML', 'CSS', 'JavaScript', 'MySQL'],
+                image: '/assets/lumoro.webp',
+                github: 'https://github.com/Lohithravi69/perfume',
+                embed: '/demos/lumoro-demo.html'
+            },
+            {
+                id: 'safenet',
+                title: 'Emergency SOS App for Flood Management',
+                description: 'AI-integrated emergency response app with real-time alerts and rescue coordination.',
+                tech: ['React', 'Node.js', 'TensorFlow', 'Maps API'],
+                image: '/assets/safenet.webp',
+                live: 'https://safenetsos-app.vercel.app',
+                embed: 'https://codesandbox.io/embed/new'
+            },
+            {
+                id: 'fraud-detect',
+                title: 'Credit Card Fraud Detection using AI',
+                description: 'Machine learning-based fraud detection system developed in Python to identify suspicious transactions and alert in real-time.',
+                tech: ['Python', 'scikit-learn', 'Pandas', 'Flask'],
+                image: '/assets/fraud.webp',
+                github: 'https://github.com/Lohithravi69/FraudDetection'
+            },
+            {
+                id: 'fake-news',
+                title: 'Fake News Detection using NLP and Flask',
+                description: 'AI-powered Flask web app that detects misleading or fake news using Natural Language Processing.',
+                tech: ['Python', 'NLTK', 'Flask', 'Heroku'],
+                image: '/assets/fakenews.webp',
+                live: 'https://fake-news-detection-tau.vercel.app'
+            }
+        ];
+
+        projects.forEach(project => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.setAttribute('data-project', JSON.stringify(project));
+            card.innerHTML = `
+                <img src="${project.image}" alt="${project.title}" class="project-image" loading="lazy">
+                <div class="project-content">
+                    <h3>${project.title}</h3>
+                    <p>${project.description}</p>
+                    <div class="project-links">
+                        ${project.live ? `<a href="${project.live}" class="btn" target="_blank" rel="noopener noreferrer">Live Demo</a>` : ''}
+                        ${project.github ? `<a href="${project.github}" class="btn ghost" target="_blank" rel="noopener noreferrer">GitHub</a>` : ''}
+                    </div>
+                </div>
+            `;
+            projectsGrid.appendChild(card);
+        });
+    })();
+
+    // Project modal
+    (function() {
         const modal = document.getElementById('project-modal');
         const modalTitle = document.getElementById('modal-title');
-        const modalDesc = document.getElementById('modal-desc');
-        const modalImage = document.getElementById('modal-image');
+        const modalDescription = document.getElementById('modal-description');
+        const modalTech = document.getElementById('modal-tech');
+        const modalEmbed = document.getElementById('modal-embed');
         const modalLive = document.getElementById('modal-live');
         const modalGithub = document.getElementById('modal-github');
         const closeButtons = modal.querySelectorAll('[data-dismiss], .modal-close');
 
-        let caseStudies = null;
+        function openModal(project) {
+            modalTitle.textContent = project.title;
+            modalDescription.textContent = project.description;
 
-        async function loadCaseStudies() {
-            if (caseStudies) return caseStudies;
-            try {
-                const r = await fetch('/data/case-studies.json', { cache: 'no-cache' });
-                caseStudies = await r.json();
-            } catch (err) {
-                console.error('Failed to load case studies', err);
-                caseStudies = [];
-            }
-            return caseStudies;
-        }
+            modalTech.innerHTML = project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
 
-        function renderCarousel(images) {
-            if (!images || !images.length) return '';
-            return images.map((src, idx) => `<img class="carousel-image" src="${src}" alt="Screenshot ${idx+1}" loading="lazy">`).join('');
-        }
-
-        async function openModal(data) {
-            modalTitle.textContent = data.title || '';
-            modalDesc.textContent = data.desc || '';
-            // if data.id is present, try to load richer case study
-            if (data.id) {
-                const list = await loadCaseStudies();
-                const found = list.find(cs => cs.id === data.id);
-                if (found) {
-                    // render images carousel
-                    const carouselHtml = renderCarousel(found.images || [data.image].filter(Boolean));
-                    const modalBodyImage = document.getElementById('modal-image');
-                    if (carouselHtml) {
-                        modalBodyImage.style.display = 'none';
-                        const holder = document.getElementById('modal-carousel');
-                        if (holder) holder.innerHTML = carouselHtml;
-                    }
-                    // show embed if available
-                    const embedContainer = document.getElementById('modal-embed');
-                    if (embedContainer) {
-                        if (found.embed) {
-                            // Only insert iframe if the embed is reachable (avoid showing server 404 pages inside the modal)
-                            try {
-                                const embedUrl = String(found.embed);
-                                // For cross-origin absolute URLs, we cannot HEAD-check reliably, so insert as-is
-                                const isAbsolute = embedUrl.startsWith('http://') || embedUrl.startsWith('https://') || embedUrl.startsWith('//');
-                                if (isAbsolute) {
-                                    embedContainer.innerHTML = `<iframe src="${embedUrl}" title="Interactive demo" style="width:100%;height:300px;border:0;border-radius:8px;" loading="lazy"></iframe>`;
-                                } else {
-                                    // same-origin/relative path: try a HEAD request first
-                                    const headResp = await fetch(embedUrl, { method: 'HEAD' });
-                                    if (headResp.ok) {
-                                        embedContainer.innerHTML = `<iframe src="${embedUrl}" title="Interactive demo" style="width:100%;height:300px;border:0;border-radius:8px;" loading="lazy"></iframe>`;
-                                    } else {
-                                        embedContainer.innerHTML = '<div style="padding:1rem;background:var(--secondary);border-radius:8px;color:#666">Demo not available</div>';
-                                    }
-                                }
-                            } catch (err) {
-                                // network error or CORS - show friendly message instead of the server error page
-                                embedContainer.innerHTML = '<div style="padding:1rem;background:var(--secondary);border-radius:8px;color:#666">Demo not available</div>';
-                            }
-                        } else {
-                            embedContainer.innerHTML = '';
-                        }
-                    }
-                }
+            if (project.embed) {
+                modalEmbed.innerHTML = `<iframe src="${project.embed}" title="Interactive demo" style="width:100%;height:300px;border:0;border-radius:8px;" loading="lazy"></iframe>`;
             } else {
-                // fallback single image
-                if (data.image) {
-                    modalImage.src = data.image;
-                    modalImage.alt = data.title || 'Project screenshot';
-                    modalImage.style.display = '';
-                } else {
-                    modalImage.style.display = 'none';
-                }
+                modalEmbed.innerHTML = '';
             }
-            // populate tech list
-            const techListContainer = document.getElementById('modal-tech');
-            if (techListContainer) {
-                techListContainer.innerHTML = '';
-                const techCsv = data.tech || '';
-                const techs = techCsv.split(',').map(t => t.trim()).filter(Boolean);
-                techs.forEach(t => {
-                    const el = document.createElement('span');
-                    el.className = 'tech-pill';
-                    el.textContent = t;
-                    techListContainer.appendChild(el);
-                });
-            }
-            if (data.live) {
-                modalLive.href = data.live;
+
+            if (project.live) {
+                modalLive.href = project.live;
                 modalLive.style.display = '';
             } else {
                 modalLive.style.display = 'none';
             }
-            if (data.github) {
-                modalGithub.href = data.github;
+
+            if (project.github) {
+                modalGithub.href = project.github;
                 modalGithub.style.display = '';
             } else {
                 modalGithub.style.display = 'none';
             }
+
             modal.setAttribute('aria-hidden', 'false');
             modal.classList.add('open');
-            // trap focus
-            modal.focus();
             document.body.style.overflow = 'hidden';
-
-            // initialize carousel controls
-            const prev = document.getElementById('carousel-prev');
-            const next = document.getElementById('carousel-next');
-            const holder = document.getElementById('modal-carousel');
-            let currentIndex = 0;
-            function showIndex(i) {
-                const imgs = holder.querySelectorAll('.carousel-image');
-                const dots = document.querySelectorAll('#carousel-indicators .dot');
-                if (!imgs.length) return;
-                imgs.forEach((img, idx) => img.style.display = idx === i ? '' : 'none');
-                dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
-                currentIndex = i;
-            }
-            prev && prev.addEventListener('click', () => {
-                const imgs = holder.querySelectorAll('.carousel-image');
-                if (!imgs.length) return;
-                showIndex((currentIndex - 1 + imgs.length) % imgs.length);
-            });
-            next && next.addEventListener('click', () => {
-                const imgs = holder.querySelectorAll('.carousel-image');
-                if (!imgs.length) return;
-                showIndex((currentIndex + 1) % imgs.length);
-            });
-            // indicators
-            const indicators = document.getElementById('carousel-indicators');
-            indicators.innerHTML = '';
-            const imgs = holder.querySelectorAll('.carousel-image');
-            imgs.forEach((_, idx) => {
-                const dot = document.createElement('button');
-                dot.className = 'dot';
-                dot.setAttribute('aria-label', `Show image ${idx+1}`);
-                dot.addEventListener('click', () => showIndex(idx));
-                indicators.appendChild(dot);
-            });
-
-            // autoplay
-            let autoplayTimer = null;
-            function startAutoplay() {
-                if (autoplayTimer) clearInterval(autoplayTimer);
-                autoplayTimer = setInterval(() => {
-                    const imgs = holder.querySelectorAll('.carousel-image');
-                    if (!imgs.length) return;
-                    showIndex((currentIndex + 1) % imgs.length);
-                }, 4000);
-            }
-            startAutoplay();
-
-            // touch swipe support
-            let touchStartX = 0;
-            holder.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; if (autoplayTimer) clearInterval(autoplayTimer); });
-            holder.addEventListener('touchend', (e) => {
-                const dx = e.changedTouches[0].clientX - touchStartX;
-                if (Math.abs(dx) > 40) {
-                    if (dx > 0) prev && prev.click(); else next && next.click();
-                }
-                startAutoplay();
-            });
-            // keyboard left/right for carousel
-            function carouselKey(e) {
-                if (e.key === 'ArrowLeft') prev && prev.click();
-                if (e.key === 'ArrowRight') next && next.click();
-            }
-            window.addEventListener('keydown', carouselKey);
-            // show first image
-            showIndex(0);
-            // cleanup when modal closes
-            modal.addEventListener('transitionend', () => {
-                if (!modal.classList.contains('open')) {
-                    window.removeEventListener('keydown', carouselKey);
-                }
-            }, { once: true });
         }
 
         function closeModal() {
@@ -1175,282 +1233,125 @@ footer {
             document.body.style.overflow = '';
         }
 
-        // Open when clicking a project-card
         document.addEventListener('click', (e) => {
             const card = e.target.closest('.project-card');
-            if (!card) return;
-            // ignore clicks on explicit links inside card
-            if (e.target.tagName === 'A') return;
-            const data = {
-                title: card.dataset.title,
-                desc: card.dataset.desc,
-                image: card.dataset.image,
-                github: card.dataset.github,
-                live: card.dataset.live
-            };
-            openModal(data);
+            if (card && !e.target.closest('a')) {
+                const project = JSON.parse(card.getAttribute('data-project'));
+                openModal(project);
+            }
         });
 
-        // Close when clicking backdrop or close button
-        modal.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal-backdrop') || e.target.classList.contains('modal-close')) {
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', closeModal);
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) {
                 closeModal();
             }
         });
-
-        // Close on Escape
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
-        });
-
-        // Analytics consent
-        (function analyticsConsent() {
-            const banner = document.getElementById('consent-banner');
-            const accept = document.getElementById('consent-accept');
-            const decline = document.getElementById('consent-decline');
-            const key = 'analytics-consent';
-
-            function showBanner() {
-                if (!localStorage.getItem(key)) {
-                    banner.setAttribute('aria-hidden', 'false');
-                    banner.classList.add('visible');
-                }
-            }
-
-            function setConsent(value) {
-                localStorage.setItem(key, value ? 'granted' : 'denied');
-                banner.setAttribute('aria-hidden', 'true');
-                banner.classList.remove('visible');
-                if (value) loadAnalytics();
-            }
-
-            accept.addEventListener('click', () => setConsent(true));
-            decline.addEventListener('click', () => setConsent(false));
-
-            // If previously granted, load analytics immediately
-            if (localStorage.getItem(key) === 'granted') loadAnalytics();
-            else showBanner();
-
-            function loadAnalytics() {
-                // Insert your analytics script here (Plausible/umami/GA)
-                // Example (Plausible):
-                // const s = document.createElement('script');
-                // s.src = 'https://plausible.io/js/plausible.js';
-                // s.defer = true; s.async = true; s.setAttribute('data-domain', location.hostname);
-                // document.head.appendChild(s);
-                console.info('Analytics would be loaded now (consent granted)');
-            }
-        })();
-
     })();
 
-    // Lazy-load Lottie player when hero is visible
-    (function lazyLottie() {
-        const hero = document.getElementById('hero');
-        if (!hero) return;
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const s = document.createElement('script');
-                    s.src = 'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js';
-                    s.defer = true; s.async = true;
-                    document.head.appendChild(s);
-                    io.disconnect();
-                }
-            });
-        }, { rootMargin: '200px' });
-        io.observe(hero);
-    })();
-    // Smooth scrolling for navigation
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+    // Contact form
+    (function() {
+        const form = document.getElementById('contact-form');
+        const btnText = document.getElementById('btn-text');
+        const btnLoading = document.getElementById('btn-loading');
+        const status = document.getElementById('form-status');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = form.name.value.trim();
+            const email = form.email.value.trim();
+            const message = form.message.value.trim();
+
+            if (!name || !email || !message) {
+                showStatus('Please fill all fields.', 'error');
+                return;
+            }
+
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline-block';
+            form.querySelector('button').disabled = true;
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, message })
                 });
-            });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showStatus('Message sent successfully!', 'success');
+                    form.reset();
+                } else {
+                    showStatus(data.error || 'Failed to send message.', 'error');
+                }
+            } catch (error) {
+                showStatus('Network error. Please try again later.', 'error');
+            } finally {
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                form.querySelector('button').disabled = false;
+            }
         });
 
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        function showStatus(message, type) {
+            status.textContent = message;
+            status.className = `form-status ${type}`;
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 5000);
+        }
+    })();
 
+    // Consent banner
+    (function() {
+        const banner = document.getElementById('consent-banner');
+        const accept = document.getElementById('consent-accept');
+        const decline = document.getElementById('consent-decline');
+
+        if (!localStorage.getItem('analytics-consent')) {
+            setTimeout(() => {
+                banner.setAttribute('aria-hidden', 'false');
+                banner.classList.add('visible');
+            }, 2000);
+        }
+
+        accept.addEventListener('click', () => {
+            localStorage.setItem('analytics-consent', 'granted');
+            banner.setAttribute('aria-hidden', 'true');
+            banner.classList.remove('visible');
+            // Load analytics here if needed
+        });
+
+        decline.addEventListener('click', () => {
+            localStorage.setItem('analytics-consent', 'denied');
+            banner.setAttribute('aria-hidden', 'true');
+            banner.classList.remove('visible');
+        });
+    })();
+
+    // Animations
+    (function() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        // Observe sections, titles, cards, items
         document.querySelectorAll('section').forEach(section => observer.observe(section));
-        document.querySelectorAll('.section-title').forEach(title => observer.observe(title));
         document.querySelectorAll('.skill-card').forEach(card => observer.observe(card));
         document.querySelectorAll('.project-card').forEach(card => observer.observe(card));
         document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
         document.querySelectorAll('.contact-item').forEach(item => observer.observe(item));
-
-        // Mobile nav toggle behavior
-        const navToggle = document.querySelector('.nav-toggle');
-        const primaryNav = document.getElementById('primary-nav');
-        if (navToggle && primaryNav) {
-            navToggle.addEventListener('click', () => {
-                const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-                navToggle.setAttribute('aria-expanded', String(!expanded));
-                primaryNav.classList.toggle('open');
-            });
-        }
-
-        // Contact form submission (client-side)
-        const contactForm = document.getElementById('contact-form');
-        if (contactForm) {
-            const statusEl = document.getElementById('cf-status');
-            contactForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const btn = contactForm.querySelector('button[type="submit"]');
-                const name = document.getElementById('cf-name').value.trim();
-                const email = document.getElementById('cf-email').value.trim();
-                const message = document.getElementById('cf-message').value.trim();
-                if (!name || !email || !message) {
-                    statusEl.textContent = 'Please fill all fields.';
-                    return;
-                }
-                try {
-                    btn.disabled = true;
-                    statusEl.textContent = 'Sending...';
-                    const res = await fetch('/api/contact', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, email, message })
-                    });
-                    const data = await res.json();
-                    if (res.ok) {
-                        statusEl.textContent = 'Message sent — thank you!';
-                        contactForm.reset();
-                    } else {
-                        statusEl.textContent = data?.error || 'Failed to send message.';
-                    }
-                } catch (err) {
-                    console.error(err);
-                    statusEl.textContent = 'Network error — please try again later.';
-                } finally {
-                    btn.disabled = false;
-                }
-            });
-        }
+    })();
     </script>
-    <!-- Runtime image swapper: update both <source> and <img> using data-id and fallback to inline SVG placeholder -->
-    <script>
-        (function() {
-            // (removed) older probing-based swapper in favor of a single deterministic mapping below.
-            // Keeping this stub for backward-compatibility and to avoid errors in browsers that may
-            // try to reference this script textually.
-        })();
-    </script>
-    <!-- Theme toggle: persist in localStorage and reflect system preference -->
-    <script>
-        (function () {
-            const themeToggle = document.getElementById('theme-toggle');
-            const root = document.documentElement;
-            const stored = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const initial = stored || (systemPrefersDark ? 'dark' : 'light');
-            if (initial === 'dark') root.setAttribute('data-theme', 'dark');
-            if (themeToggle) {
-                const updateIcon = () => { themeToggle.textContent = root.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; };
-                updateIcon();
-                themeToggle.addEventListener('click', () => {
-                    const now = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                    if (now === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
-                    localStorage.setItem('theme', now === 'dark' ? 'dark' : 'light');
-                    updateIcon();
-                });
-            }
-        })();
-
-    </script>
-
-    <!-- Deterministic runtime image mapping: use /public/assets on localhost, /assets in production -->
-    <script>
-        (function() {
-            // Improved deterministic mapping with a light HEAD-check for same-origin assets.
-            const placeholder = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><rect fill="#f3f4f6" width="400" height="200" rx="8"/><g fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle"><text x="200" y="100">Image unavailable</text></g></svg>');
-            const hostname = location.hostname;
-            const usePublicPrefix = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '';
-            const base = usePublicPrefix ? '/public' : '';
-
-            // small helper to attempt a HEAD request with timeout for same-origin URLs
-            async function headOk(url, timeout = 1200) {
-                if (location.protocol === 'file:') return false;
-                try {
-                    const controller = new AbortController();
-                    const id = setTimeout(() => controller.abort(), timeout);
-                    const res = await fetch(url, { method: 'HEAD', signal: controller.signal });
-                    clearTimeout(id);
-                    return res && res.ok;
-                } catch (err) {
-                    return false;
-                }
-            }
-
-            (async function applyImages() {
-                const cards = Array.from(document.querySelectorAll('.project-card'));
-                for (const card of cards) {
-                    const id = (card.dataset.id || '').toLowerCase();
-                    if (!id) continue;
-                    const pic = card.querySelector('picture');
-                    if (!pic) continue;
-                    const source = pic.querySelector('source');
-                    const img = pic.querySelector('img');
-
-                    const assetPath = base + '/assets/' + id + '.webp';
-                    const imageFallback = 'images/' + id + '.jpg';
-
-                    let chosen = assetPath;
-                    // prefer to verify same-origin assets before assigning to avoid noisy 404s
-                    if (assetPath.startsWith('/') && (location.protocol === 'http:' || location.protocol === 'https:')) {
-                        const ok = await headOk(assetPath);
-                        if (!ok) {
-                            chosen = imageFallback;
-                            console.debug('[images] asset not found, falling back:', assetPath, '->', chosen);
-                        } else {
-                            console.debug('[images] using asset:', assetPath);
-                        }
-                    } else {
-                        // file:// or unknown environment: use local images folder
-                        if (location.protocol === 'file:') {
-                            chosen = imageFallback;
-                            console.debug('[images] file:// environment - using fallback', chosen);
-                        }
-                    }
-
-                    if (source) source.srcset = chosen + ' 400w, ' + chosen + ' 800w';
-                    if (img) {
-                        img.src = chosen;
-                        img.srcset = chosen + ' 400w, ' + chosen + ' 800w';
-                        img.onerror = function() {
-                            if (!this.dataset._triedFallback) {
-                                this.dataset._triedFallback = '1';
-                                // try the other path if we initially set the asset path
-                                const alt = (chosen === imageFallback) ? (base + '/assets/' + id + '.webp') : imageFallback;
-                                console.debug('[images] onerror, trying alternative:', alt);
-                                this.src = alt;
-                            } else {
-                                this.onerror = null;
-                                this.src = placeholder;
-                                console.warn('[images] failed to load image for', id, '- using placeholder');
-                            }
-                        };
-                    }
-                }
-            })();
-        })();
-    </script>
-
 </body>
 </html>
