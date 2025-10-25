@@ -5,7 +5,9 @@
   "scripts": {
     "gen-webp": "node tools/generate-webp.js --src=./images --dest=./public/assets --quality=80",
     "css-coverage": "node ./tools/css-coverage.js",
-    "recompress": "node ./tools/recompress-images.js --src=./public/assets --quality=80"
+    "recompress": "node ./tools/recompress-images.js --src=./public/assets --quality=80",
+    "start": "python -m http.server 8000",
+    "test:smoke": "node tools/check-assets.js"
   },
   "devDependencies": {
     "sharp": "^0.32.0",
