@@ -2,6 +2,7 @@
   "name": "lohith-portfolio",
   "version": "1.0.0",
   "description": "Portfolio site - helper scripts",
+  "type": "module",
   "scripts": {
     "gen-webp": "node tools/generate-webp.js --src=./images --dest=./public/assets --quality=80",
     "css-coverage": "node ./tools/css-coverage.js",
