@@ -1,0 +1,336 @@
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: #f4f7fa;
+  margin: 0;
+  color: #23272f;
+}
+/* Theme variables - two variants provided (theme-a and theme-b).
+   theme-a approximates the left/top screenshot (teal/soft-green feel).
+   theme-b approximates the right/bottom screenshot (light-blue theme).
+   Use the `.theme-a` or `.theme-b` class on <body> to switch. A
+   small toggle script in `index.html` will persist the choice. */
+:root {
+  --primary: #007bff; /* blue */
+  --nav-bg: #ffffff;
+  --nav-link: #007bff;
+  --hero-bg: #f0f6fc; /* light hero bg default */
+  --avatar-bg: #0f6b6b; /* teal avatar */
+  --card-shadow: 0 10px 30px rgba(15, 23, 36, 0.12);
+  --section-bg: #ffffff;
+  --button-bg: #007bff;
+  --button-hover: #0053a1;
+  --footer-bg: #f0f7fa;
+  --text-color: #23272f;
+}
+.theme-a {
+  --primary: #0f6b6b; /* teal */
+  --nav-bg: #6f665c; /* warmer header for screenshot A (brownish band) */
+  --nav-link: #083a3a; /* darker link in header */
+  --nav-brand: #083a3a;
+  --hero-bg: linear-gradient(135deg, #eef8f6 0%, #f3fbf8 100%); /* soft-green-ish */
+  --avatar-bg: #0f6b6b;
+  --card-shadow: 0 18px 40px rgba(12,59,59,0.08);
+  --button-bg: #127272; /* slightly adjusted teal for button */
+  --button-hover: #0d5e5e;
+  --footer-bg: #f6f6f4;
+}
+.theme-b {
+  --primary: #007bff;
+  --nav-bg: #ffffff;
+  --nav-link: #007bff;
+  --hero-bg: #f0f6fc;
+  --avatar-bg: #0f6b6b;
+  --card-shadow: 0 10px 30px rgba(15, 23, 36, 0.12);
+  --button-bg: #007bff;
+  --button-hover: #0053a1;
+  --footer-bg: #f0f7fa;
+}
+nav {
+  background: var(--nav-bg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+nav {
+  background: var(--nav-bg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+/* nav inner container: brand left, links right */
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+}
+.brand a {
+  text-decoration: none;
+  color: var(--nav-brand);
+  font-weight: 700;
+  font-size: 1.35rem;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--nav-link);
+  font-weight: 600;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+header {
+  background: var(--hero-bg);
+  padding: 2.5rem 0 1.5rem 0;
+  /* two-column hero layout: left text, right profile card */
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem; /* increase top padding so card and avatar fit inside header */
+}
+.hero-left {
+  flex: 1 1 60%;
+}
+.hero-left h1 { /* large hero title to match screenshot */
+  font-size: 64px;
+  margin: 0 0 0.6rem 0;
+  color: var(--primary);
+  line-height: 1.02;
+  font-weight: 700;
+}
+.hero-left h2 {
+  font-size: 20px;
+  margin: 0 0 1rem 0;
+  color: #5b6b6b;
+  font-weight: 500;
+}
+.hero-left p {
+  max-width: 680px;
+  color: #657a77;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+.hero-right {
+  flex: 0 0 420px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Profile card (hero) matching provided design */
+.profile-card {
+  width: 360px;
+  background: var(--section-bg);
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  padding: 2.2rem 1.6rem 2.2rem; /* more top padding so avatar doesn't touch edge */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: visible;
+}
+.profile-card .avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: var(--avatar-bg);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: 700;
+  box-shadow: 0 8px 28px rgba(15, 23, 36, 0.18);
+  margin-top: 0; /* keep avatar inside the card so it fits within the section */
+  margin-bottom: 0.6rem;
+}
+.profile-card .card-content {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+.profile-card h3 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.05rem;
+  color: var(--nav-brand);
+}
+.profile-card .card-sub {
+  margin: 0;
+  color: #9aa6a6;
+  font-size: 0.95rem;
+}
+.profile-card .socials {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.profile-card .socials a {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #0c3b3b;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(12,59,59,0.06);
+  border: 1px solid rgba(12,59,59,0.08);
+  padding: 0;
+}
+.profile-card .socials a svg { width:18px; height:18px; display:block; }
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .hero { flex-direction: column; text-align: center; }
+  .hero-right { flex: none; }
+}
+.profile-links .btn {
+  display: inline-block;
+  margin-right: 0.85rem;
+  background: var(--button-bg);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.18s, box-shadow 0.18s;
+  box-shadow: 0 6px 18px rgba(15,23,23,0.08);
+}
+.profile-links .btn.secondary {
+  background: #fff;
+  color: var(--nav-brand);
+  border: 1px solid rgba(12,59,59,0.06);
+  box-shadow: 0 3px 10px rgba(12,59,59,0.03);
+}
+.profile-links .btn:hover { background: var(--button-hover); }
+section {
+  background: #fff;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.section-sub { color: #5b6b6b; margin-top: 0.5rem; margin-bottom: 1rem; }
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:1rem; margin-bottom:1rem; }
+.contact-item { background: #fff; padding:0.8rem; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
+section h3 {
+  color: var(--primary);
+  margin-top: 0;
+}
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.skill {
+  flex: 1 1 210px;
+  background: #f3f3fd;
+  padding: 1rem 1.1rem;
+  border-radius: 10px;
+}
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+.project-card {
+  background: #f8fcfd;
+  border-radius: 10px;
+  padding: 1.15rem 1em 1.1rem 1.2em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  margin-bottom: 0.1rem;
+}
+.project-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.2rem;
+}
+.project-card a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.project-card a:hover {
+  text-decoration: underline;
+}
+.education-card, .achievement-card {
+  background: #f8fdf8;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+.contact-form {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.contact-form input, .contact-form textarea {
+  padding: 9px 12px;
+  border: 1px solid #e1e6ee;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+/* visually hidden but accessible labels */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.contact-form button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 26px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.18s;
+}
+.contact-form button:hover {
+  background: #0053a1;
+}
+footer {
+  background: var(--footer-bg);
+  text-align: center;
+  padding: 1.4rem 0 0.5rem 0;
+  margin-top: 1.7rem;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+/* Theme toggle button style (small unobtrusive control in the nav) */
+.theme-toggle {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: var(--nav-link);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.theme-toggle:hover { opacity: 0.95; }
