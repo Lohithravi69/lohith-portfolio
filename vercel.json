@@ -5,7 +5,7 @@
   ],
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/public/index.html" }
+    { "src": "/(.*)", "dest": "/api/root" }
   ],
   "headers": [
     {
