@@ -8,7 +8,8 @@
     "css-coverage": "node ./tools/css-coverage.js",
     "recompress": "node ./tools/recompress-images.js --src=./public/assets --quality=80",
     "start": "python -m http.server 8000",
-    "test:smoke": "node tools/check-assets.js"
+    "test:smoke": "node tools/check-assets.js",
+    "vercel-build": "mkdir -p /vercel/output/static && cp -a public/. /vercel/output/static || true"
   },
   "devDependencies": {
     "sharp": "^0.32.0",
