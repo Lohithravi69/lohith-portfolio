@@ -1,0 +1,37 @@
+name: Smoke tests (assets)
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  smoke-test:
+    name: Run asset smoke-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+
+      - name: Start static server
+        run: |
+          # start a small static server in background
+          python -m http.server 8000 &
+          # give the server a moment to start
+          sleep 2
+
+      - name: Run smoke-test
+        run: |
+          npm run test:smoke
+        env:
+          CI: true
