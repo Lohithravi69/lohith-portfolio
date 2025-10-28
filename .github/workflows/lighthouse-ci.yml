@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -31,12 +31,12 @@ jobs:
       - name: Run Lighthouse CI (write filesystem report)
         run: |
           # First run: write LHCI output to ./.lighthouseci so we can upload it as an artifact
-          lhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags="--no-sandbox --headless" --upload.target=filesystem || true
+          lhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags='--no-sandbox --headless' --upload.target=filesystem || true
 
       - name: Run Lighthouse CI (temporary-public-storage)
         run: |
           # Second run: upload to temporary-public-storage to get a public report URL
-          lhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags="--no-sandbox --headless" --upload.target=temporary-public-storage || true
+          lhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags='--no-sandbox --headless' --upload.target=temporary-public-storage || true
 
       - name: Run standalone Lighthouse and save HTML report
         run: |
