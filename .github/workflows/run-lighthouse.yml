@@ -2,8 +2,10 @@ name: lighthouse-ci
 
 on:
   push:
-    branches: [ main, 'blackboxai/fix-github-actions-versions' ]
-  pull_request:
+    branches:
+      - main
+      - 'blackboxai/fix-github-actions-versions'
+  pull_request: {}
 
 jobs:
   lighthouse:
