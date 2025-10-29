@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lohith R - Full Stack Developer &amp; AI Enthusiast</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
   <style>
     :root {
       --color-white: rgba(255, 255, 255, 1);
@@ -71,7 +72,6 @@
       background: var(--color-background);
       color: var(--color-text);
       line-height: 1.6;
-      overflow-x: hidden;
     }
 
     /* Navigation */
@@ -814,15 +814,15 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero" id="home">
+  <section class="hero" id="home" data-aos="fade-up">
     <div class="hero-content">
       <div class="hero-text">
-        <h1>Lohith R</h1>
+        <h1>Hi, I'm <span id="typed" class="animated-text"></span></h1>
         <p class="subtitle">Full-Stack Developer | AI Enthusiast</p>
         <p>Computer Science and Engineering student with a passion for building innovative tech solutions. Experienced in web development, AI/ML, and real-world problem-solving.</p>
         <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary">View My Work</a>
-          <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-secondary">Contact Me</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -854,7 +854,7 @@
   </section>
 
   <!-- About Section -->
-  <section id="about" class="fade-in visible">
+  <section id="about" class="fade-in visible" data-aos="fade-left">
     <div class="section-header">
       <h2>About Me</h2>
       <p>Passionate about technology and innovation</p>
@@ -870,7 +870,7 @@
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="fade-in visible">
+  <section id="skills" class="fade-in visible" data-aos="fade-up">
     <div class="section-header">
       <h2>Technical Skills</h2>
       <p>Technologies and tools I work with</p>
@@ -910,7 +910,7 @@
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="fade-in visible">
+  <section id="projects" class="fade-in visible" data-aos="fade-up">
     <div class="section-header">
       <h2>Featured Projects</h2>
       <p>Some of my recent work</p>
@@ -989,7 +989,7 @@
   </section>
 
   <!-- Education Section -->
-  <section id="education" class="fade-in visible">
+  <section id="education" class="fade-in visible" data-aos="fade-up">
     <div class="section-header">
       <h2>Education &amp; Achievements</h2>
       <p>My academic journey and accomplishments</p>
@@ -1038,7 +1038,7 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="fade-in visible">
+  <section id="contact" class="fade-in visible" data-aos="fade-up">
     <div class="section-header">
       <h2>Get In Touch</h2>
       <p>Let's connect and collaborate</p>
@@ -1077,19 +1077,19 @@
 
       <div class="contact-form">
         <form id="contactForm">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required="" placeholder="Your name">
+          <div class="form-group floating">
+            <input type="text" id="name" name="name" required="" placeholder=" ">
+            <label for="name">Your Name</label>
           </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required="" placeholder="your@email.com">
+          <div class="form-group floating">
+            <input type="email" id="email" name="email" required="" placeholder=" ">
+            <label for="email">Your Email</label>
           </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" required="" placeholder="How can I help you?"></textarea>
+          <div class="form-group floating">
+            <textarea id="message" name="message" required="" placeholder=" "></textarea>
+            <label for="message">Your Message</label>
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+          <button type="submit" class="btn btn-primary" style="width: 100%">Send Message</button>
           <div id="formStatus" class="form-status"></div>
         </form>
       </div>
@@ -1101,6 +1101,8 @@
     <p>© 2025 Lohith R. All rights reserved. | Built with passion for technology</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     // Mobile Menu Toggle
     function toggleMenu() {
@@ -1160,6 +1162,24 @@
     }, observerOptions);
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Initialize AOS (Animate On Scroll)
+    if (window.AOS) {
+      AOS.init({ duration: 800, once: true });
+    }
+
+    // Typed.js animated headline
+    try {
+      const typed = new Typed('#typed', {
+        strings: ['Lohith R', 'Full-Stack Developer', 'AI Enthusiast'],
+        typeSpeed: 80,
+        backSpeed: 40,
+        backDelay: 1800,
+        loop: true,
+      });
+    } catch (e) {
+      // Typed.js failed to initialize — silently continue
+    }
 
     // Contact Form Handling
     document.getElementById('contactForm').addEventListener('submit', function(e) {
