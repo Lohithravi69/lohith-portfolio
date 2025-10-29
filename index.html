@@ -61,6 +61,18 @@
       }
     }
 
+    /* Support explicit data-theme="dark" (toggled by JS) */
+    [data-theme="dark"] {
+      --color-background: var(--color-charcoal-700);
+      --color-surface: var(--color-charcoal-800);
+      --color-text: var(--color-gray-200);
+      --color-text-secondary: rgba(167, 169, 169, 0.7);
+      --color-primary: var(--color-teal-300);
+      --color-primary-hover: var(--color-teal-400);
+      --color-border: rgba(119, 124, 124, 0.3);
+      --color-card-border: rgba(119, 124, 124, 0.2);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -69,9 +81,19 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--color-background);
+      background: linear-gradient(-45deg, #4f46e5, #9333ea, #ec4899, #22d3ee);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       color: var(--color-text);
       line-height: 1.6;
+      transition: background 0.3s ease;
+    }
+
+    /* Animated gradient keyframes (subtle, improves visual polish) */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     /* Navigation */
@@ -98,6 +120,20 @@
       font-size: 1.5rem;
       font-weight: 600;
       color: var(--color-text);
+    }
+
+    /* Theme toggle button placed in nav */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--color-text);
+      padding: 0.5rem 0.75rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     nav ul {
@@ -800,7 +836,10 @@
 <body>
   <nav>
     <div class="container">
-      <div class="logo">Lohith R</div>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <div class="logo">Lohith R</div>
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">🌗</button>
+      </div>
       <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
       <ul id="navMenu">
         <li><a href="#home" onclick="closeMenu()" class="active">Home</a></li>
@@ -1167,6 +1206,33 @@
     if (window.AOS) {
       AOS.init({ duration: 800, once: true });
     }
+
+    // Theme toggle (persist in localStorage)
+    (function() {
+      const toggle = document.getElementById('themeToggle');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const stored = localStorage.getItem('theme');
+
+      function applyTheme(name) {
+        if (name === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+      }
+
+      // initial
+      applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+          const next = current === 'dark' ? 'light' : 'dark';
+          applyTheme(next);
+          localStorage.setItem('theme', next);
+        });
+      }
+    })();
 
     // Typed.js animated headline
     try {
