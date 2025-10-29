@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '18'
 
@@ -44,7 +44,7 @@ jobs:
           npx -y lighthouse http://localhost:8080 --output html --output-path=./lighthouse-report.html --quiet --chrome-flags='--no-sandbox --headless' || true
 
       - name: Upload artifact (report)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: lighthouse-report
           path: |
