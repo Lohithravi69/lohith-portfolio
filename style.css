@@ -1,6 +1,8 @@
 body {
   font-family: 'Poppins', Arial, sans-serif;
-  background: #f4f7fa;
+  background: linear-gradient(-45deg, #4f46e5, #9333ea, #ec4899, #22d3ee);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   margin: 0;
   color: #23272f;
 }
@@ -382,3 +384,107 @@ footer {
   .hero-text h1 { font-size: 2.2rem; }
   .hero-text .subtitle { font-size: 1.1rem; }
 }
+
+@keyframes gradientShift {
+  0% { background: linear-gradient(-45deg, #4f46e5, #9333ea, #ec4899, #22d3ee); }
+  25% { background: linear-gradient(-45deg, #9333ea, #ec4899, #22d3ee, #4f46e5); }
+  50% { background: linear-gradient(-45deg, #ec4899, #22d3ee, #4f46e5, #9333ea); }
+  75% { background: linear-gradient(-45deg, #22d3ee, #4f46e5, #9333ea, #ec4899); }
+  100% { background: linear-gradient(-45deg, #4f46e5, #9333ea, #ec4899, #22d3ee); }
+}
+
+/* --- Appended styles migrated from inline index.html --- */
+
+/* Navigation */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(94, 82, 64, 0.8); /* fallback similar to original */
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  padding: 1rem 2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+nav .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover { color: var(--primary); }
+
+/* Hero Section (migrated) */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 2rem;
+  background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(34,197,94,0.08));
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  opacity: 0.1;
+  top: -250px;
+  right: -250px;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float { 0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(5deg)} }
+
+.hero-content { max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items:center; z-index:1 }
+.hero-text h1 { font-size: 3.5rem; font-weight:700; margin-bottom:1rem; background:linear-gradient(135deg,var(--primary), #144); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-text .subtitle { font-size:1.5rem; color: #657a77; margin-bottom:1rem }
+.hero-text p { font-size:1.1rem; color:#657a77; margin-bottom:2rem; line-height:1.8 }
+.hero-buttons { display:flex; gap:1rem; flex-wrap:wrap }
+.btn { padding:0.875rem 2rem; border-radius:8px; text-decoration:none; font-weight:600; transition:all .3s; border:none; cursor:pointer; font-size:1rem }
+.btn-primary{ background:var(--button-bg); color:#fff; box-shadow:0 4px 10px rgba(0,0,0,0.06) }
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.1); background:var(--button-hover)}
+.btn-secondary{ background:var(--section-bg); color:var(--text-color); border:1px solid rgba(0,0,0,0.06) }
+
+.hero-visual{ display:flex; justify-content:center; align-items:center }
+.profile-card { background: var(--section-bg); padding:2rem; border-radius:20px; box-shadow:var(--card-shadow); border:1px solid rgba(0,0,0,0.06); text-align:center }
+.profile-image{ width:200px; height:200px; border-radius:50%; background:linear-gradient(135deg,var(--primary), #144); display:flex; align-items:center; justify-content:center; font-size:5rem; color:white; margin:0 auto 1.5rem; box-shadow:0 10px 20px rgba(0,0,0,0.08)}
+
+/* Floating labels and glassmorphism helpers */
+.glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(10px); border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); }
+.floating .form-group { position: relative }
+.floating input, .floating textarea { background: rgba(255,255,255,0.02); }
+
+/* ensure responsive grids behave similarly to inline styles */
+@media (max-width: 768px) {
+  .hero-content { grid-template-columns: 1fr; text-align:center }
+  .hero-text h1 { font-size: 2.5rem }
+}
+
+/* end appended */
