@@ -1,0 +1,37 @@
+name: pa11y CI
+
+on:
+  pull_request: {}
+  push:
+    branches: [ main, master ]
+
+jobs:
+  pa11y:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm ci || true
+
+      - name: Serve site (http-server)
+        # start a lightweight static server in background on port 8000
+        run: |
+          npx --yes http-server -p 8000 &
+          # wait for server to be ready
+          for i in {1..12}; do
+            if curl -sSf http://127.0.0.1:8000/ >/dev/null; then break; fi
+            sleep 1
+          done
+
+      - name: Run pa11y-ci
+        # This will fail the job on accessibility failures
+        run: |
+          npx --yes pa11y-ci http://127.0.0.1:8000 || exit 1
