@@ -29,6 +29,23 @@ Accessibility & SEO:
 - The repo already contains a pa11y workflow for accessibility checks. Tweak thresholds as needed.
 - Lighthouse workflow will run in CI and upload an HTML report to Actions artifacts.
 
+## Lighthouse report (placeholder)
+
+When a Lighthouse run is available the artifact will be downloaded and summarized here. The summary should include:
+
+- Performance: XX
+- Accessibility: XX
+- Best Practices: XX
+- SEO: XX
+
+Top failing audits (examples):
+
+- Serve images with explicit width/height or CSS aspect ratio (fix: add width/height attributes or use aspect-ratio).
+- Reduce unused JavaScript (fix: remove or defer large third-party scripts).
+- Preconnect to critical origins (fix: add rel="preconnect" links for fonts/CDNs).
+
+Once you download the `lighthouse-report.html`, paste the four category scores and top failing audits here and this file will be updated with a prioritized checklist.
+
 Troubleshooting:
 - If images don't display, ensure they are located under `public/assets/` and referenced with that path.
 - If animated fonts or icons don't load, check CDN paths.

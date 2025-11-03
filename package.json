@@ -6,14 +6,32 @@
   "type": "module",
   "scripts": {
     "gen-webp": "node tools/generate-webp.js --src=./images --dest=./public/assets --quality=80",
+  "images:build": "node tools/generate-image-variants.js --src=./images --dest=./public/assets --quality=80 --sizes=1,2",
     "css-coverage": "node ./tools/css-coverage.js",
     "recompress": "node ./tools/recompress-images.js --src=./public/assets --quality=80",
     "start": "python -m http.server 8000",
     "test:smoke": "node tools/check-assets.js",
-    "vercel-build": "mkdir -p /vercel/output/static && cp -a public/. /vercel/output/static || true"
+    "vercel-build": "mkdir -p /vercel/output/static && cp -a public/. /vercel/output/static || true",
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "lint": "eslint scripts/*.js --ext .js",
+    "test:a11y": "axe-core-cli index.html --stdout"
   },
   "devDependencies": {
     "sharp": "^0.32.0",
-    "puppeteer": "^20.0.0"
+    "puppeteer": "^20.0.0",
+    "vite": "^4.4.0",
+    "gsap": "^3.12.0",
+    "axe-core": "^4.7.0",
+    "axe-core-cli": "^4.7.0",
+    "eslint": "^8.45.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.3.0",
+    "three": "^0.154.0",
+    "aos": "^2.3.4",
+    "lightbox2": "^2.11.4",
+    "typed.js": "^2.0.12"
   }
 }

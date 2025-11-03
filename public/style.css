@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
-
 body {
   font-family: 'Poppins', Arial, sans-serif;
   background: linear-gradient(-45deg, #4f46e5, #9333ea, #ec4899, #22d3ee, #06b6d4, #8b5cf6);
@@ -8,52 +6,6 @@ body {
   margin: 0;
   color: #23272f;
   min-height: 100vh;
-}
-
-/* Add a decorative, slightly more 'clever' heading font for the Education section */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
-
-/* Night sky background for dark theme */
-body.theme-a {
-  background: linear-gradient(to bottom, #0c0c0c, #1a1a2e, #16213e);
-  animation: none;
-}
-
-/* Semi-transparent sections for dark theme to show stars while keeping text readable */
-.dark section {
-  background: rgba(0, 0, 0, 0.75) !important;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff !important;
-}
-
-.dark section h1,
-.dark section h2,
-.dark section h3,
-.dark section h4,
-.dark section p,
-.dark section li {
-  color: #ffffff !important;
-}
-
-.dark .project-card,
-.dark .skill-card,
-.dark .education-card,
-.dark .achievement-card {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  color: #ffffff !important;
-}
-
-.dark .project-card h4,
-.dark .project-card p,
-.dark .skill-card h4,
-.dark .skill-card p,
-.dark .education-card h4,
-.dark .education-card p,
-.dark .achievement-card h4,
-.dark .achievement-card p {
-  color: #ffffff !important;
 }
 /* Make box-sizing consistent to avoid unexpected width calculations */
 *, *::before, *::after {
@@ -383,158 +335,10 @@ section h3 {
   text-decoration: underline;
 }
 .education-card, .achievement-card {
-  background: transparent;
+  background: #f8fdf8;
   padding: 1rem 1.25rem;
   margin-bottom: 1rem;
   border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.06);
-}
-
-/* Education & Achievements section: transparent background and clearer text
-   Ensures content is readable when the section background was previously white
-   and avoids white-on-white situations. Headings use a slightly playful
-   'Space Grotesk' font for a clever look. */
-#education {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  padding: 2rem !important;
-}
-
-#education h2 {
-  font-family: 'Space Grotesk', 'Poppins', Arial, sans-serif;
-  font-weight: 700;
-  color: var(--primary) !important;
-  margin-bottom: 0.5rem;
-}
-
-/* Ensure paragraph and list text is visible on both light and dark themes */
-#education, #education h3, #education p, #education li, #education a {
-  color: var(--text-color) !important;
-}
-
-/* In dark theme, keep the bright/white text for contrast */
-.theme-a #education,
-.dark #education {
-  color: #ffffff !important;
-}
-
-/* Make the small cards inside the section subtle on dark mode too */
-.theme-a #education .education-card,
-.theme-a #education .achievement-card,
-.dark #education .education-card,
-.dark #education .achievement-card {
-  background: rgba(255,255,255,0.04) !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
-}
-
-/* Apply same transparent treatment to the Skills section */
-#skills {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  padding: 2rem !important;
-}
-
-#skills h2 {
-  font-family: 'Space Grotesk', 'Poppins', Arial, sans-serif;
-  font-weight: 700;
-  color: var(--primary) !important;
-  margin-bottom: 0.5rem;
-}
-
-/* Ensure paragraph and list text in skills is visible on both light and dark themes */
-#skills, #skills h3, #skills p, #skills li, #skills a {
-  color: var(--text-color) !important;
-}
-
-.theme-a #skills,
-.dark #skills {
-  color: #ffffff !important;
-}
-
-/* Make skill cards subtle and readable in both modes */
-#skills .skill-card {
-  background: transparent !important;
-  border: 1px solid rgba(0,0,0,0.06) !important;
-  padding: 1rem !important;
-}
-
-.theme-a #skills .skill-card,
-.dark #skills .skill-card {
-  background: rgba(255,255,255,0.04) !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
-}
-
-/* Apply same transparent treatment to the About section */
-#about {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  padding: 2rem !important;
-}
-
-#about h2 {
-  font-family: 'Space Grotesk', 'Poppins', Arial, sans-serif;
-  font-weight: 700;
-  color: var(--primary) !important;
-  margin-bottom: 0.5rem;
-}
-
-/* Ensure paragraph and list text in about is visible on both light and dark themes */
-#about, #about h3, #about p, #about li, #about a {
-  color: var(--text-color) !important;
-}
-
-.theme-a #about,
-.dark #about {
-  color: #ffffff !important;
-}
-
-/* About content cards: subtle borders and readable background */
-#about .card, #about .about-card {
-  background: transparent !important;
-  border: 1px solid rgba(0,0,0,0.06) !important;
-  padding: 1rem !important;
-}
-
-.theme-a #about .card,
-.dark #about .card,
-.theme-a #about .about-card,
-.dark #about .about-card {
-  background: rgba(255,255,255,0.04) !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
-}
-
-/* Light-theme safety: ensure these sections remain readable when theme-a/dark are not active.
-   This guards against accidental global transparency that makes text hard to read. */
-body:not(.theme-a):not(.dark) #about,
-body:not(.theme-a):not(.dark) #skills,
-body:not(.theme-a):not(.dark) #education {
-  background: #ffffff !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
-  border-radius: 12px !important;
-  padding: 2rem !important;
-}
-
-body:not(.theme-a):not(.dark) #about .card,
-body:not(.theme-a):not(.dark) #about .about-card,
-body:not(.theme-a):not(.dark) #skills .skill-card,
-body:not(.theme-a):not(.dark) #education .education-card,
-body:not(.theme-a):not(.dark) #education .achievement-card,
-body:not(.theme-a):not(.dark) .project-card,
-body:not(.theme-a):not(.dark) .contact-form,
-body:not(.theme-a):not(.dark) .profile-card {
-  background: #ffffff !important;
-  color: var(--text-color) !important;
-  border: 1px solid rgba(0,0,0,0.06) !important;
-}
-
-/* Ensure headings in light theme have strong contrast */
-body:not(.theme-a):not(.dark) #about h2,
-body:not(.theme-a):not(.dark) #skills h2,
-body:not(.theme-a):not(.dark) #education h2 {
-  color: var(--primary) !important;
 }
 .contact-form {
   margin-top: 1.4rem;
@@ -560,33 +364,6 @@ body:not(.theme-a):not(.dark) #education h2 {
   clip: rect(0,0,0,0) !important;
   white-space: nowrap !important;
   border: 0 !important;
-}
-/* Skip link visible on focus for keyboard users */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 8px;
-  background: #111;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 6px;
-  z-index: 9999;
-  transition: top 0.15s ease-in-out;
-}
-.skip-link:focus,
-.skip-link:not(.sr-only) {
-  top: 8px;
-}
-
-/* Focus styles: use focus-visible where supported so mouse clicks don't show outline */
-:focus-visible {
-  outline: 3px solid rgba(59,130,246,0.9);
-  outline-offset: 3px;
-}
-
-/* Ensure interactive elements have an accessible focus target */
-button, a, input, textarea, select {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 .contact-form button {
   background: #007bff;
@@ -1030,161 +807,20 @@ section#home .container,
   transition: transform 1.6s ease-out, opacity 1.6s ease-out;
 }
 
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
 @media (max-width: 640px) {
   .site-rocket-particle { width: 8px; height: 8px; }
-}
-
-/* Night Sky Stars and Falling Stars for Dark Theme */
-body.theme-a section {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Static Twinkling Stars */
-body.theme-a section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-    radial-gradient(2px 2px at 40px 70px, #fff, transparent),
-    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-    radial-gradient(1px 1px at 130px 80px, #fff, transparent),
-    radial-gradient(2px 2px at 160px 30px, #fff, transparent),
-    radial-gradient(1px 1px at 200px 90px, #fff, transparent),
-    radial-gradient(2px 2px at 250px 50px, #fff, transparent),
-    radial-gradient(1px 1px at 300px 20px, #fff, transparent),
-    radial-gradient(1px 1px at 350px 70px, #fff, transparent),
-    radial-gradient(2px 2px at 400px 40px, #fff, transparent);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  animation: twinkle 3s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 1;
-}
-
-@keyframes twinkle {
-  0% { opacity: 0.3; }
-  100% { opacity: 1; }
-}
-
-/* Falling Star Animations */
-.falling-star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: #fff;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 2;
-  animation: fall linear infinite;
-  box-shadow: 0 0 4px #fff;
-}
-
-/* Section-specific colors */
-#home .falling-star { background: #007bff; box-shadow: 0 0 6px #007bff; }
-#about .falling-star { background: #10b981; box-shadow: 0 0 6px #10b981; }
-#skills .falling-star { background: #8b5cf6; box-shadow: 0 0 6px #8b5cf6; }
-#projects .falling-star { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
-#education .falling-star { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
-#contact .falling-star { background: #eab308; box-shadow: 0 0 6px #eab308; }
-
-@keyframes fall {
-  0% {
-    transform: translateY(-10px) translateX(0) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(50vh) translateX(20px) scale(1.2);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(100vh) translateX(40px) scale(0.5);
-    opacity: 0;
-  }
-}
-
-/* Sparkle effect */
-.falling-star::after {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: sparkle 0.5s ease-out infinite;
-}
-
-@keyframes sparkle {
-  0%, 100% { transform: scale(0); opacity: 1; }
-  50% { transform: scale(1); opacity: 0.5; }
-}
-
-/* --- Hero overflow fixes ---
-   Ensure decorative background layers and wide elements in the hero don't create a horizontal scrollbar.
-   We prefer targeted fixes (the hero and its decorative layers) instead of a global overflow-x:hidden to avoid
-   interfering with browser behaviors elsewhere. */
-
-html, body {
-  max-width: 100%;
-}
-
-/* Constrain the hero section to the viewport and clip any decorative overflow */
-#home, .hero {
-  overflow-x: hidden !important;
-  overflow-y: visible;
-  position: relative;
-}
-
-/* Ensure background layers don't extend beyond the viewport */
-#hero-bg, #three-bg-container, .spline-embed, .spline-embed .spline-iframe {
-  left: 0 !important;
-  right: 0 !important;
-  max-width: 100vw !important;
-  width: 100vw !important;
-  box-sizing: border-box !important;
-}
-
-/* Protect container padding from causing overflow on small screens */
-.container {
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
-}
-
-/* If any absolutely positioned decorative pseudo-elements try to escape, clip them inside the hero */
-.hero::before, .hero::after {
-  will-change: transform, opacity;
-  pointer-events: none;
-}
-
-/* Final safe fallback: prevent page-level horizontal scroll in problematic browsers */
-@supports (overflow-x: clip) {
-  html { overflow-x: clip; }
-}
-@supports not (overflow-x: clip) {
-  body { overflow-x: hidden; }
-}
-
-/* Remove any accidental nested scrollbars inside the hero area.
-   Some environments or injected iframes/canvases can create their own scrollable box
-   which results in two vertical scrollbars (outer page + inner hero). The rules
-   below force visible overflow for hero children and hide scrollbars inside #home.
-   This is intentionally scoped to #home to avoid affecting the rest of the page. */
-#home, #home * {
-  overflow: visible !important;
-  -ms-overflow-style: none !important; /* IE/Edge */
-  scrollbar-width: none !important; /* Firefox */
-}
-
-#home *::-webkit-scrollbar {
-  display: none !important; /* Chrome, Safari, Opera */
-  width: 0 !important;
-  height: 0 !important;
 }
 
 

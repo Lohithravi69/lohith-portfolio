@@ -15,8 +15,8 @@ Requires:
   - GITHUB_TOKEN environment variable with repo read access
 */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 function usageAndExit(msg) {
   if (msg) console.error(msg);

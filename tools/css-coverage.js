@@ -1,9 +1,10 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const puppeteer = require('puppeteer');
+import http from 'http';
+import fs from 'fs';
+import path from 'path';
+import puppeteer from 'puppeteer';
 
 const PORT = process.env.PORT || 8080;
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const ROOT = path.resolve(__dirname, '..');
 
 function startStaticServer() {
