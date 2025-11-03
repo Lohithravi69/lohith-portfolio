@@ -1,9 +1,9 @@
 // Small Node script to batch-generate WebP images from a source folder using sharp
 // Usage: node tools/generate-webp.js --src=./images --dest=./public/assets --quality=80
 
-const fs = require('fs');
-const path = require('path');
-const sharp = require('sharp');
+import fs from 'fs';
+import path from 'path';
+import sharp from 'sharp';
 
 function parseArgs() {
   const args = {};

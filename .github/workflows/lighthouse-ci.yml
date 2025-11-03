@@ -1,3 +1,10 @@
+## NOTE: If your editor's "Problems" panel reports "Unable to resolve action 'actions/*@v4'"
+## it may be because this repository pins action code to specific commit SHAs for
+## reproducible CI runs. The workflows below use pinned SHAs. To clear the diagnostic:
+##  - Save this file if you have an unsaved buffer (Ctrl+S).
+##  - Close and re-open the file, or run the VS Code command: Developer: Reload Window.
+##  - Restart the YAML/Language Server extension if the problem persists.
+## Temporary run logs that referenced @v4 were removed from the repo.
 name: Lighthouse CI
 
 on:
@@ -10,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '18'
 
@@ -31,12 +38,12 @@ jobs:
       - name: Run Lighthouse CI (write filesystem report)
         run: |
           # First run: write LHCI output to ./.lighthouseci so we can upload it as an artifact
-          lhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags="--no-sandbox --headless" --upload.target=filesystem || true
+          lhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags='--no-sandbox --headless' --upload.target=filesystem || true
 
       - name: Run Lighthouse CI (temporary-public-storage)
         run: |
           # Second run: upload to temporary-public-storage to get a public report URL
-          lhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags="--no-sandbox --headless" --upload.target=temporary-public-storage || true
+          lhci autorun --collect.url=http://localhost:8080 --collect.settings.chromeFlags='--no-sandbox --headless' --upload.target=temporary-public-storage || true
 
       - name: Run standalone Lighthouse and save HTML report
         run: |
@@ -44,7 +51,7 @@ jobs:
           npx -y lighthouse http://localhost:8080 --output html --output-path=./lighthouse-report.html --quiet --chrome-flags='--no-sandbox --headless' || true
 
       - name: Upload artifact (report)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: lighthouse-report
           path: |
