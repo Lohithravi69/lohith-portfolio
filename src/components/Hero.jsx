@@ -217,7 +217,7 @@ export default function Hero() {
               </a>
 
               <a
-                href="/Lohith_R_Resume.pdf"
+                href="./Lohith_R_Resume.pdf"
                 download
                 onClick={handleResumeDownload}
                 className="btn-secondary"
@@ -290,7 +290,7 @@ export default function Hero() {
                   title="Click to view full profile in About Me"
                 >
                   <img
-                    src="/assets/profile.png?v=4"
+                    src="./assets/profile.png?v=5"
                     alt="Lohith R"
                     style={{
                       width: '100%',

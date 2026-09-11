@@ -54,7 +54,7 @@ export default function About() {
                 }}
               >
                 <img
-                  src="/assets/profile-portrait.png?v=2"
+                  src="./assets/profile-portrait.png?v=3"
                   alt="Lohith R - Full Portrait"
                   style={{
                     width: '100%',

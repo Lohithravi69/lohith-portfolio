@@ -93,7 +93,7 @@ export default function Navbar({ darkMode, setDarkMode, activeSection }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
           {/* Resume Quick Download */}
           <a
-            href="/Lohith_R_Resume.pdf"
+            href="./Lohith_R_Resume.pdf"
             download
             className="btn-outline"
             style={{
@@ -195,7 +195,7 @@ export default function Navbar({ darkMode, setDarkMode, activeSection }) {
             </a>
           ))}
           <a
-            href="/Lohith_R_Resume.pdf"
+            href="./Lohith_R_Resume.pdf"
             download
             className="btn-primary"
             style={{ marginTop: '0.5rem', width: '100%' }}
