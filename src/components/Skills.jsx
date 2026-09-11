@@ -12,21 +12,20 @@ import {
   Zap,
   ChevronLeft,
   ChevronRight,
-  Play,
-  Pause,
   LayoutGrid,
-  Sliders,
+  SlidersHorizontal,
   CheckCircle2
 } from 'lucide-react';
 import { SKILL_CATEGORIES, CORE_PILLARS } from '../data/skills';
 
 export default function Skills() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [viewMode, setViewMode] = useState('slider'); // 'slider' | 'grid'
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-  const [viewMode, setViewMode] = useState('slider'); // 'slider' | 'grid'
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
+  const [activeTab, setActiveTab] = useState(0);
+
+  const sliderRef = useRef(null);
+  const cardRefs = useRef([]);
 
   const iconMap = {
     Code2: Code2,
@@ -46,44 +45,51 @@ export default function Skills() {
     'card-effect-cyber'      // Cloud & DevOps
   ];
 
-  const totalSlides = SKILL_CATEGORIES.length;
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  const slideLeft = () => {
+    if (sliderRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+      if (scrollLeft <= 20) {
+        sliderRef.current.scrollTo({ left: scrollWidth - clientWidth, behavior: 'smooth' });
+      } else {
+        sliderRef.current.scrollBy({ left: -420, behavior: 'smooth' });
+      }
+    }
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  const slideRight = () => {
+    if (sliderRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+      if (scrollLeft >= scrollWidth - clientWidth - 25) {
+        sliderRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        sliderRef.current.scrollBy({ left: 420, behavior: 'smooth' });
+      }
+    }
   };
 
-  // 3-second Auto-slide for skills
+  // 3-second Auto-slide for skills carousel (matching Projects carousel)
   useEffect(() => {
-    if (!isAutoPlay || isHovered || viewMode === 'grid') return;
+    if (!isAutoPlay || isHovered || viewMode !== 'slider') return;
     const timer = setInterval(() => {
-      nextSlide();
+      slideRight();
     }, 3000);
     return () => clearInterval(timer);
   }, [isAutoPlay, isHovered, viewMode]);
 
-  // Touch Swipe Handlers for Mobile
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const distance = touchStartX.current - touchEndX.current;
-    if (distance > 50) {
-      nextSlide();
-    } else if (distance < -50) {
-      prevSlide();
+  // Scroll to specific category card when tab is clicked
+  const scrollToCategory = (index) => {
+    setActiveTab(index);
+    if (viewMode === 'grid') {
+      setViewMode('slider');
     }
-    touchStartX.current = 0;
-    touchEndX.current = 0;
+    setTimeout(() => {
+      if (sliderRef.current && cardRefs.current[index]) {
+        const container = sliderRef.current;
+        const card = cardRefs.current[index];
+        const targetLeft = card.offsetLeft - container.offsetLeft - 16;
+        container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+      }
+    }, 50);
   };
 
   const getBadgeStyle = (badge) => {
@@ -121,9 +127,13 @@ export default function Skills() {
       style={{
         padding: '6rem 0',
         backgroundColor: 'var(--bg-primary)',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
+      {/* Background glow orb */}
+      <div className="glow-orb-primary" style={{ top: '25%', left: '-8%', opacity: 0.1 }} />
+
       <div className="container-custom">
         {/* Section Header */}
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -139,7 +149,7 @@ export default function Skills() {
           </p>
         </div>
 
-        {/* View Mode & Slide Tabs Navigation */}
+        {/* View Mode & Category Jump Tabs */}
         <div
           style={{
             display: 'flex',
@@ -149,7 +159,6 @@ export default function Skills() {
             marginBottom: '2.5rem'
           }}
         >
-          {/* Slide Category Jump Tabs */}
           <div
             style={{
               display: 'flex',
@@ -161,14 +170,11 @@ export default function Skills() {
           >
             {SKILL_CATEGORIES.map((cat, idx) => {
               const Icon = iconMap[cat.icon] || Code2;
-              const isSelected = viewMode === 'slider' ? currentSlide === idx : false;
+              const isSelected = viewMode === 'slider' && activeTab === idx;
               return (
                 <button
                   key={cat.title}
-                  onClick={() => {
-                    setViewMode('slider');
-                    setCurrentSlide(idx);
-                  }}
+                  onClick={() => scrollToCategory(idx)}
                   className="btn-secondary"
                   style={{
                     padding: '0.6rem 1.25rem',
@@ -187,40 +193,78 @@ export default function Skills() {
               );
             })}
 
-            {/* Toggle All Grid View */}
-            <button
-              onClick={() => setViewMode(viewMode === 'slider' ? 'grid' : 'slider')}
-              className="btn-secondary"
+            {/* View Mode Toggle: Slider vs Grid */}
+            <div
               style={{
-                padding: '0.6rem 1.25rem',
-                fontSize: '0.88rem',
+                display: 'flex',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-color)',
                 borderRadius: '9999px',
-                backgroundColor: viewMode === 'grid' ? 'var(--accent-primary)' : 'transparent',
-                color: viewMode === 'grid' ? '#ffffff' : 'var(--text-secondary)',
-                borderColor: viewMode === 'grid' ? 'var(--accent-primary)' : 'var(--border-color)'
+                padding: '0.25rem',
+                gap: '0.25rem',
+                marginLeft: '0.5rem'
               }}
-              title={viewMode === 'slider' ? 'View all domains side-by-side' : 'Switch to carousel slide view'}
             >
-              {viewMode === 'slider' ? <LayoutGrid size={15} /> : <Sliders size={15} />}
-              <span>{viewMode === 'slider' ? 'View All Grid' : 'Slide View'}</span>
-            </button>
+              <button
+                onClick={() => setViewMode('slider')}
+                title="Horizontal Slider View"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0.45rem 0.9rem',
+                  borderRadius: '9999px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  backgroundColor: viewMode === 'slider' ? 'var(--accent-primary)' : 'transparent',
+                  color: viewMode === 'slider' ? '#ffffff' : 'var(--text-secondary)',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <SlidersHorizontal size={14} />
+                <span>Slider</span>
+              </button>
+              <button
+                onClick={() => setViewMode('grid')}
+                title="All Grid View"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0.45rem 0.9rem',
+                  borderRadius: '9999px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  backgroundColor: viewMode === 'grid' ? 'var(--accent-primary)' : 'transparent',
+                  color: viewMode === 'grid' ? '#ffffff' : 'var(--text-secondary)',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <LayoutGrid size={14} />
+                <span>Grid</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* SLIDER VIEW WITH CENTER-CORNER SIDE BUTTONS */}
-        {viewMode === 'slider' && (
-          <div
-            style={{ position: 'relative', width: '100%', maxWidth: '920px', margin: '0 auto' }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            {/* Left Center-Corner Floating Arrow Button */}
+        {/* FLEXBOX CAROUSEL CONTAINER WITH CENTER-CORNER SIDE BUTTONS */}
+        <div
+          style={{ position: 'relative', width: '100%' }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Left Center-Corner Floating Arrow Button */}
+          {viewMode === 'slider' && (
             <button
-              onClick={prevSlide}
+              onClick={slideLeft}
               aria-label="Previous skill domain"
               style={{
                 position: 'absolute',
-                left: '-22px',
+                left: '-20px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 zIndex: 30,
@@ -252,14 +296,16 @@ export default function Skills() {
             >
               <ChevronLeft size={24} />
             </button>
+          )}
 
-            {/* Right Center-Corner Floating Arrow Button */}
+          {/* Right Center-Corner Floating Arrow Button */}
+          {viewMode === 'slider' && (
             <button
-              onClick={nextSlide}
+              onClick={slideRight}
               aria-label="Next skill domain"
               style={{
                 position: 'absolute',
-                right: '-22px',
+                right: '-20px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 zIndex: 30,
@@ -291,157 +337,31 @@ export default function Skills() {
             >
               <ChevronRight size={24} />
             </button>
+          )}
 
-            {/* Slider Viewport Container */}
-            <div
-              className="skills-slider-wrapper"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              <div
-                className="skills-slider-track"
-                style={{
-                  transform: `translateX(-${currentSlide * 100}%)`
-                }}
-              >
-                {SKILL_CATEGORIES.map((cat, index) => {
-                  const effectClass = borderEffectClasses[index % borderEffectClasses.length];
-                  const Icon = iconMap[cat.icon] || Code2;
-
-                  return (
-                    <div key={cat.title} className="skills-slide-item">
-                      <div
-                        className={`${effectClass}`}
-                        style={{
-                          padding: '2.5rem',
-                          borderRadius: '1.5rem',
-                          background: 'var(--bg-secondary)',
-                          minHeight: '430px',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between'
-                        }}
-                      >
-                        {/* Slide Card Header */}
-                        <div>
-                          <div
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'space-between',
-                              marginBottom: '2rem',
-                              gap: '1rem'
-                            }}
-                          >
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                              <div
-                                style={{
-                                  width: '3.25rem',
-                                  height: '3.25rem',
-                                  borderRadius: '1rem',
-                                  background: 'var(--accent-gradient)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: '#ffffff',
-                                  flexShrink: 0
-                                }}
-                              >
-                                <Icon size={24} />
-                              </div>
-                              <div>
-                                <h3 style={{ fontSize: '1.45rem', color: 'var(--text-primary)', lineHeight: 1.2 }}>
-                                  {cat.title}
-                                </h3>
-                                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                                  {cat.skills.length} Specialized competencies
-                                </span>
-                              </div>
-                            </div>
-
-                            <span className="tech-pill" style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}>
-                              <Zap size={13} style={{ color: 'var(--accent-amber)' }} />
-                              Verified Proficiency
-                            </span>
-                          </div>
-
-                          {/* Slide Skills List */}
-                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
-                            {cat.skills.map((skill) => {
-                              const badgeStyle = getBadgeStyle(skill.badge);
-                              return (
-                                <div key={skill.name} className="skill-item-flex">
-                                  <div
-                                    style={{
-                                      display: 'flex',
-                                      justifyContent: 'space-between',
-                                      alignItems: 'center',
-                                      marginBottom: '0.35rem'
-                                    }}
-                                  >
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                                      <span style={{ fontSize: '1.25rem' }}>{skill.icon}</span>
-                                      <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '1rem' }}>
-                                        {skill.name}
-                                      </span>
-                                    </div>
-                                    <span
-                                      style={{
-                                        fontSize: '0.725rem',
-                                        fontWeight: 700,
-                                        padding: '0.2rem 0.6rem',
-                                        borderRadius: '9999px',
-                                        border: `1px solid ${badgeStyle.borderColor}`,
-                                        backgroundColor: badgeStyle.background,
-                                        color: badgeStyle.color,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.04em'
-                                      }}
-                                    >
-                                      {skill.badge}
-                                    </span>
-                                  </div>
-                                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5, margin: 0 }}>
-                                    {skill.description}
-                                  </p>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Pagination Indicator Dots */}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '0.5rem',
-                marginTop: '1.5rem'
-              }}
-            >
-              {SKILL_CATEGORIES.map((cat, idx) => (
-                <button
-                  key={cat.title}
-                  onClick={() => setCurrentSlide(idx)}
-                  className={`skills-dot ${currentSlide === idx ? 'active' : ''}`}
-                  aria-label={`Jump to slide ${idx + 1}: ${cat.title}`}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* GRID VIEW (When toggled to see all side-by-side) */}
-        {viewMode === 'grid' && (
-          <div className="skills-flex-container">
+          {/* Flexbox Container for Skills: Horizontal Slider or Wrapped Grid */}
+          <div
+            ref={sliderRef}
+            style={
+              viewMode === 'slider'
+                ? {
+                    display: 'flex',
+                    gap: '1.75rem',
+                    overflowX: 'auto',
+                    scrollSnapType: 'x mandatory',
+                    padding: '1rem 0.5rem 1.5rem',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none'
+                  }
+                : {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '1.75rem',
+                    justifyContent: 'center',
+                    padding: '1rem 0.5rem'
+                  }
+            }
+          >
             {SKILL_CATEGORIES.map((cat, index) => {
               const effectClass = borderEffectClasses[index % borderEffectClasses.length];
               const Icon = iconMap[cat.icon] || Code2;
@@ -449,9 +369,39 @@ export default function Skills() {
               return (
                 <div
                   key={cat.title}
-                  className={`${effectClass} skill-category-flex-card`}
+                  ref={(el) => (cardRefs.current[index] = el)}
+                  className={`${effectClass} skill-domain-card`}
+                  style={
+                    viewMode === 'slider'
+                      ? {
+                          flex: '0 0 calc(50% - 0.875rem)',
+                          minWidth: '360px',
+                          maxWidth: '520px',
+                          scrollSnapAlign: 'start',
+                          padding: '2.25rem',
+                          borderRadius: '1.5rem',
+                          background: 'var(--bg-secondary)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          boxSizing: 'border-box'
+                        }
+                      : {
+                          flex: '1 1 calc(50% - 0.875rem)',
+                          minWidth: '340px',
+                          maxWidth: '560px',
+                          padding: '2.25rem',
+                          borderRadius: '1.5rem',
+                          background: 'var(--bg-secondary)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                          boxSizing: 'border-box'
+                        }
+                  }
                 >
                   <div>
+                    {/* Domain Card Header */}
                     <div
                       style={{
                         display: 'flex',
@@ -464,8 +414,8 @@ export default function Skills() {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                         <div
                           style={{
-                            width: '2.85rem',
-                            height: '2.85rem',
+                            width: '3rem',
+                            height: '3rem',
                             borderRadius: '0.85rem',
                             background: 'var(--accent-gradient)',
                             display: 'flex',
@@ -475,25 +425,26 @@ export default function Skills() {
                             flexShrink: 0
                           }}
                         >
-                          <Icon size={20} />
+                          <Icon size={22} />
                         </div>
                         <div>
-                          <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)', lineHeight: 1.2 }}>
+                          <h3 style={{ fontSize: '1.35rem', color: 'var(--text-primary)', lineHeight: 1.2 }}>
                             {cat.title}
                           </h3>
-                          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                          <span style={{ fontSize: '0.825rem', color: 'var(--text-muted)' }}>
                             {cat.skills.length} Specialized competencies
                           </span>
                         </div>
                       </div>
 
-                      <span className="tech-pill" style={{ fontSize: '0.75rem', flexShrink: 0 }}>
-                        <Zap size={12} style={{ color: 'var(--accent-amber)' }} />
+                      <span className="tech-pill" style={{ fontSize: '0.78rem', flexShrink: 0 }}>
+                        <Zap size={13} style={{ color: 'var(--accent-amber)' }} />
                         Verified
                       </span>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {/* Skill Items List */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                       {cat.skills.map((skill) => {
                         const badgeStyle = getBadgeStyle(skill.badge);
                         return (
@@ -514,7 +465,7 @@ export default function Skills() {
                               </div>
                               <span
                                 style={{
-                                  fontSize: '0.75rem',
+                                  fontSize: '0.725rem',
                                   fontWeight: 700,
                                   padding: '0.2rem 0.6rem',
                                   borderRadius: '9999px',
@@ -540,7 +491,7 @@ export default function Skills() {
               );
             })}
           </div>
-        )}
+        </div>
 
         {/* Core Pillars Flexbox Grid */}
         <div style={{ marginTop: '4.5rem' }}>
