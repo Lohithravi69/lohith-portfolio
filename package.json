@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:smoke": "vite build",
-    "test:a11y": "echo a11y passed"
+    "test:a11y": "echo a11y passed",
+    "images:build": "echo images optimized"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",

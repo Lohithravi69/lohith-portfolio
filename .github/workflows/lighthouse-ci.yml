@@ -24,15 +24,16 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Install dependencies & Build
         run: |
-          npm ci || true
+          npm install
+          npm run build
           npm install -g @lhci/cli
+          npm install -g serve
 
       - name: Serve site
         run: |
-          npm install -g serve
-          serve -s . -l 8080 &
+          serve -s dist -l 8080 &
           sleep 2
 
       - name: Run Lighthouse CI (write filesystem report)
