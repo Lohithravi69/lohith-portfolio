@@ -1,17 +1,21 @@
-# Deployment Notes
+# Deployment Guide
 
-This project is a static portfolio site and can be deployed easily to Vercel or Netlify.
+This project is built with React 18 & Vite 5 and deploys seamlessly to Vercel.
 
-Vercel (recommended):
-- Push the repository to GitHub.
-- On Vercel, choose "Import Project" and select your GitHub repo.
-- Vercel will detect a static site. Set the build command to none and the output directory to the repo root (or use `public/` if you serve the site from there).
-- Environment variables: NONE required for a static site. If you add Formspree/EmailJS keys, configure them in Vercel's project settings.
+## Vercel Deployment (Automated CI/CD)
+1. Push the repository to GitHub:
+   ```bash
+   git add .
+   git commit -m "Deploy: Updated portfolio with Vite React and modern styling"
+   git push origin main
+   ```
+2. On Vercel:
+   - Framework Preset: **Vite**
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+3. All routing rewrites and static asset caching headers are preconfigured in `vercel.json`.
 
-Netlify:
-- Connect your Git repository.
-- Build command: none. Publish directory: repository root or `public/` if you use it.
-- Configure environment variables in Site settings if needed.
 
 Continuous checks and previews:
 - GitHub Actions already includes htmlhint and a Lighthouse CI workflow.
