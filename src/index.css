@@ -961,3 +961,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Certificate Cards & Preview Hover Effects */
+.cert-thumb-wrapper:hover img {
+  transform: scale(1.04);
+}
+
+.cert-thumb-wrapper:hover .cert-hover-overlay {
+  opacity: 1 !important;
+}
+
