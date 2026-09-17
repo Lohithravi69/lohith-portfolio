@@ -59,18 +59,18 @@ export const CERTIFICATIONS_DATA = [
     imageUrl: "./certificates/kreupai-internship-certificate.webp"
   },
   {
-    id: "nptel-iot",
-    title: "Introduction to Internet of Things",
-    issuer: "NPTEL (IIT Kharagpur / Ministry of Education)",
-    issueDate: "Jul - Oct 2024",
-    credentialId: "NPTEL24CS115S752400058",
-    badge: "Elite Certification",
-    badgeColor: "blue",
-    score: "63% (12-Week Proctored Course)",
-    description: "Rigorous 12-week specialized IoT certification covering fundamental IoT architectures, embedded sensor networks, wireless protocol stacks, and cloud IoT integration.",
-    skills: ["Internet of Things (IoT)", "Sensors & Actuators", "Wireless Sensor Networks", "IoT Protocols", "Cloud IoT"],
-    pdfUrl: "./certificates/nptel-certificate.pdf",
-    imageUrl: "./certificates/nptel-certificate.webp"
+    id: "ethical-hacking",
+    title: "Ethical Hacking Internship",
+    issuer: "Appin Technology Coimbatore (ISO 9001:2015)",
+    issueDate: "08 Jun 2026 - 08 Jul 2026",
+    credentialId: "6a27a09a88b546deae56d4b",
+    badge: "Cybersecurity Certified",
+    badgeColor: "green",
+    score: "Performance: Excellent",
+    description: "Hands-on practical training and internship in Ethical Hacking, vulnerability assessments, network penetration testing, web security protocols, and defensive security measures.",
+    skills: ["Ethical Hacking", "Network Security", "Vulnerability Assessment", "Web Application Security", "Penetration Testing"],
+    pdfUrl: "./certificates/ethical-hacking-certificate.pdf",
+    imageUrl: "./certificates/ethical-hacking-certificate.webp"
   },
   {
     id: "tata-data-analytics",
@@ -100,26 +100,12 @@ export const CERTIFICATIONS_DATA = [
     skills: ["JavaScript (ES6+)", "Responsive Web Design", "Data Structures", "Algorithms", "Web Development"],
     pdfUrl: "./certificates/freecodecamp-certificate.pdf",
     imageUrl: "./certificates/freecodecamp-certificate.webp"
-  },
-  {
-    id: "naan-mudhalvan",
-    title: "Naan Mudhalvan Technology Upskilling",
-    issuer: "Tamil Nadu Skill Development Corporation (TNSDC)",
-    issueDate: "2023 - 2024",
-    credentialId: "TNSDC-NM-2024",
-    badge: "Govt. Certified",
-    badgeColor: "green",
-    score: "Capstone Project Completed",
-    description: "Comprehensive software and data engineering program administered by the Government of Tamil Nadu for emerging computer science engineers.",
-    skills: ["Python", "Data Science Pipelines", "REST APIs", "Modern Software Engineering"],
-    pdfUrl: null,
-    imageUrl: null
   }
 ];
 
 export const HIGHLIGHT_STATS = [
   { label: "Public Repositories", value: "12+" },
-  { label: "Certifications & Badges", value: "5+" },
+  { label: "Certifications & Internships", value: "4+" },
   { label: "Algorithms Solved", value: "150+" },
   { label: "Years Coding", value: "3+" }
 ];

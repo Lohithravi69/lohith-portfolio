@@ -1,15 +1,30 @@
 import React from 'react';
-import { User, Layers, Cpu, ShieldAlert, Sparkles, CheckCircle2, GraduationCap, MapPin, Mail, Award } from 'lucide-react';
-import { CORE_PILLARS } from '../data/skills';
+import { User, ShieldCheck, Code, Rocket, CheckCircle2, GraduationCap, MapPin, Mail, Sparkles, Terminal, Flame } from 'lucide-react';
 import { HIGHLIGHT_STATS } from '../data/education';
 
 export default function About() {
-  const iconMap = {
-    Layers: Layers,
-    Cpu: Cpu,
-    ShieldAlert: ShieldAlert,
-    Sparkles: Sparkles
-  };
+  const focusAreas = [
+    {
+      icon: Code,
+      title: "Clean Architecture & Scalability",
+      description: "Writing maintainable, modular, and performant code across React frontends and Python/Node backend microservices."
+    },
+    {
+      icon: Sparkles,
+      title: "Practical AI & Machine Learning",
+      description: "Developing practical NLP text classifiers, computer vision diagnostic pipelines, and real-time inference tools."
+    },
+    {
+      icon: ShieldCheck,
+      title: "Security-First & Defensive Mindset",
+      description: "Trained in ethical hacking, vulnerability assessments, secure REST endpoints, and resilient error-handling."
+    },
+    {
+      icon: Rocket,
+      title: "High-Impact Real-Time Solutions",
+      description: "Smart India Hackathon 2025 finalist engineering emergency SOS dispatch platforms and real-time telemetry systems."
+    }
+  ];
 
   return (
     <section
@@ -35,7 +50,7 @@ export default function About() {
           </p>
         </div>
 
-        {/* Top Story: Portrait + Biography Split Grid (Perfect Alignment) */}
+        {/* Top Story: Portrait + Biography Split Grid */}
         <div id="profile-showcase" className="profile-showcase-grid">
           {/* Left: Enhanced Full Portrait Card with Cyber Tech Corner Frame */}
           <div style={{ display: 'flex', width: '100%' }}>
@@ -107,7 +122,7 @@ export default function About() {
                         color: '#6ee7b7'
                       }}
                     >
-                      Naan Mudhalvan
+                      KreupAI Intern
                     </span>
                   </div>
                 </div>
@@ -131,12 +146,13 @@ export default function About() {
                 Engineering High-Impact Solutions
               </h3>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.25rem' }}>
-                I am a Computer Science &amp; Engineering undergraduate at <strong>PPG Institute of Technology</strong> with a deep focus on 
-                artificial intelligence, full-stack web applications, and cybersecurity.
+                I am a Computer Science &amp; Engineering undergraduate at <strong>PPG Institute of Technology</strong> with hands-on experience in 
+                full-stack development, artificial intelligence, and ethical hacking.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
                 From architecting emergency response platforms with real-time flood monitoring for <strong>Smart India Hackathon 2025</strong> to 
-                engineering NLP-driven fake news classifiers and credit fraud engines, I thrive on translating theoretical logic into robust, user-centric software.
+                building enterprise web applications during my internship at <strong>KreupAI Technologies</strong> and security assessments at <strong>Appin Technology</strong>, 
+                I thrive on translating complex engineering problems into clean, robust products.
               </p>
             </div>
 
@@ -167,7 +183,7 @@ export default function About() {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
             gap: '1.25rem',
-            marginBottom: '4rem'
+            margin: '3.5rem 0'
           }}
         >
           {HIGHLIGHT_STATS.map((stat, i) => (
@@ -193,10 +209,10 @@ export default function About() {
           ))}
         </div>
 
-        {/* 4 Core Pillars */}
+        {/* Core Principles (Distinct from Skills toolkit) */}
         <div>
           <h3 style={{ fontSize: '1.5rem', textAlign: 'center', marginBottom: '2rem', color: 'var(--text-primary)' }}>
-            What I Focus On
+            Engineering Principles
           </h3>
 
           <div
@@ -206,8 +222,8 @@ export default function About() {
               gap: '1.5rem'
             }}
           >
-            {CORE_PILLARS.map((pillar, i) => {
-              const IconComponent = iconMap[pillar.icon] || Sparkles;
+            {focusAreas.map((area, i) => {
+              const IconComponent = area.icon;
               return (
                 <div
                   key={i}
@@ -234,10 +250,10 @@ export default function About() {
                     <IconComponent size={24} />
                   </div>
                   <h4 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: 'var(--text-primary)' }}>
-                    {pillar.title}
+                    {area.title}
                   </h4>
                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.6 }}>
-                    {pillar.description}
+                    {area.description}
                   </p>
                 </div>
               );
