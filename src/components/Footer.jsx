@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mail, ArrowUp } from 'lucide-react';
-import { GithubIcon, LinkedinIcon, LRLogo } from './Icons';
+import { GithubIcon, LinkedinIcon, LeetCodeIcon, HackerRankIcon, LRLogo } from './Icons';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -60,7 +60,7 @@ export default function Footer() {
               Full-Stack Developer &amp; AI Enthusiast building modern, intelligent, and scalable web solutions.
             </p>
 
-            <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.65rem' }}>
               <a
                 href="https://github.com/Lohithravi69"
                 target="_blank"
@@ -106,6 +106,52 @@ export default function Footer() {
                 onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
               >
                 <LinkedinIcon size={18} />
+              </a>
+              <a
+                href="https://leetcode.com/u/1FhDezcHg0/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LeetCode"
+                style={{
+                  width: '2.5rem',
+                  height: '2.5rem',
+                  borderRadius: '0.5rem',
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--text-secondary)',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.color = '#f59e0b')}
+                onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+              >
+                <LeetCodeIcon size={18} />
+              </a>
+              <a
+                href="https://www.hackerrank.com/profile/lohithravi69"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="HackerRank"
+                style={{
+                  width: '2.5rem',
+                  height: '2.5rem',
+                  borderRadius: '0.5rem',
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-color)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--text-secondary)',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.color = '#10b981')}
+                onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+              >
+                <HackerRankIcon size={18} />
               </a>
               <a
                 href="mailto:lohithravi69@gmail.com"

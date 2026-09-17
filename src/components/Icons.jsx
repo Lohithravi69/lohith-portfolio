@@ -41,6 +41,36 @@ export function LinkedinIcon({ size = 20, className = "", style = {} }) {
   );
 }
 
+export function LeetCodeIcon({ size = 20, className = "", style = {} }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      style={style}
+    >
+      <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226 7.113 6.23l-3.85 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .2 2.362 5.874 5.874 0 0 0 .749 1.621 5.32 5.32 0 0 0 1.661 1.627 5.562 5.562 0 0 0 2.609.654c1.194 0 2.362-.438 3.279-1.233l4.33-3.876a1.377 1.377 0 0 0 .07-1.94 1.378 1.378 0 0 0-1.94-.069l-4.329 3.876c-.57.493-1.309.767-2.08.767a3.16 3.16 0 0 1-1.482-.37 3.02 3.02 0 0 1-.945-.925 3.328 3.328 0 0 1-.424-.922 3.14 3.14 0 0 1-.115-1.341c.046-.226.126-.445.238-.647.214-.388.52-.72.894-.973l4.743-4.228 4.743-4.229a1.378 1.378 0 0 0 0-1.949 1.37 1.37 0 0 0-.966-.404zm-4.707 5.57a1.378 1.378 0 0 0-1.378 1.378v5.51a1.378 1.378 0 0 0 2.756 0V6.948a1.378 1.378 0 0 0-1.378-1.378zm10.654 2.756a1.378 1.378 0 0 0-.974.404L13.19 13.06a1.378 1.378 0 0 0 1.949 1.949l4.332-4.33a1.378 1.378 0 0 0-.975-2.353z" />
+    </svg>
+  );
+}
+
+export function HackerRankIcon({ size = 20, className = "", style = {} }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      style={style}
+    >
+      <path d="M0 10.5h4.688V0h5.625v24H4.688v-8.438H0zm13.688-6h4.687v8.438H24V24h-5.625V13.5h-4.687z" />
+    </svg>
+  );
+}
+
 export function LRLogo({ size = 22, className = "", style = {}, fill = "currentColor" }) {
   return (
     <svg
@@ -59,4 +89,3 @@ export function LRLogo({ size = 22, className = "", style = {}, fill = "currentC
     </svg>
   );
 }
-

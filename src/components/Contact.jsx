@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './Icons';
+import { GithubIcon, LinkedinIcon, LeetCodeIcon, HackerRankIcon } from './Icons';
 import confetti from 'canvas-confetti';
 
 export default function Contact() {
@@ -159,18 +159,18 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Social profiles */}
+            {/* Social & Coding Profiles */}
             <div>
               <h4 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
-                Social Profiles
+                Social &amp; Coding Profiles
               </h4>
-              <div style={{ display: 'flex', gap: '0.85rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <a
                   href="https://github.com/Lohithravi69"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary"
-                  style={{ padding: '0.75rem 1.25rem' }}
+                  style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem' }}
                 >
                   <GithubIcon size={18} />
                   <span>GitHub</span>
@@ -180,10 +180,30 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary"
-                  style={{ padding: '0.75rem 1.25rem' }}
+                  style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem' }}
                 >
                   <LinkedinIcon size={18} style={{ color: '#0a66c2' }} />
                   <span>LinkedIn</span>
+                </a>
+                <a
+                  href="https://leetcode.com/u/1FhDezcHg0/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary"
+                  style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem' }}
+                >
+                  <LeetCodeIcon size={18} style={{ color: '#f59e0b' }} />
+                  <span>LeetCode</span>
+                </a>
+                <a
+                  href="https://www.hackerrank.com/profile/lohithravi69"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary"
+                  style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem' }}
+                >
+                  <HackerRankIcon size={18} style={{ color: '#10b981' }} />
+                  <span>HackerRank</span>
                 </a>
               </div>
             </div>

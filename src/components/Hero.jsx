@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Eye, FileDown, Mail, Sparkles, ArrowRight, ShieldCheck, Award } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './Icons';
+import { GithubIcon, LinkedinIcon, LeetCodeIcon, HackerRankIcon } from './Icons';
 import confetti from 'canvas-confetti';
 
 export default function Hero() {
@@ -369,17 +369,27 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Social Links */}
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '0.85rem' }} onClick={(e) => e.stopPropagation()}>
+                {/* Social & Coding Links */}
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '0.65rem',
+                    width: '100%',
+                    maxWidth: '320px',
+                    margin: '0 auto'
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <a
                     href="https://github.com/Lohithravi69"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-secondary"
-                    style={{ padding: '0.65rem 1.25rem', fontSize: '0.9rem' }}
+                    style={{ padding: '0.6rem 0.85rem', fontSize: '0.85rem', justifyContent: 'center' }}
                     aria-label="GitHub Profile"
                   >
-                    <GithubIcon size={18} />
+                    <GithubIcon size={16} />
                     <span>GitHub</span>
                   </a>
                   <a
@@ -387,11 +397,33 @@ export default function Hero() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-secondary"
-                    style={{ padding: '0.65rem 1.25rem', fontSize: '0.9rem' }}
+                    style={{ padding: '0.6rem 0.85rem', fontSize: '0.85rem', justifyContent: 'center' }}
                     aria-label="LinkedIn Profile"
                   >
-                    <LinkedinIcon size={18} style={{ color: '#0a66c2' }} />
+                    <LinkedinIcon size={16} style={{ color: '#0a66c2' }} />
                     <span>LinkedIn</span>
+                  </a>
+                  <a
+                    href="https://leetcode.com/u/1FhDezcHg0/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary"
+                    style={{ padding: '0.6rem 0.85rem', fontSize: '0.85rem', justifyContent: 'center' }}
+                    aria-label="LeetCode Profile"
+                  >
+                    <LeetCodeIcon size={16} style={{ color: '#f59e0b' }} />
+                    <span>LeetCode</span>
+                  </a>
+                  <a
+                    href="https://www.hackerrank.com/profile/lohithravi69"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary"
+                    style={{ padding: '0.6rem 0.85rem', fontSize: '0.85rem', justifyContent: 'center' }}
+                    aria-label="HackerRank Profile"
+                  >
+                    <HackerRankIcon size={16} style={{ color: '#10b981' }} />
+                    <span>HackerRank</span>
                   </a>
                 </div>
               </div>

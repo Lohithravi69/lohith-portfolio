@@ -60,6 +60,6 @@ export const CORE_PILLARS = [
   {
     icon: "Sparkles",
     title: "Algorithmic Problem Solving",
-    description: "Strong foundation in data structures, algorithms, and computational efficiency with 100+ solved problems."
+    description: "Strong foundation in data structures, algorithms, and computational efficiency with 100+ solved problems across LeetCode and HackerRank."
   }
 ];
