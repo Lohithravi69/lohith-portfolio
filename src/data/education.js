@@ -45,6 +45,20 @@ export const EDUCATION_DATA = [
 
 export const CERTIFICATIONS_DATA = [
   {
+    id: "kreupai-internship",
+    title: "Full Stack Developer Internship",
+    issuer: "KreupAI Technologies LLC",
+    issueDate: "June 2026 - September 2026",
+    credentialId: "KreupAI-FSD-2026",
+    badge: "Internship Certificate",
+    badgeColor: "blue",
+    score: "Outstanding Completion",
+    description: "Completed full-time Full Stack Developer Internship awarded by CEO Sabu John Bosco. Developed enterprise web applications, responsive user interfaces, and robust backend API endpoints.",
+    skills: ["Full-Stack Development", "React.js", "REST APIs", "Database Architecture", "System Design"],
+    pdfUrl: "./certificates/kreupai-internship-certificate.pdf",
+    imageUrl: "./certificates/kreupai-internship-certificate.webp"
+  },
+  {
     id: "nptel-iot",
     title: "Introduction to Internet of Things",
     issuer: "NPTEL (IIT Kharagpur / Ministry of Education)",
@@ -52,9 +66,9 @@ export const CERTIFICATIONS_DATA = [
     credentialId: "NPTEL24CS115S752400058",
     badge: "Elite Certification",
     badgeColor: "blue",
-    score: "63% (12-Week Proctored Exam)",
-    description: "Rigorous 12-week specialized certification covering IoT system design, embedded sensors, wireless protocol architectures, cloud connectivity, and edge analytics.",
-    skills: ["IoT Architectures", "Sensor Networks", "Embedded Systems", "Edge Computing", "Python"],
+    score: "63% (12-Week Proctored Course)",
+    description: "Rigorous 12-week specialized IoT certification covering fundamental IoT architectures, embedded sensor networks, wireless protocol stacks, and cloud IoT integration.",
+    skills: ["Internet of Things (IoT)", "Sensors & Actuators", "Wireless Sensor Networks", "IoT Protocols", "Cloud IoT"],
     pdfUrl: "./certificates/nptel-certificate.pdf",
     imageUrl: "./certificates/nptel-certificate.webp"
   },
@@ -65,7 +79,7 @@ export const CERTIFICATIONS_DATA = [
     issueDate: "January 2026",
     credentialId: "XbRaEepZ5276T6GyG",
     userVerificationCode: "qPXpmNYaQCvMbFmj7",
-    badge: "Industry Job Simulation",
+    badge: "Job Simulation",
     badgeColor: "green",
     score: "Completed Practical Tasks",
     description: "Hands-on corporate data simulation focused on exploratory risk profiling, delinquency forecasting using machine learning models, and executive business storytelling.",
@@ -75,15 +89,15 @@ export const CERTIFICATIONS_DATA = [
   },
   {
     id: "freecodecamp-dev",
-    title: "Verified Developer Certification",
+    title: "freeCodeCamp Verified Developer Profile",
     issuer: "freeCodeCamp.org",
     issueDate: "2024 - 2026",
-    credentialId: "Lohith Ravi Verified Profile",
+    credentialId: "Lohith Ravi (freeCodeCamp.org)",
     badge: "Developer Curriculum",
     badgeColor: "orange",
-    score: "Verified Portfolio & Code Challenges",
-    description: "Completed intensive practical developer curriculum encompassing data structures, responsive modern user interfaces, algorithmic challenges, and full-stack software development.",
-    skills: ["JavaScript (ES6+)", "Responsive Design", "Data Structures", "Web Development", "Algorithms"],
+    score: "Verified Portfolio & Code Solutions",
+    description: "Completed practical developer coursework and code challenges encompassing modern responsive web design, JavaScript algorithms, data structures, and web development fundamentals.",
+    skills: ["JavaScript (ES6+)", "Responsive Web Design", "Data Structures", "Algorithms", "Web Development"],
     pdfUrl: "./certificates/freecodecamp-certificate.pdf",
     imageUrl: "./certificates/freecodecamp-certificate.webp"
   },
@@ -105,7 +119,7 @@ export const CERTIFICATIONS_DATA = [
 
 export const HIGHLIGHT_STATS = [
   { label: "Public Repositories", value: "12+" },
-  { label: "Certifications & Badges", value: "4+" },
+  { label: "Certifications & Badges", value: "5+" },
   { label: "Algorithms Solved", value: "150+" },
   { label: "Years Coding", value: "3+" }
 ];
