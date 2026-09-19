@@ -157,10 +157,13 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   border-radius: 1.35rem;
   overflow: hidden;
+  contain: paint;
+  isolation: isolate;
   padding: 1.5px;
   background: transparent;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--glass-shadow);
+  box-sizing: border-box;
 }
 
 .card-rotating-border::before {
@@ -168,8 +171,8 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 280%;
-  height: 280%;
+  width: 250%;
+  height: 250%;
   background: conic-gradient(
     from 0deg,
     transparent 0%,
@@ -223,6 +226,8 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  contain: paint;
+  isolation: isolate;
 }
 
 .dark .card-rotating-border-inner {
@@ -247,8 +252,11 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--glass-shadow);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  contain: paint;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 /* Border-only top animated aurora line */
@@ -286,8 +294,11 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--glass-shadow);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  contain: paint;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 /* Tech Corner Accent Marks - strictly at border corners */
@@ -304,6 +315,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 2;
   opacity: 0.7;
   transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .card-effect-cyber::after {
@@ -319,6 +331,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 2;
   opacity: 0.7;
   transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .card-effect-cyber:hover {
@@ -352,8 +365,11 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--glass-shadow);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  contain: paint;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 /* Border-only top gradient highlight */
@@ -368,6 +384,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.8;
   transition: opacity 0.3s ease;
   z-index: 2;
+  pointer-events: none;
 }
 
 .card-effect-spotlight:hover {
@@ -390,8 +407,11 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--glass-shadow);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  contain: paint;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 /* Border-only top amber/magenta accent line */
@@ -406,6 +426,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.8;
   transition: opacity 0.3s ease;
   z-index: 2;
+  pointer-events: none;
 }
 
 .card-effect-prism:hover {
@@ -547,11 +568,14 @@ h1, h2, h3, h4, h5, h6 {
   padding: 3px;
   border-radius: 50%;
   overflow: hidden;
+  contain: paint;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
 .avatar-rotating-ring:hover {
@@ -622,6 +646,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   font-weight: 600;
   padding: 0.75rem 1.75rem;
+  min-height: 44px;
   border-radius: 0.85rem;
   border: none;
   cursor: pointer;
@@ -634,6 +659,9 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   position: relative;
   overflow: hidden;
+  user-select: none;
+  touch-action: manipulation;
+  box-sizing: border-box;
 }
 
 .btn-primary:hover {
@@ -648,6 +676,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   font-weight: 600;
   padding: 0.75rem 1.75rem;
+  min-height: 44px;
   border-radius: 0.85rem;
   border: 1px solid var(--border-color);
   cursor: pointer;
@@ -658,6 +687,9 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   backdrop-filter: blur(12px);
+  user-select: none;
+  touch-action: manipulation;
+  box-sizing: border-box;
 }
 
 .btn-secondary:hover {
@@ -673,6 +705,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   font-weight: 600;
   padding: 0.75rem 1.5rem;
+  min-height: 44px;
   border-radius: 0.85rem;
   border: 1px solid var(--border-color);
   cursor: pointer;
@@ -682,6 +715,9 @@ h1, h2, h3, h4, h5, h6 {
   gap: 0.5rem;
   transition: all 0.25s ease;
   text-decoration: none;
+  user-select: none;
+  touch-action: manipulation;
+  box-sizing: border-box;
 }
 
 .btn-outline:hover {
@@ -954,10 +990,42 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
 }
 
+/* Responsive Breakpoints & Accessibility for All Devices */
 @media (max-width: 768px) {
+  .container-custom {
+    padding: 0 1rem;
+  }
+
   .skill-domain-card {
-    flex: 0 0 88% !important;
-    min-width: 290px !important;
+    flex: 0 0 92% !important;
+    min-width: 280px !important;
+    max-width: 100% !important;
+    padding: 1.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-custom {
+    padding: 0 0.85rem;
+  }
+
+  h1 {
+    font-size: 2.15rem !important;
+  }
+
+  .btn-primary, .btn-secondary, .btn-outline {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .skill-domain-card {
+    flex: 0 0 96% !important;
+    min-width: 270px !important;
+    padding: 1.25rem 1rem !important;
+  }
+
+  .stat-card-modern {
+    padding: 1.25rem 1rem !important;
   }
 }
 
@@ -969,4 +1037,11 @@ h1, h2, h3, h4, h5, h6 {
 .cert-thumb-wrapper:hover .cert-hover-overlay {
   opacity: 1 !important;
 }
+
+/* Accessibility & High Contrast Enhancements */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
 

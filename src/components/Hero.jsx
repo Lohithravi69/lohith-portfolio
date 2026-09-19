@@ -288,6 +288,14 @@ export default function Hero() {
                   }}
                   style={{ cursor: 'pointer' }}
                   title="Click to view full profile in About Me"
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      document.getElementById('profile-showcase')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                  }}
                 >
                   <img
                     src="./assets/profile.png?v=5"
@@ -326,18 +334,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                <div
-                  onClick={() => {
-                    const el = document.getElementById('profile-showcase');
-                    if (el) {
-                      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    } else {
-                      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  style={{ cursor: 'pointer' }}
-                  title="Click to view full profile in About Me"
-                >
+                <div>
                   <h3 style={{ fontSize: '1.45rem', marginBottom: '0.35rem', color: 'var(--text-primary)' }}>
                     Lohith R
                   </h3>
@@ -348,7 +345,17 @@ export default function Hero() {
                     PPG Institute of Technology • Coimbatore, India
                   </p>
 
-                  <div
+                  <a
+                    href="#about"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const el = document.getElementById('profile-showcase');
+                      if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      } else {
+                        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -361,12 +368,14 @@ export default function Hero() {
                       padding: '0.25rem 0.75rem',
                       borderRadius: '9999px',
                       marginBottom: '1.5rem',
-                      transition: 'all 0.2s ease'
+                      textDecoration: 'none',
+                      transition: 'all 0.2s ease',
+                      cursor: 'pointer'
                     }}
                   >
                     <span>View Full Profile</span>
                     <span>↓</span>
-                  </div>
+                  </a>
                 </div>
 
                 {/* Social & Coding Links */}
@@ -379,7 +388,6 @@ export default function Hero() {
                     maxWidth: '320px',
                     margin: '0 auto'
                   }}
-                  onClick={(e) => e.stopPropagation()}
                 >
                   <a
                     href="https://github.com/Lohithravi69"
@@ -400,7 +408,7 @@ export default function Hero() {
                     style={{ padding: '0.6rem 0.85rem', fontSize: '0.85rem', justifyContent: 'center' }}
                     aria-label="LinkedIn Profile"
                   >
-                    <LinkedinIcon size={16} style={{ color: '#0a66c2' }} />
+                    <LinkedinIcon size={16} />
                     <span>LinkedIn</span>
                   </a>
                   <a
@@ -411,7 +419,7 @@ export default function Hero() {
                     style={{ padding: '0.6rem 0.85rem', fontSize: '0.85rem', justifyContent: 'center' }}
                     aria-label="LeetCode Profile"
                   >
-                    <LeetCodeIcon size={16} style={{ color: '#f59e0b' }} />
+                    <LeetCodeIcon size={16} />
                     <span>LeetCode</span>
                   </a>
                   <a
@@ -422,7 +430,7 @@ export default function Hero() {
                     style={{ padding: '0.6rem 0.85rem', fontSize: '0.85rem', justifyContent: 'center' }}
                     aria-label="HackerRank Profile"
                   >
-                    <HackerRankIcon size={16} style={{ color: '#10b981' }} />
+                    <HackerRankIcon size={16} />
                     <span>HackerRank</span>
                   </a>
                 </div>

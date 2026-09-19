@@ -9,22 +9,55 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 export default function App() {
+  // Theme state: initialized from system/browser preference or saved user preference
   const [darkMode, setDarkMode] = useState(() => {
-    const saved = localStorage.getItem('portfolio-theme');
-    return saved ? saved === 'dark' : true; // default dark mode for rich aesthetics
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('portfolio-theme');
+      if (saved === 'dark') return true;
+      if (saved === 'light') return false;
+      // Default to Browser/System Theme
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches !== undefined) {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+    }
+    return true;
   });
 
   const [activeSection, setActiveSection] = useState('home');
 
+  // Listen to live system / browser theme changes (e.g. OS switching day/night mode)
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleSystemThemeChange = (e) => {
+      const saved = localStorage.getItem('portfolio-theme');
+      // If user hasn't explicitly set a preference, dynamically follow system
+      if (!saved) {
+        setDarkMode(e.matches);
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleSystemThemeChange);
+    return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
+  }, []);
+
+  // Sync DOM classes and meta theme-color with active theme
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('portfolio-theme', 'dark');
+      document.documentElement.classList.remove('light');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('portfolio-theme', 'light');
+      document.documentElement.classList.add('light');
     }
   }, [darkMode]);
+
+  const toggleTheme = (explicitPreference) => {
+    const nextMode = explicitPreference !== undefined ? explicitPreference : !darkMode;
+    setDarkMode(nextMode);
+    localStorage.setItem('portfolio-theme', nextMode ? 'dark' : 'light');
+  };
 
   // Track active section for navigation highlighting
   useEffect(() => {
@@ -52,7 +85,7 @@ export default function App() {
     <div className="min-h-screen">
       <Navbar
         darkMode={darkMode}
-        setDarkMode={setDarkMode}
+        setDarkMode={toggleTheme}
         activeSection={activeSection}
       />
       <main id="main-content">

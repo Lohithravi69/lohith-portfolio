@@ -182,7 +182,7 @@ export default function Contact() {
                   className="btn-secondary"
                   style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem' }}
                 >
-                  <LinkedinIcon size={18} style={{ color: '#0a66c2' }} />
+                  <LinkedinIcon size={18} />
                   <span>LinkedIn</span>
                 </a>
                 <a
@@ -192,7 +192,7 @@ export default function Contact() {
                   className="btn-secondary"
                   style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem' }}
                 >
-                  <LeetCodeIcon size={18} style={{ color: '#f59e0b' }} />
+                  <LeetCodeIcon size={18} />
                   <span>LeetCode</span>
                 </a>
                 <a
@@ -202,7 +202,7 @@ export default function Contact() {
                   className="btn-secondary"
                   style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem' }}
                 >
-                  <HackerRankIcon size={18} style={{ color: '#10b981' }} />
+                  <HackerRankIcon size={18} />
                   <span>HackerRank</span>
                 </a>
               </div>
