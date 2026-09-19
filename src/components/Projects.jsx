@@ -12,9 +12,7 @@ import {
   ArrowUpRight,
   RefreshCw,
   ChevronLeft,
-  ChevronRight,
-  LayoutGrid,
-  SlidersHorizontal
+  ChevronRight
 } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import { PROJECTS_DATA, CATEGORIES } from '../data/projects';
@@ -27,7 +25,6 @@ export default function Projects() {
   const [githubReposList, setGithubReposList] = useState([]);
   const [isSyncing, setIsSyncing] = useState(false);
   const [lastSynced, setLastSynced] = useState(null);
-  const [viewMode, setViewMode] = useState('slider'); // Default slider view
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   
@@ -154,11 +151,11 @@ export default function Projects() {
         window.removeEventListener('resize', checkScroll);
       };
     }
-  }, [filteredProjects, viewMode]);
+  }, [filteredProjects]);
 
   // 3-second auto-slide for projects carousel
   useEffect(() => {
-    if (!isAutoPlay || isHovered || viewMode !== 'slider' || filteredProjects.length <= 1) return;
+    if (!isAutoPlay || isHovered || filteredProjects.length <= 1) return;
     const timer = setInterval(() => {
       if (sliderRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
@@ -170,7 +167,7 @@ export default function Projects() {
       }
     }, 3000);
     return () => clearInterval(timer);
-  }, [isAutoPlay, isHovered, viewMode, filteredProjects]);
+  }, [isAutoPlay, isHovered, filteredProjects]);
 
   const slideLeft = () => {
     if (sliderRef.current) {
@@ -278,7 +275,7 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Filter & View Controls Bar */}
+        {/* Filter & Search Bar */}
         <div
           style={{
             display: 'flex',
@@ -287,18 +284,18 @@ export default function Projects() {
             marginBottom: '2.5rem'
           }}
         >
-          {/* Top Row: Search Input + View Toggle */}
+          {/* Top Row: Search Input */}
           <div
             style={{
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
               gap: '1rem'
             }}
           >
             {/* Search Input */}
-            <div style={{ flex: 1, minWidth: '280px', maxWidth: '520px', position: 'relative' }}>
+            <div style={{ flex: 1, minWidth: '280px', maxWidth: '640px', position: 'relative' }}>
               <Search
                 size={18}
                 style={{
@@ -349,61 +346,6 @@ export default function Projects() {
                 </button>
               )}
             </div>
-
-            {/* View Switcher: Slider vs Grid */}
-            <div
-              style={{
-                display: 'flex',
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-color)',
-                borderRadius: '0.75rem',
-                padding: '0.25rem',
-                gap: '0.25rem'
-              }}
-            >
-              <button
-                onClick={() => setViewMode('slider')}
-                title="Horizontal Slider View"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  padding: '0.45rem 0.85rem',
-                  borderRadius: '0.5rem',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                  backgroundColor: viewMode === 'slider' ? 'var(--accent-primary)' : 'transparent',
-                  color: viewMode === 'slider' ? '#ffffff' : 'var(--text-secondary)',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <SlidersHorizontal size={15} />
-                <span>Slider</span>
-              </button>
-              <button
-                onClick={() => setViewMode('grid')}
-                title="Grid View"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  padding: '0.45rem 0.85rem',
-                  borderRadius: '0.5rem',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                  backgroundColor: viewMode === 'grid' ? 'var(--accent-primary)' : 'transparent',
-                  color: viewMode === 'grid' ? '#ffffff' : 'var(--text-secondary)',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <LayoutGrid size={15} />
-                <span>Grid</span>
-              </button>
-            </div>
           </div>
 
           {/* Category Filter Pills */}
@@ -411,6 +353,7 @@ export default function Projects() {
             style={{
               display: 'flex',
               flexWrap: 'wrap',
+              justifyContent: 'center',
               gap: '0.45rem'
             }}
           >
@@ -477,113 +420,55 @@ export default function Projects() {
             </button>
           </div>
         ) : (
-          /* Slider Wrapper with Floating Center-Corner Navigation Buttons */
+          /* Flexbox Carousel Container (Nav buttons show only on hover) */
           <div
-            style={{ position: 'relative', width: '100%' }}
+            className="carousel-container"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {/* Left Center-Corner Floating Arrow Button (Slider Mode) */}
-            {viewMode === 'slider' && filteredProjects.length > 1 && (
+            {/* Left Floating Arrow Button (Shown only on hover) */}
+            {filteredProjects.length > 1 && (
               <button
                 onClick={slideLeft}
                 aria-label="Previous Projects"
+                className="carousel-nav-btn prev-btn"
                 style={{
-                  position: 'absolute',
-                  left: '-20px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  zIndex: 30,
-                  width: '3.25rem',
-                  height: '3.25rem',
-                  borderRadius: '50%',
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-hover)',
-                  boxShadow: '0 12px 30px rgba(0,0,0,0.35), 0 0 20px var(--glow-color)',
-                  color: 'var(--text-primary)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.12)';
-                  e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                  e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
-                  e.currentTarget.style.color = 'var(--text-primary)';
+                  opacity: isHovered ? 1 : 0,
+                  pointerEvents: isHovered ? 'auto' : 'none',
+                  transform: isHovered ? 'translateY(-50%) scale(1)' : 'translateY(-50%) scale(0.85)'
                 }}
               >
                 <ChevronLeft size={24} />
               </button>
             )}
 
-            {/* Right Center-Corner Floating Arrow Button (Slider Mode) */}
-            {viewMode === 'slider' && filteredProjects.length > 1 && (
+            {/* Right Floating Arrow Button (Shown only on hover) */}
+            {filteredProjects.length > 1 && (
               <button
                 onClick={slideRight}
                 aria-label="Next Projects"
+                className="carousel-nav-btn next-btn"
                 style={{
-                  position: 'absolute',
-                  right: '-20px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  zIndex: 30,
-                  width: '3.25rem',
-                  height: '3.25rem',
-                  borderRadius: '50%',
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-hover)',
-                  boxShadow: '0 12px 30px rgba(0,0,0,0.35), 0 0 20px var(--glow-color)',
-                  color: 'var(--text-primary)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.12)';
-                  e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                  e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
-                  e.currentTarget.style.color = 'var(--text-primary)';
+                  opacity: isHovered ? 1 : 0,
+                  pointerEvents: isHovered ? 'auto' : 'none',
+                  transform: isHovered ? 'translateY(-50%) scale(1)' : 'translateY(-50%) scale(0.85)'
                 }}
               >
                 <ChevronRight size={24} />
               </button>
             )}
 
-            {/* Projects Container: Horizontal Slider or Grid */}
+            {/* Projects Flexbox Carousel */}
             <div
               ref={sliderRef}
-              style={
-                viewMode === 'slider'
-                  ? {
-                      display: 'flex',
-                      gap: '1.75rem',
-                      overflowX: 'auto',
-                      scrollSnapType: 'x mandatory',
-                      padding: '1rem 0.5rem 1.5rem',
-                      scrollbarWidth: 'thin'
-                    }
-                  : {
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-                      gap: '2rem'
-                    }
-              }
+              style={{
+                display: 'flex',
+                gap: '1.75rem',
+                overflowX: 'auto',
+                scrollSnapType: 'x mandatory',
+                padding: '1rem 0.5rem 1.5rem',
+                scrollbarWidth: 'thin'
+              }}
             >
               {filteredProjects.map((project) => {
                 const isFeatured = project.featured;
@@ -857,11 +742,12 @@ export default function Projects() {
                     display: 'flex',
                     flexDirection: 'column',
                     position: 'relative',
-                    flex: viewMode === 'slider' ? '0 0 360px' : 'auto',
-                    scrollSnapAlign: viewMode === 'slider' ? 'start' : 'none',
-                    minWidth: viewMode === 'slider' ? '340px' : 'auto',
-                    maxWidth: viewMode === 'slider' ? '380px' : 'none',
-                    cursor: 'pointer'
+                    flex: '0 0 360px',
+                    scrollSnapAlign: 'start',
+                    minWidth: '340px',
+                    maxWidth: '380px',
+                    cursor: 'pointer',
+                    boxSizing: 'border-box'
                   };
 
                   if (isFeatured) {

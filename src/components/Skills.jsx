@@ -12,14 +12,11 @@ import {
   Zap,
   ChevronLeft,
   ChevronRight,
-  LayoutGrid,
-  SlidersHorizontal,
   CheckCircle2
 } from 'lucide-react';
 import { SKILL_CATEGORIES, CORE_PILLARS } from '../data/skills';
 
 export default function Skills() {
-  const [viewMode, setViewMode] = useState('slider'); // 'slider' | 'grid'
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
@@ -67,21 +64,18 @@ export default function Skills() {
     }
   };
 
-  // 3-second Auto-slide for skills carousel (matching Projects carousel)
+  // 3-second Auto-slide for skills carousel
   useEffect(() => {
-    if (!isAutoPlay || isHovered || viewMode !== 'slider') return;
+    if (!isAutoPlay || isHovered) return;
     const timer = setInterval(() => {
       slideRight();
     }, 3000);
     return () => clearInterval(timer);
-  }, [isAutoPlay, isHovered, viewMode]);
+  }, [isAutoPlay, isHovered]);
 
   // Scroll to specific category card when tab is clicked
   const scrollToCategory = (index) => {
     setActiveTab(index);
-    if (viewMode === 'grid') {
-      setViewMode('slider');
-    }
     setTimeout(() => {
       if (sliderRef.current && cardRefs.current[index]) {
         const container = sliderRef.current;
@@ -149,13 +143,12 @@ export default function Skills() {
           </p>
         </div>
 
-        {/* View Mode & Category Jump Tabs */}
+        {/* Category Jump Tabs */}
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
-            gap: '1.25rem',
             marginBottom: '2.5rem'
           }}
         >
@@ -170,7 +163,7 @@ export default function Skills() {
           >
             {SKILL_CATEGORIES.map((cat, idx) => {
               const Icon = iconMap[cat.icon] || Code2;
-              const isSelected = viewMode === 'slider' && activeTab === idx;
+              const isSelected = activeTab === idx;
               return (
                 <button
                   key={cat.title}
@@ -192,175 +185,55 @@ export default function Skills() {
                 </button>
               );
             })}
-
-            {/* View Mode Toggle: Slider vs Grid */}
-            <div
-              style={{
-                display: 'flex',
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-color)',
-                borderRadius: '9999px',
-                padding: '0.25rem',
-                gap: '0.25rem',
-                marginLeft: '0.5rem'
-              }}
-            >
-              <button
-                onClick={() => setViewMode('slider')}
-                title="Horizontal Slider View"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  padding: '0.45rem 0.9rem',
-                  borderRadius: '9999px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                  backgroundColor: viewMode === 'slider' ? 'var(--accent-primary)' : 'transparent',
-                  color: viewMode === 'slider' ? '#ffffff' : 'var(--text-secondary)',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <SlidersHorizontal size={14} />
-                <span>Slider</span>
-              </button>
-              <button
-                onClick={() => setViewMode('grid')}
-                title="All Grid View"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  padding: '0.45rem 0.9rem',
-                  borderRadius: '9999px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                  backgroundColor: viewMode === 'grid' ? 'var(--accent-primary)' : 'transparent',
-                  color: viewMode === 'grid' ? '#ffffff' : 'var(--text-secondary)',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <LayoutGrid size={14} />
-                <span>Grid</span>
-              </button>
-            </div>
           </div>
         </div>
 
-        {/* FLEXBOX CAROUSEL CONTAINER WITH CENTER-CORNER SIDE BUTTONS */}
+        {/* FLEXBOX CAROUSEL CONTAINER (Nav buttons show only on hover) */}
         <div
-          style={{ position: 'relative', width: '100%' }}
+          className="carousel-container"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {/* Left Center-Corner Floating Arrow Button */}
-          {viewMode === 'slider' && (
-            <button
-              onClick={slideLeft}
-              aria-label="Previous skill domain"
-              style={{
-                position: 'absolute',
-                left: '-20px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 30,
-                width: '3.25rem',
-                height: '3.25rem',
-                borderRadius: '50%',
-                background: 'var(--bg-secondary)',
-                border: '1px solid var(--border-hover)',
-                boxShadow: '0 12px 30px rgba(0,0,0,0.35), 0 0 20px var(--glow-color)',
-                color: 'var(--text-primary)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.12)';
-                e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
-                e.currentTarget.style.color = '#ffffff';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
-                e.currentTarget.style.color = 'var(--text-primary)';
-              }}
-            >
-              <ChevronLeft size={24} />
-            </button>
-          )}
+          {/* Left Floating Arrow Button (Shown only on hover) */}
+          <button
+            onClick={slideLeft}
+            aria-label="Previous skill domain"
+            className="carousel-nav-btn prev-btn"
+            style={{
+              opacity: isHovered ? 1 : 0,
+              pointerEvents: isHovered ? 'auto' : 'none',
+              transform: isHovered ? 'translateY(-50%) scale(1)' : 'translateY(-50%) scale(0.85)'
+            }}
+          >
+            <ChevronLeft size={24} />
+          </button>
 
-          {/* Right Center-Corner Floating Arrow Button */}
-          {viewMode === 'slider' && (
-            <button
-              onClick={slideRight}
-              aria-label="Next skill domain"
-              style={{
-                position: 'absolute',
-                right: '-20px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 30,
-                width: '3.25rem',
-                height: '3.25rem',
-                borderRadius: '50%',
-                background: 'var(--bg-secondary)',
-                border: '1px solid var(--border-hover)',
-                boxShadow: '0 12px 30px rgba(0,0,0,0.35), 0 0 20px var(--glow-color)',
-                color: 'var(--text-primary)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)'
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1.12)';
-                e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
-                e.currentTarget.style.color = '#ffffff';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
-                e.currentTarget.style.color = 'var(--text-primary)';
-              }}
-            >
-              <ChevronRight size={24} />
-            </button>
-          )}
+          {/* Right Floating Arrow Button (Shown only on hover) */}
+          <button
+            onClick={slideRight}
+            aria-label="Next skill domain"
+            className="carousel-nav-btn next-btn"
+            style={{
+              opacity: isHovered ? 1 : 0,
+              pointerEvents: isHovered ? 'auto' : 'none',
+              transform: isHovered ? 'translateY(-50%) scale(1)' : 'translateY(-50%) scale(0.85)'
+            }}
+          >
+            <ChevronRight size={24} />
+          </button>
 
-          {/* Flexbox Container for Skills: Horizontal Slider or Wrapped Grid */}
+          {/* Flexbox Carousel for Skills */}
           <div
             ref={sliderRef}
-            style={
-              viewMode === 'slider'
-                ? {
-                    display: 'flex',
-                    gap: '1.75rem',
-                    overflowX: 'auto',
-                    scrollSnapType: 'x mandatory',
-                    padding: '1rem 0.5rem 1.5rem',
-                    scrollbarWidth: 'none',
-                    msOverflowStyle: 'none'
-                  }
-                : {
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '1.75rem',
-                    justifyContent: 'center',
-                    padding: '1rem 0.5rem'
-                  }
-            }
+            style={{
+              display: 'flex',
+              gap: '1.75rem',
+              overflowX: 'auto',
+              scrollSnapType: 'x mandatory',
+              padding: '1rem 0.5rem 1.5rem',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
           >
             {SKILL_CATEGORIES.map((cat, index) => {
               const effectClass = borderEffectClasses[index % borderEffectClasses.length];
@@ -371,34 +244,19 @@ export default function Skills() {
                   key={cat.title}
                   ref={(el) => (cardRefs.current[index] = el)}
                   className={`${effectClass} skill-domain-card`}
-                  style={
-                    viewMode === 'slider'
-                      ? {
-                          flex: '0 0 calc(50% - 0.875rem)',
-                          minWidth: '360px',
-                          maxWidth: '520px',
-                          scrollSnapAlign: 'start',
-                          padding: '2.25rem',
-                          borderRadius: '1.5rem',
-                          background: 'var(--bg-secondary)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between',
-                          boxSizing: 'border-box'
-                        }
-                      : {
-                          flex: '1 1 calc(50% - 0.875rem)',
-                          minWidth: '340px',
-                          maxWidth: '560px',
-                          padding: '2.25rem',
-                          borderRadius: '1.5rem',
-                          background: 'var(--bg-secondary)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between',
-                          boxSizing: 'border-box'
-                        }
-                  }
+                  style={{
+                    flex: '0 0 calc(50% - 0.875rem)',
+                    minWidth: '360px',
+                    maxWidth: '520px',
+                    scrollSnapAlign: 'start',
+                    padding: '2.25rem',
+                    borderRadius: '1.5rem',
+                    background: 'var(--bg-secondary)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxSizing: 'border-box'
+                  }}
                 >
                   <div>
                     {/* Domain Card Header */}
