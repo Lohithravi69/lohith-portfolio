@@ -209,55 +209,90 @@ export default function About() {
           ))}
         </div>
 
-        {/* Core Principles (Distinct from Skills toolkit) */}
-        <div>
-          <h3 style={{ fontSize: '1.5rem', textAlign: 'center', marginBottom: '2rem', color: 'var(--text-primary)' }}>
-            Engineering Principles
-          </h3>
+        {/* Mentorship & Peer Endorsements */}
+        <div style={{ marginTop: '4.5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <div className="section-badge">
+              <Sparkles size={14} />
+              <span>Recommendations &amp; Mentorship</span>
+            </div>
+            <h3 style={{ fontSize: '1.75rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
+              Endorsements &amp; <span className="gradient-text">Feedback</span>
+            </h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '600px', margin: '0 auto' }}>
+              Feedback from internship engineering leads, hackathon guides, and mentors.
+            </p>
+          </div>
 
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
               gap: '1.5rem'
             }}
           >
-            {focusAreas.map((area, i) => {
-              const IconComponent = area.icon;
-              return (
-                <div
-                  key={i}
-                  className="glass-panel glass-panel-hover"
-                  style={{
-                    padding: '2rem 1.75rem',
-                    borderRadius: '1.25rem'
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '3.25rem',
-                      height: '3.25rem',
-                      borderRadius: '0.85rem',
-                      background: 'rgba(99, 102, 241, 0.12)',
-                      border: '1px solid rgba(99, 102, 241, 0.25)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--accent-primary)',
-                      marginBottom: '1.25rem'
-                    }}
-                  >
-                    <IconComponent size={24} />
+            {[
+              {
+                quote: "Lohith showed exceptional proficiency in modern React and modular API integration during his internship. His ability to turn complex design specifications into high-performance web components was a standout.",
+                author: "Engineering Lead",
+                role: "Full-Stack Development Mentor",
+                organization: "KreupAI Technologies LLC",
+                badge: "Internship Mentor"
+              },
+              {
+                quote: "In Smart India Hackathon 2025, Lohith spearheaded the real-time emergency dispatch telemetry and SOS user flow under intense deadlines. He demonstrated relentless grit and solid algorithmic problem solving.",
+                author: "SIH Faculty Guide",
+                role: "Project Mentor & CSE Faculty",
+                organization: "PPG Institute of Technology",
+                badge: "Hackathon Guide"
+              },
+              {
+                quote: "Demonstrated strong foundational knowledge of network vulnerability scanning, defensive security patterns, and ethical hacking protocols during his specialized cybersecurity training.",
+                author: "Security Instructor",
+                role: "Cybersecurity & Ethical Hacking Lead",
+                organization: "Appin Technology Coimbatore",
+                badge: "Security Lead"
+              }
+            ].map((endorsement, i) => (
+              <div
+                key={i}
+                className="glass-panel glass-panel-hover"
+                style={{
+                  padding: '2rem 1.75rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  borderRadius: '1.25rem',
+                  position: 'relative'
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                    <span className="tech-pill" style={{ fontSize: '0.75rem' }}>
+                      {endorsement.badge}
+                    </span>
+                    <span style={{ fontSize: '1.5rem', color: 'var(--accent-primary)', opacity: 0.6, lineHeight: 1 }}>
+                      “
+                    </span>
                   </div>
-                  <h4 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: 'var(--text-primary)' }}>
-                    {area.title}
-                  </h4>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.6 }}>
-                    {area.description}
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.7, fontStyle: 'italic', marginBottom: '1.5rem' }}>
+                    "{endorsement.quote}"
                   </p>
                 </div>
-              );
-            })}
+
+                <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
+                  <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)' }}>
+                    {endorsement.author}
+                  </div>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--accent-primary)', fontWeight: 600 }}>
+                    {endorsement.role}
+                  </div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                    {endorsement.organization}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

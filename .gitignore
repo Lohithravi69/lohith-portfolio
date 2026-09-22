@@ -1,11 +1,26 @@
-node_modules
-dist
-dist-ssr
-*.local
-.vite
+# Node dependencies & builds
+node_modules/
+dist/
+dist-ssr/
+.vite/
+
+# Environment files
 .env
 .env.*
 !.env.example
-.DS_Store
+
+# Temporary and Lighthouse audit artifacts
 tmp-*
+*.log
+*.backup.*
+lighthouse-local.html
 scratch/
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+

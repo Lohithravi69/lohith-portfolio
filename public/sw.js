@@ -1,28 +1,17 @@
-// Service Worker for PWA functionality
-const CACHE_NAME = 'lohith-portfolio-v1';
+// Service Worker for PWA offline resilience
+const CACHE_NAME = 'lohith-portfolio-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/scripts/main.js',
-  '/scripts/three-bg.js',
-  '/scripts/starfield.js',
-  '/manifest.json',
-  '/favicon.ico',
-  '/public/assets/profile.webp',
-  '/public/assets/lumoro.webp',
-  '/public/assets/safenet.webp',
-  '/public/assets/fraud.webp',
-  '/public/assets/fakenews.webp',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://cdn.tailwindcss.com',
-  'https://cdn.jsdelivr.net/npm/chart.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
-  'https://unpkg.com/aos@2.3.4/dist/aos.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css',
-  'https://cdn.jsdelivr.net/npm/typed.js@2.0.12'
+  './',
+  './index.html',
+  './manifest.json',
+  './Lohith_R_Resume.pdf',
+  './assets/profile.png',
+  './assets/profile-portrait.png',
+  './assets/lr-logo.svg',
+  './assets/safenet.webp',
+  './assets/fakenews.webp',
+  './assets/lumoro.webp',
+  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap'
 ];
 
 // Install event - cache resources

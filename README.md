@@ -1,118 +1,138 @@
-# lohith-portfolio
+# Lohith R — Software Engineer & AI/ML Portfolio
 
-This is my personal portfolio website developed as part of the VaultofCodes internship. It showcases my skills, projects, and contact information.
+[![Live Site](https://img.shields.io/badge/Live_Portfolio-GitHub_Pages-6366f1?style=for-the-badge&logo=github)](https://lohithravi69.github.io/lohith-portfolio/)
+[![React 18](https://img.shields.io/badge/React-18.3-61dafb?style=for-the-badge&logo=react)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-5.4-646cff?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](LICENSE)
 
-## 🖥️ Technologies Used
-- HTML5
-- CSS3
-- JavaScript (optional)
+An interactive, high-performance portfolio engineered with **React 18**, **Vite**, and a **Vanilla CSS design system**. Built to showcase intelligent AI/ML models, real-time disaster response telemetry, enterprise full-stack web applications, and algorithmic problem-solving milestones.
 
-## 🌐 Website Sections
-- Home
-- About Me
-- Skills
-- Projects
-- Contact
-
-
-## 🚀 How to View
-1. Clone this repo
-2. Open `index.html` in any web browser
-
-## 👨‍💻 Developed By
-**Lohith R**  
-B.E CSE Student  
-PPG Institute of Technology  
-[lohithravi69@gmail.com](mailto:lohithravi69@gmail.com)
-
-## ✨ Recent improvements added
-- Meta tags (description, Open Graph, Twitter card)
-- JSON-LD Person structured data for better search results
-- Skip to main content link and visible focus styles for accessibility
-- Mobile-friendly nav toggle and reduced-motion support
-- Lazy-loaded responsive images (srcset + sizes) to reduce load and CLS
-- Contact form with a Vercel-compatible serverless scaffold (`api/contact.js`)
-
-## ⚙️ Serverless contact endpoint
-The repo includes `api/contact.js` — a simple Vercel serverless function scaffold that accepts POST requests from the contact form. It currently logs the incoming message and returns success. To send real emails, update `api/contact.js` to call an email provider (SendGrid, AWS SES, Mailgun) and add provider credentials as environment variables in your hosting platform.
-
-Example environment variables:
-- `SENDGRID_API_KEY` — SendGrid API key
-- `TO_EMAIL` — destination email address for contact messages
-
-## 📦 Deploying on Vercel (recommended)
-1. Connect this repository to Vercel or use the Vercel CLI.
-2. The `api` directory will be deployed as serverless functions automatically.
-3. Add environment variables in Vercel dashboard for your email provider and update `api/contact.js` to use them.
-
-If you want, I can integrate SendGrid (or another provider) into `api/contact.js` now and create a branch + PR with the implementation.
+🔗 **Live Deployment:** [https://lohithravi69.github.io/lohith-portfolio/](https://lohithravi69.github.io/lohith-portfolio/)  
+📄 **Canonical Resume:** [Lohith_R_Resume.pdf](https://lohithravi69.github.io/lohith-portfolio/Lohith_R_Resume.pdf)
 
 ---
 
-## Contact endpoint (SendGrid)
+## 🌟 Key Architecture & Features
 
-The project includes a serverless endpoint at `api/contact.js` which accepts POST requests `{ name, email, message }`.
+### 1. ⚡ Live GitHub API Sync (15+ Repositories)
+- Fetches real-time repository metadata, commit activity, stars, forks, and primary languages dynamically from `@Lohithravi69`.
+- Automatically indexes newly published repositories without manual updates.
+- Interactive category filtering (AI/ML, Full-Stack Web, Disaster Tech, Cloud/Tools, Algorithms).
 
-- To enable sending emails via SendGrid, set the following environment variables in your deployment provider (for example, Vercel):
-	- `SENDGRID_API_KEY` — your SendGrid API key
-	- `SENDGRID_FROM` — the email address to send from (optional; defaults to no-reply@yourdomain.com)
-	- `SENDGRID_TO` — the recipient email address (optional; defaults to `SENDGRID_FROM`)
+### 2. 🌓 Dynamic OS & Browser Theme Synchronization
+- Automatically queries `window.matchMedia('(prefers-color-scheme: dark)')` to mirror the user's OS and browser day/night theme in real-time.
+- Live event listeners ensure instant switching when the operating system changes themes.
+- High-contrast, custom glassmorphism design tokens for both Dark and Light palettes with user override persistence via `localStorage`.
 
-- When `SENDGRID_API_KEY` is present, the function will POST to SendGrid's mail/send endpoint. If it's not set, the function will log submissions and return success (useful for local dev).
+### 3. 📬 Production-Ready Direct Email Delivery
+- Integrated with FormSubmit AJAX endpoint delivering messages directly to `lohithravi69@gmail.com`.
+- Zero-backend serverless form processing with client-side validation and immediate `mailto:` fallback.
 
-Be careful to keep your API keys secret and use your platform's environment variable settings (do not check them into source).
+### 4. 🏆 Verified Credentials & Interactive Modals
+- Verified industry certificates:
+  - **Appin Technology Coimbatore** — Cybersecurity & Ethical Hacking Internship
+  - **KreupAI Technologies LLC** — Full-Stack Developer Internship
+  - **Forage / Tata Group** — Data Visualisation & Analytics Job Simulation
+  - **freeCodeCamp** — Responsive Web Design
+- High-resolution WebP modal viewer with direct PDF downloads and credential ID verification.
 
-## Notes on images & analytics
+### 5. 📱 Responsive Flexbox Carousels & Micro-Animations
+- Continuous horizontal flexbox sliders with hover-activated floating navigation arrows.
+- Interactive particle network canvas background and confetti animations.
+- Accessible touch targets (min 44px) and zero horizontal overflow across 320px–4K displays.
 
-- Images: responsive `srcset` and WebP fallbacks were added to project thumbnails. Consider pre-generating WebP images for better cache control and using Vercel Image Optimization for production.
+---
 
-- Analytics: a lightweight placeholder for Plausible/umami was added in `index.html`. Replace it with your preferred analytics provider and update the privacy notice as required.
+## 🛠️ Tech Stack
 
-## Case studies (skeleton)
+| Domain | Technologies |
+| :--- | :--- |
+| **Frontend Framework** | React 18 (Hooks, Suspense, Custom Contexts) |
+| **Build Tooling** | Vite 5.4, PostCSS, ESLint |
+| **Styling & System** | Vanilla CSS3 (Custom Properties, Glassmorphism, CSS Containment & Isolation) |
+| **Icons & Media** | Lucide React, Official Brand SVGs (GitHub, LinkedIn, LeetCode, HackerRank) |
+| **Animations** | HTML5 Canvas Particle Engine, Canvas Confetti, CSS Keyframe Beams |
+| **CI / CD Deployment** | GitHub Actions Pages Pipeline (`deploy-pages.yml`), Lighthouse CI, Axe Accessibility |
 
-There's a small JSON file at `data/case-studies.json` with a skeleton structure you can extend. The project modal uses `data-*` attributes on project cards; if you prefer richer content the modal can be wired to fetch this JSON and render full case studies.
+---
 
-## Generate WebP images (optional)
+## 🚀 Local Development
 
-I've added a small Node.js utility at `tools/generate-webp.js` that uses `sharp` to convert a folder of JPEG/PNG images to WebP. Example usage:
+### Prerequisites
+- Node.js (v18.0.0 or later)
+- npm (v9.0.0 or later)
 
-```powershell
-# from repo root
-node tools/generate-webp.js --src=./images --dest=./public/assets --quality=80
+### Quickstart
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Lohithravi69/lohith-portfolio.git
+cd lohith-portfolio
+
+# 2. Install dependencies
+npm install
+
+# 3. Start local development server
+npm run dev
 ```
 
-Install dependencies first:
+Visit `http://localhost:5173/` in your browser.
 
-```powershell
-npm init -y
-npm install sharp
+### Production Build
+
+```bash
+# Compile and bundle assets to dist/
+npm run build
+
+# Preview production build locally
+npm run preview
 ```
 
-This is optional — for small portfolios I recommend using your hosting provider's image optimization (Vercel Image Optimization) or pre-generating WebP images and serving them from `/assets`.
+---
 
-## Interactive demos
+## 📂 Project Structure
 
-You can include interactive demos (CodeSandbox, CodePen, StackBlitz, etc.) in the case study JSON by adding an `embed` URL. The modal will display an iframe with the provided URL when available. Example `case-studies.json` entry:
-
-```json
-{
-	"id": "safenet",
-	"title": "Emergency SOS App",
-	"embed": "https://codesandbox.io/embed/your-sandbox-id"
-}
+```
+lohith-portfolio/
+├── .github/
+│   └── workflows/          # GitHub Actions CI/CD workflows
+├── public/
+│   ├── assets/             # Compressed WebP thumbnails, portrait photos, and SVGs
+│   ├── Lohith_R_Resume.pdf # Canonical resume PDF
+│   └── robots.txt          # SEO crawler instructions
+├── src/
+│   ├── components/
+│   │   ├── Navbar.jsx      # Sticky glass navbar with theme toggle
+│   │   ├── Hero.jsx        # Typing effect, particle canvas, quick links
+│   │   ├── About.jsx       # Biography, principles, mentorship quotes
+│   │   ├── Skills.jsx      # Flexbox carousel of skills & pillars
+│   │   ├── Projects.jsx    # Real-time GitHub sync & project modals
+│   │   ├── Education.jsx   # Verified certificates & timeline
+│   │   ├── Contact.jsx     # Functional email delivery form
+│   │   ├── Icons.jsx       # Official SVG brand vectors
+│   │   └── Footer.jsx      # Footer with back-to-top & social links
+│   ├── data/
+│   │   ├── projects.js     # Curated project metadata
+│   │   ├── skills.js       # Technical competencies
+│   │   └── education.js    # Verified credentials & academic milestones
+│   ├── App.jsx             # Theme engine & active section observer
+│   ├── main.jsx            # React root mount
+│   └── index.css           # Complete design system & custom properties
+├── index.html              # OpenGraph meta tags, SEO schema, fonts
+├── package.json
+└── vite.config.js
 ```
 
-Make sure the embed provider allows embedding (CSP/X-Frame-Options). If you want, I can add a couple of embedded demos for projects you pick and test the embeds in a deployed preview.
+---
 
-## Lighthouse audits
+## 📬 Contact & Connect
 
-A GitHub Actions workflow `/.github/workflows/lighthouse-ci.yml` was added to run Lighthouse CI on push to `main` and upload the report.
+- **Email:** [lohithravi69@gmail.com](mailto:lohithravi69@gmail.com)
+- **LinkedIn:** [linkedin.com/in/lohith-ravi-22b9a32a0](https://linkedin.com/in/lohith-ravi-22b9a32a0)
+- **GitHub:** [github.com/Lohithravi69](https://github.com/Lohithravi69)
+- **LeetCode:** [leetcode.com/u/1FhDezcHg0/](https://leetcode.com/u/1FhDezcHg0/)
+- **HackerRank:** [hackerrank.com/profile/lohithravi69](https://www.hackerrank.com/profile/lohithravi69)
 
-To run Lighthouse locally, install Chrome/Edge and run:
+---
 
-```powershell
-# install lighthouse if needed
-npx -y lighthouse http://localhost:8080 --output=html --output-path=./lighthouse-local.html
-```
-
-If you don't have Chrome available in CI, the action uses `lhci autorun` which runs headless Chrome on GitHub's Ubuntu runners.
+**© 2026 Lohith R. Open-source under the MIT License.**

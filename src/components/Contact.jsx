@@ -10,36 +10,52 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setStatus({ state: 'error', message: 'Please fill in all fields before sending.' });
+      setStatus({ state: 'error', message: 'Please fill in your name, email, and message before sending.' });
       return;
     }
 
     try {
-      setStatus({ state: 'loading', message: 'Sending message...' });
+      setStatus({ state: 'loading', message: 'Delivering your message to Lohith...' });
 
-      const res = await fetch('/api/contact', {
+      const res = await fetch('https://formsubmit.co/ajax/lohithravi69@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          _subject: `Portfolio Message from ${formData.name.trim()}`,
+          _template: 'table',
+          _captcha: 'false'
+        })
       });
 
-      if (res.ok) {
-        setStatus({ state: 'success', message: 'Thank you! Your message has been sent successfully.' });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok || data.success === 'true' || data.success === true) {
+        setStatus({
+          state: 'success',
+          message: `Thank you, ${formData.name}! Your message was delivered directly to lohithravi69@gmail.com. I will get back to you shortly.`
+        });
         setFormData({ name: '', email: '', message: '' });
         confetti({
-          particleCount: 70,
-          spread: 60,
+          particleCount: 75,
+          spread: 70,
           origin: { y: 0.7 }
         });
       } else {
-        // Fallback friendly confirmation
-        setStatus({ state: 'success', message: 'Message recorded! I will get back to you shortly.' });
-        setFormData({ name: '', email: '', message: '' });
+        throw new Error(data.message || 'Delivery service returned an error.');
       }
     } catch (err) {
-      console.warn('Contact API note:', err);
-      setStatus({ state: 'success', message: 'Thank you! Your message has been recorded.' });
-      setFormData({ name: '', email: '', message: '' });
+      console.warn('FormSubmit note:', err);
+      setStatus({
+        state: 'error',
+        message: 'Could not deliver automatically via web service. Please click the button below to send directly via your email client.',
+        fallbackMailto: `mailto:lohithravi69@gmail.com?subject=Portfolio Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message + '\n\nFrom: ' + formData.name + ' (' + formData.email + ')')}`
+      });
     }
   };
 
@@ -312,7 +328,7 @@ export default function Contact() {
                     borderRadius: '0.75rem',
                     fontSize: '0.9rem',
                     display: 'flex',
-                    alignItems: 'center',
+                    flexDirection: 'column',
                     gap: '0.65rem',
                     backgroundColor:
                       status.state === 'success'
@@ -335,10 +351,29 @@ export default function Contact() {
                         : 'rgba(99, 102, 241, 0.3)'
                   }}
                 >
-                  {status.state === 'loading' && <Loader2 size={16} className="animate-spin" />}
-                  {status.state === 'success' && <CheckCircle size={16} />}
-                  {status.state === 'error' && <AlertCircle size={16} />}
-                  <span>{status.message}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                    {status.state === 'loading' && <Loader2 size={16} className="animate-spin" />}
+                    {status.state === 'success' && <CheckCircle size={16} />}
+                    {status.state === 'error' && <AlertCircle size={16} />}
+                    <span>{status.message}</span>
+                  </div>
+                  {status.fallbackMailto && (
+                    <a
+                      href={status.fallbackMailto}
+                      className="btn-secondary"
+                      style={{
+                        padding: '0.5rem 1rem',
+                        fontSize: '0.85rem',
+                        alignSelf: 'flex-start',
+                        marginTop: '0.25rem',
+                        backgroundColor: 'var(--bg-secondary)',
+                        color: 'var(--text-primary)'
+                      }}
+                    >
+                      <Mail size={14} />
+                      <span>Open in Email App</span>
+                    </a>
+                  )}
                 </div>
               )}
 
