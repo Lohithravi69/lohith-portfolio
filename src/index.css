@@ -1091,5 +1091,48 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
+/* Print Stylesheet for Recruiter & PDF Export */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  header,
+  footer,
+  .carousel-nav-btn,
+  #bg-canvas,
+  canvas,
+  .mobile-menu-trigger,
+  button {
+    display: none !important;
+  }
+
+  .glass-panel,
+  .skill-domain-card,
+  .project-slider-card,
+  .stat-card-modern {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    color: #0f172a !important;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3, h4 {
+    color: #0f172a !important;
+  }
+
+  p, span, li {
+    color: #334155 !important;
+  }
+
+  a {
+    text-decoration: underline !important;
+    color: #2563eb !important;
+  }
+}
+
+
 
 
