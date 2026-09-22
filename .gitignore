@@ -4,15 +4,21 @@ dist/
 dist-ssr/
 .vite/
 
+# Vercel & Cloud deployment outputs
+.vercel/
+vercel/output/
+
 # Environment files
 .env
 .env.*
 !.env.example
 
-# Temporary and Lighthouse audit artifacts
+# Temporary, backup, and Lighthouse audit artifacts
 tmp-*
 *.log
 *.backup.*
+*.bak*
+*.bak
 lighthouse-local.html
 scratch/
 
@@ -23,4 +29,3 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
-
