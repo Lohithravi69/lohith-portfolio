@@ -754,7 +754,7 @@ export default function Projects() {
                     return (
                       <div
                         key={project.id}
-                        className={effectClass}
+                        className={`${effectClass} project-slider-card`}
                         style={cardBoxStyle}
                         onClick={() => setSelectedProject(project)}
                         role="button"
@@ -774,7 +774,7 @@ export default function Projects() {
                   return (
                     <div
                       key={project.id}
-                      className={effectClass}
+                      className={`${effectClass} project-slider-card`}
                       style={cardBoxStyle}
                       onClick={() => setSelectedProject(project)}
                       role="button"

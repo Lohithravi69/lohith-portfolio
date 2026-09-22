@@ -38,7 +38,7 @@ export default function Contact() {
       if (res.ok || data.success === 'true' || data.success === true) {
         setStatus({
           state: 'success',
-          message: `Thank you, ${formData.name}! Your message was delivered directly to lohithravi69@gmail.com. I will get back to you shortly.`
+          message: `Thanks for reaching out, ${formData.name.trim()}! Your message has been sent directly to Lohith's inbox. I'll get back to you within 24 hours.`
         });
         setFormData({ name: '', email: '', message: '' });
         confetti({

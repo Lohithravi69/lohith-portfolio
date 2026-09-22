@@ -1012,6 +1012,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Responsive Breakpoints & Accessibility for All Devices */
+.project-slider-card {
+  flex: 0 0 360px;
+  min-width: 320px;
+  max-width: 380px;
+  box-sizing: border-box;
+}
+
+@media (hover: none) {
+  .carousel-nav-btn {
+    opacity: 0.88 !important;
+    pointer-events: auto !important;
+  }
+}
+
 @media (max-width: 768px) {
   .container-custom {
     padding: 0 1rem;
@@ -1022,6 +1036,12 @@ h1, h2, h3, h4, h5, h6 {
     min-width: 280px !important;
     max-width: 100% !important;
     padding: 1.5rem !important;
+  }
+
+  .project-slider-card {
+    flex: 0 0 85vw !important;
+    min-width: 280px !important;
+    max-width: 380px !important;
   }
 }
 
@@ -1041,8 +1061,14 @@ h1, h2, h3, h4, h5, h6 {
 
   .skill-domain-card {
     flex: 0 0 96% !important;
-    min-width: 270px !important;
+    min-width: 260px !important;
     padding: 1.25rem 1rem !important;
+  }
+
+  .project-slider-card {
+    flex: 0 0 88vw !important;
+    min-width: 260px !important;
+    max-width: 90vw !important;
   }
 
   .stat-card-modern {
@@ -1064,5 +1090,6 @@ h1, h2, h3, h4, h5, h6 {
   outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
 }
+
 
 
